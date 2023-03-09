@@ -3,6 +3,8 @@ import Header from "../shared-modules/Header";
 import Footer from "../shared-modules/Footer";
 import Module1 from "../shared-modules/Module1";
 import Module2 from "../shared-modules/Module2";
+import ImageAndText from "./shared-modules/ImageAndText";
+
 
 function Page1() {
   return (
@@ -10,6 +12,7 @@ function Page1() {
           <Header />
           <Module1 />
           <Module2 />
+          <ImageAndText />
           <Footer />
     </div>
   );
