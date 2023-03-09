@@ -1,4 +1,5 @@
 import React from "react";
+import ImageAndText from "./shared-modules/ImageAndText.css";
 import home-page-image-1 from ".\src\Images\home-page-image-1.jpg";
 
 

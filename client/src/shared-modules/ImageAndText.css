@@ -1,0 +1,29 @@
+div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+h1 {
+    font-size: 1.5em;
+    margin: 0;
+
+}
+p {
+    margin: 0;
+    font-size: 1em;
+}
+
+img {
+    width: 100px;
+    height: 100px;
+    margin-right: 10px;
+}
+button {
+    margin: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #000;
+    background-color: #fff;
+    cursor: pointer;
+}
