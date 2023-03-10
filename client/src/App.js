@@ -1,19 +1,41 @@
-import { Route, Routes } from "react-router-dom";
+import {  Routes, Route } from "react-router-dom";
+import { useState,useEffect } from "react";
 
 import About from "./pages/About";
 import Home from "./pages/Home";
 import AdminPage from "./pages/Admin";
-import Page1 from "./pages/Page1";
-import Page2 from "./pages/Page2";
+import Contact from "./pages/Contact";
+import HomePage from "./pages/HomePage";
 
-const App = () => (
+
+
+
+
+const App = () =>{
+	
+	const [pages, setPages] = useState([]);
+
+  async function fetchPagesAPI() {
+    const page = await fetch("http://localhost:3000/api/home");
+    const response = await page.json();
+    setPages(response);
+	
+  }
+ 
+  useEffect(() => {
+     fetchPagesAPI();
+  }, []);
+  
+	return (
+	
 	<Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/about/this/site" element={<About />} />
-        <Route path="/admin" element={<AdminPage />} />
-        <Route path="/page1" element={<Page1 />} />
-        <Route path="/page2" element={<Page2 />} />
+        <Route path="/" element={<HomePage home={pages[0]}/>} />
+        <Route path="/home" element={<HomePage  home={pages[0]}/>} />
+		<Route path="/about" element={<About about={pages[1]}/>}  />
+		<Route path="/contact" element={<Contact contact={pages[2]} />}  />
+		
     </Routes>
-);
+	
+)};
 
 export default App;
