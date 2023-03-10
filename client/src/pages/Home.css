@@ -9,3 +9,62 @@
 .message:hover {
 	background-color: yellow;
 }
+
+
+
+
+/* ------------------------ Footer Component ------------------ */
+
+/* -- medeia query mobile, tablet and desktop */
+/* and waiting the  shima's PR  to linke footer the the new pages route*/
+
+.card-footer {
+	background-color: darkblue;
+	color: white;
+	display: flex;
+	justify-content: space-between;
+	padding: 2vw;
+}
+
+
+
+ul {
+	list-style-type: none;
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	margin: 0;
+	padding: 0;
+}
+li {
+	margin: 0;
+	padding-left: 1vw;
+}
+
+
+
+/* this is hiding the dots before the <li> element */
+a:link {
+	text-decoration: none;
+}
+a {
+	box-shadow: inset 0 0 0 10 #54b3d6;
+	color: #54b3d6;
+	margin: 0 -0.25rem;
+	padding: 0 0.25rem;
+	transition: color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+a:hover {
+	box-shadow: inset 100px 0 0 0 #54b3d6;
+	color: darkblue;
+}
+
+.footer-pageAndSocialmedia-section{
+	display: flex;
+	gap: 5vw;
+}
+
+/* make all text in side the footer white */
+.card-footer * {
+	color: white;
+}
