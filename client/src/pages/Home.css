@@ -10,9 +10,6 @@
 	background-color: yellow;
 }
 
-
-
-
 /* ------------------------ Footer Component ------------------ */
 
 /* -- medeia query mobile, tablet and desktop */
@@ -24,9 +21,8 @@
 	display: flex;
 	justify-content: space-between;
 	padding: 2vw;
+	line-height: 0.8;
 }
-
-
 
 ul {
 	list-style-type: none;
@@ -40,8 +36,6 @@ li {
 	margin: 0;
 	padding-left: 1vw;
 }
-
-
 
 /* this is hiding the dots before the <li> element */
 a:link {
@@ -59,7 +53,7 @@ a:hover {
 	color: darkblue;
 }
 
-.footer-pageAndSocialmedia-section{
+.footer-pageAndSocialmedia-section {
 	display: flex;
 	gap: 5vw;
 }
@@ -67,4 +61,23 @@ a:hover {
 /* make all text in side the footer white */
 .card-footer * {
 	color: white;
+}
+
+
+/* Any view the is less then 700px this style will apply to the foonter */
+@media screen and (max-width: 425px) {
+	.footer-pageAndSocialmedia-section {
+		display: flex;
+		flex-direction: column;
+		font-size: 3vw;
+	}
+
+	.footer-pages,
+	.footer-socialmedia {
+		line-height: 0.2;
+	}
+
+	.footer-address-section {
+		font-size: 3vw;
+	}
 }
