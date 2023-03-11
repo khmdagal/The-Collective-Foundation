@@ -1,22 +1,19 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import "./Header.css";
 
 function Header() {
 	return (
-		<div >
-			<header>
+		<div>
+			<header className="header-container">
 				<a href="#">Collective Foundation</a>
 
 				<nav>
 					<ul>
 						<li>
-							<Link to="/page1">Page 1</Link>
+							<a href="../page1">Page 1</a>
 						</li>
 						<li>
-							<Link to="/page2">Page 2</Link>
-						</li>
-						<li>
-							<Link to="/admin">Admin</Link>
+							<a href="../page2">Page 2</a>
 						</li>
 						<li>
 							<a href="https://twitter.com/">Twitter</a>
