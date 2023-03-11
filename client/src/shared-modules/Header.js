@@ -12,7 +12,6 @@ function Header() {
 				<img
 					src={clientIcon}
 					alt="Logo of Collective Foundation"
-					className="header_logo"
 				/>
 				<nav>
 					<ul>
