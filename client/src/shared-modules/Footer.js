@@ -1,10 +1,31 @@
+/* eslint-disable no-trailing-spaces */
+/* eslint-disable linebreak-style */
 
 import React from "react";
-import Card from "react-bootstrap/Card";
+import { useState, useEffect } from "react";
 
 function Footer() {
+
+  const [pages, setPages] = useState([]);
+
+	async function fectPages() {
+		try {
+			const response = await fetch("http://localhost:3000/api/home");
+			const pagesFromDatabase = await response.json();
+			setPages(pagesFromDatabase);
+		} catch (err) {
+			console.error(err);
+		}
+	}
+
+	useEffect(() => {
+		fectPages();
+	}, []);
+
+
+
   return (
-		<Card className="card-footer">
+		<div className="card-footer">
 			<section className="footer-address-section">
 				<img src="#" alt="The Collective Foundation logo" />
 				<h3>The Collective Foundation</h3>
@@ -14,21 +35,15 @@ function Footer() {
 					<li>Contact number</li>
 				</ul>
 			</section>
+
 			<section className="footer-pageAndSocialmedia-section">
 				<div className="footer-pages">
 					<h2>Our Work</h2>
-					<ul>
-						<li>
-							<a href="#">About</a>
-						</li>
-
-						<li>
-							<a href="#">Initiatives</a>
-						</li>
-
-						<li>
-							<a href="#">Take Action</a>
-						</li>
+          <ul>
+            {/* this is looping throught the pages and creating each back a botton in the footer */}
+						{pages.map((page) => (
+								<button key={page.page_id}>{page.page_title}</button>
+						))}
 					</ul>
 				</div>
 
@@ -37,20 +52,20 @@ function Footer() {
 
 					<ul>
 						<li>
-							<a href="#">Twitter</a>
+							<a href="https://twitter.com/">Twitter</a>
 						</li>
 
 						<li>
-							<a href="#">LinkedIn</a>
+							<a href="https://www.linkedin.com/">LinkedIn</a>
 						</li>
 
 						<li>
-							<a href="#">Facebook</a>
+							<a href="https://www.facebook.com/">Facebook</a>
 						</li>
 					</ul>
 				</div>
 			</section>
-		</Card>
+		</div>
 	);
 }
 
