@@ -15,9 +15,11 @@ function AdminPage() {
   useEffect(() => {
      fetchPagesAPI();
   }, []);
+  
 	return (
 		<div>
             <h1>Page 1</h1>
+            {pages.map((item)=><h3>{item.page_title}</h3>)}
       <ul>
         <li>Header</li>
         <li>Module 1</li>
