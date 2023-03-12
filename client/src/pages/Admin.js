@@ -18,32 +18,22 @@ function AdminPage() {
   
 	return (
 		<div>
-            <h1>Page 1</h1>
-            {pages.map((item)=><h3>{item.page_title}</h3>)}
-      <ul>
-        <li>Header</li>
-        <li>Module 1</li>
-        <li>Module 2</li>
-        <li>Footer</li>
-      </ul>
-      <label>Add a module:</label>
+            
+            {pages.map((item)=>{return<div key={item.page_id}> <h1>{item.page_title}</h1>
+               <ul>
+               <li>Header</li>
+               <li>Module 1</li>
+               <li>Module 2</li>
+               <li>Footer</li>
+             </ul>
+             <label>Add a module:</label>
+       
+       <select >
+         <option >Module 1</option>
+         <option >Module 2</option>
+       </select></div>})}
+ 
 
-<select >
-  <option >Module 1</option>
-  <option >Module 2</option>
-</select>
-<h1>Page 2</h1>
-<ul>
-        <li>Header</li>
-        <li>Module 1</li>
-        <li>Footer</li>
-      </ul>
-      <label>Add a module:</label>
-
-<select >
-  <option >Module 1</option>
-  <option >Module 2</option>
-</select>
 
 <button>Add page</button>
 		</div>
