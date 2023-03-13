@@ -13,6 +13,7 @@ function Page1() {
           <Module1 />
           <Module2 />
           <ImageAndText />
+    
           <Footer />
     </div>
   );
