@@ -4,13 +4,17 @@
 import React from "react";
 import { useState, useEffect } from "react";
 
+import "../pages/Footer.css";
+
 function Footer() {
 
   const [pages, setPages] = useState([]);
 
 	async function fectPages() {
 		try {
-			const response = await fetch("http://localhost:3000/api/home");
+			const response = await fetch(
+				"https://starter-kit-slji.onrender.com/api/pages"
+			);
 			const pagesFromDatabase = await response.json();
 			setPages(pagesFromDatabase);
 		} catch (err) {
