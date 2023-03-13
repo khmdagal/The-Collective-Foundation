@@ -8,7 +8,7 @@ router.get("/", (_, res) => {
 	logger.debug("Welcoming everyone...");
 	res.json({ message: "Hello, world!" });
 });
-router.get("/home", (req, res) => {
+router.get("/pages/getpages", (req, res) => {
 	
 	db.query('select * from pages')
 	.then(pages => res.status(200).json(pages.rows))
