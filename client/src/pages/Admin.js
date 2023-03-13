@@ -6,7 +6,7 @@ function AdminPage() {
   const [pages, setPages] = useState([]);
 
   async function fetchPagesAPI() {
-    const page = await fetch("http://localhost:3000/api/home");
+    const page = await fetch("/api/pages");
     const response = await page.json();
     setPages(response);
 	
