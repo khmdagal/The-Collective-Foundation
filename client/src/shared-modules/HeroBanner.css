@@ -1,0 +1,27 @@
+.image-container {
+    display: block;
+    margin-bottom: 1rem;
+}
+
+.image-container p {
+    position: relative;
+    margin-bottom: 1rem;
+    color: #000;;
+    font-size: 3rem;
+}
+@media (max-width: 768px) {
+		.image-container p {
+
+	font-size: 25px;
+
+}
+	}
+.image-container button {
+	display: inline-block;
+	padding: 20px 30px;
+	background-color: rgb(8, 11, 77);
+	color: white;
+	text-decoration: none;
+	border-radius: 1px;
+	margin-top: 20px;
+}

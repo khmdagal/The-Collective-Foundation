@@ -4,19 +4,21 @@ import Footer from "../shared-modules/Footer";
 import Module1 from "../shared-modules/Module1";
 import Module2 from "../shared-modules/Module2";
 import ImageAndText from "../shared-modules/ImageAndText";
+import HeroBanner from "../shared-modules/HeroBanner";
 
 
 function Page1() {
   return (
-    <div>
-          <Header />
-          <Module1 />
-          <Module2 />
-          <ImageAndText />
-    
-          <Footer />
-    </div>
-  );
+		<div>
+			<Header />
+			<HeroBanner />
+			<ImageAndText />
+			<Module1 />
+			<Module2 />
+
+			<Footer />
+		</div>
+	);
 }
 
 export default Page1;
