@@ -12,8 +12,7 @@ function Footer() {
 
 	async function fectPages() {
 		try {
-			const response = await fetch(
-				"https://starter-kit-slji.onrender.com/api/pages"
+			const response = await fetch("/api/pages"
 			);
 			const pagesFromDatabase = await response.json();
 			setPages(pagesFromDatabase);
