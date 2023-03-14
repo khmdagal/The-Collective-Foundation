@@ -10,29 +10,11 @@ function Header() {
 
 	async function fetchPages() {
 		try {
-			//const response = await fetch(
-			//	"/api/pages"
-			//);
-			//const fetchedPages = await response.json();
+			const response = await fetch(
+				"/api/pages"
+			);
+			const fetchedPages = await response.json();
 
-			//Tentatively used hard codes for data from https://starter-kit-slji.onrender.com/api/pages
-			const fetchedPages = [
-				{
-					page_id: 2,
-					page_title: "Home",
-					page_content: "this is my home",
-				},
-				{
-					page_id: 3,
-					page_title: "contact",
-					page_content: "this is my home",
-				},
-				{
-					page_id: 1,
-					page_title: "About",
-					page_content: "This is our about page",
-				},
-			];
 			setPages(fetchedPages);
 		} catch (err) {
 			console.error(err);
@@ -47,9 +29,8 @@ function Header() {
 		return (
 			<ul>
 				<li>
-					{pages.map((page, index) => (
-						//Use a placeholder Url for href first or it will return error, can be re-assigned after.
-						<a key={index} href="https://twitter.com/">
+					{pages.map((page) => (
+						<a key={page.page_id} href="https://twitter.com/">
 							{page.page_title}
 						</a>
 					))}
