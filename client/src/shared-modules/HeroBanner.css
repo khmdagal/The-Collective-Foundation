@@ -1,27 +1,35 @@
 .image-container {
-    display: block;
-    margin-bottom: 1rem;
+	display: block;
+	margin-bottom: 1rem;
 }
 
-.image-container p {
-    position: relative;
-    margin-bottom: 1rem;
-    color: #000;;
-    font-size: 3rem;
+.hero-banner-content-overlay {
+	position: absolute;
+	top: 120%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	text-align: center;
 }
+
+.hero-banner-content-overlay p {
+	position: relative;
+	margin-bottom: 1rem;
+	color: wheat;
+	font-size: 3rem;
+}
+
 @media (max-width: 768px) {
-		.image-container p {
-
-	font-size: 25px;
-
-}
+	.image-container p {
+		font-size: 25;
 	}
+}
+
 .image-container button {
 	display: inline-block;
-	padding: 20px 30px;
-	background-color: rgb(8, 11, 77);
-	color: white;
+	padding: 1.2rem 2.004rem;
+	background-color: white;
+	color: black;
 	text-decoration: none;
-	border-radius: 1px;
 	margin-top: 20px;
+	border-radius: 0px;
 }
