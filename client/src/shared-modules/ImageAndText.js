@@ -1,14 +1,10 @@
-
 import homePageImage1 from "../Images/home-page-image-1.jpg"; // omport imges from local files for now
 import homePageImage2 from "../Images/home-page-image-2.jpg";
-import   "../shared-modules/ImageAndText.css"; // import styling from css file
-
-
+import "../shared-modules/ImageAndText.css"; // import styling from css file
 
 function ImageAndText() {
-  return (
-
-    // first image and text container
+	return (
+		// first image and text container
 		<div>
 			<div className="container1">
 				<div className="image-container">
@@ -16,11 +12,11 @@ function ImageAndText() {
 				</div>
 				<div className="content-container">
 					<div className="content">
-						<h1>Changing the word is possible. we've done it before </h1>
+						<h1>Changing the word is possible. we have done it before </h1>
 						<p>
 							Our Leadership team bring years of experince to bear on the
-							greatest challenge of our time. we're results driven with a proven
-							record of previous successes
+							greatest challenge of our time. we are results driven with a
+							proven record of previous successes
 						</p>
 						<button className="button">Learn more</button>
 					</div>
