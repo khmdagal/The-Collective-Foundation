@@ -1,14 +1,20 @@
-const About = () => (
+const About = ({about}) => 
+{if (!about){
+	return <div>
+	  Loading...  </div>
+  }
+	
+	return (
+	
 	<main role="main">
 		<div>
-			<h1>About</h1>
+			<h1>{about.page_title}</h1>
 			<p>
-				Starter kit for full-stack JavaScript projects. For more information,
-				see the wiki:
+				{about.page_content}
 			</p>
-			<a href="https://github.com/textbook/starter-kit/wiki">Wiki</a>
+			
 		</div>
 	</main>
-);
+)};
 
 export default About;

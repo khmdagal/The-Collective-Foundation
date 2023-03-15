@@ -1,10 +1,10 @@
-import { Route, Routes } from "react-router-dom";
-
+import {  Routes, Route } from "react-router-dom";
 import About from "./pages/About";
 import Home from "./pages/Home";
-import AdminPage from "./pages/Admin";
+import Admin from "./pages/Admin";
 import Page1 from "./pages/Page1";
 import Page2 from "./pages/Page2";
+
 
 const App = () => (
 	<Routes>
@@ -15,5 +15,6 @@ const App = () => (
 		<Route path="/page2" element={<Page2 />} />
 	</Routes>
 );
+
 
 export default App;
