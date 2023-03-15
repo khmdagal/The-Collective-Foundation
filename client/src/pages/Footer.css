@@ -1,0 +1,69 @@
+
+.card-footer {
+	background-color: rgb(9, 9, 9);
+	color: white;
+	display: flex;
+	justify-content: space-between;
+	padding: 2vw;
+	line-height: 0.8;
+}
+
+ul {
+	list-style-type: none;
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	margin: 0;
+	padding: 0;
+}
+/* this is hiding the dots before the <li> element */
+a:link {
+	text-decoration: none;
+}
+button{
+	background-color:  rgb(27, 4, 65);
+	border: none;
+}
+button,li {
+	box-shadow: inset 0 0 10px rgb(27, 4, 65);
+	color: #54b3d6;
+	transition: color 0.1s ease-in-out, box-shadow 0.5s ease-in-out;
+	text-align: center;
+	font-size: 1.1vw;
+	padding: 0.2vw;
+}
+
+button:hover, li:hover {
+	box-shadow: 0 10px 2px rgba(229, 233, 237, 0.892);
+	color: rgb(238, 238, 245);
+	background-color: rgb(13, 93, 117);
+}
+
+.footer-pageAndSocialmedia-section {
+	display: flex;
+	gap: 10vw;
+}
+
+/* make all text in side the footer white */
+.card-footer * {
+	color: white;
+}
+
+
+/* Any view the is less then 700px this style will apply to the foonter */
+@media screen and (max-width: 425px) {
+	.footer-pageAndSocialmedia-section {
+		display: flex;
+		flex-direction: column;
+		font-size: 3vw;
+	}
+
+	.footer-pages,
+	.footer-socialmedia {
+		line-height: 0.2;
+	}
+
+	.footer-address-section {
+		font-size: 3vw;
+	}
+}
