@@ -1,0 +1,30 @@
+.text-banner-container {
+	background-color: lightgray;
+	display: flex;
+}
+
+.left-text {
+	color: #000;
+	font-size: 45px;
+	font-weight: bold;
+	line-height: 3vw;
+	margin: 4vw;
+}
+
+.right-text {
+	color: #000;
+	font-size: 25px;
+	font-weight: lighter;
+	line-height: 2.5vw;
+	margin: 4vw;
+}
+
+@media (max-width: 400px) {
+	.left-text {
+		font-size: 12px;
+	}
+
+	.right-text {
+		font-size: 10px;
+	}
+}
