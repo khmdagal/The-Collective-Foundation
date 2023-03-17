@@ -1,60 +1,58 @@
-
 .card-footer {
-	background-color: rgb(9, 9, 9);
-	color: white;
+	background-color: hsl(329.9999999999999,2.4390243902439024%,16.07843137254902%);
 	display: flex;
 	justify-content: space-between;
 	padding: 2vw;
-	line-height: 0.8;
+	font-family: "proxima-nova","Helvetica Neue",Helvetica,Arial,sans-serif;
 }
 
-ul {
-	list-style-type: none;
-	display: flex;
-	flex-direction: column;
-	gap: 10px;
-	margin: 0;
-	padding: 0;
-}
-/* this is hiding the dots before the <li> element */
-a:link {
-	text-decoration: none;
-}
-button{
-	background-color:  rgb(27, 4, 65);
-	border: none;
-}
-button,li {
-	box-shadow: inset 0 0 10px rgb(27, 4, 65);
-	color: #54b3d6;
-	transition: color 0.1s ease-in-out, box-shadow 0.5s ease-in-out;
-	text-align: center;
-	font-size: 1.1vw;
-	padding: 0.2vw;
-}
-
-button:hover, li:hover {
-	box-shadow: 0 10px 2px rgba(229, 233, 237, 0.892);
-	color: rgb(238, 238, 245);
-	background-color: rgb(13, 93, 117);
-}
-
-.footer-pageAndSocialmedia-section {
-	display: flex;
-	gap: 10vw;
-}
-
-/* make all text in side the footer white */
+/* to make all text white in the footer */
 .card-footer * {
 	color: white;
 }
 
+/* address section */
+.footer-address-section-ul {
+	display: flex;
+	flex-direction: column;
+	font-size: 1.2vw;
+	font-weight: lighter;
+}
 
-/* Any view the is less then 700px this style will apply to the foonter */
-@media screen and (max-width: 425px) {
-	.footer-pageAndSocialmedia-section {
+.footer-socialmedia-ul,
+.footer-pages-ul {
+	display: flex;
+	flex-direction: column;
+	text-decoration: underline;
+	font-size: 1vw;
+}
+
+.footer-contact-number {
+	text-decoration: underline;
+}
+
+/* our work and follow us section */
+.footer-pageAndSocialmedia-section {
+	display: flex;
+	gap: 8vw;
+}
+
+
+
+.footer-pageAndSocialmedia-section a {
+	font-family: "Poppins", sans-serif;
+	font-weight: lighter;
+}
+
+@media screen and (max-width: 768px) {
+	.card-footer {
 		display: flex;
 		flex-direction: column;
+		gap: 5vw;
+	}
+
+	.footer-pageAndSocialmedia-section {
+		display: flex;
 		font-size: 3vw;
 	}
 
@@ -64,6 +62,10 @@ button:hover, li:hover {
 	}
 
 	.footer-address-section {
+		font-size: 3vw;
+	}
+
+	.footer-socialmedia {
 		font-size: 3vw;
 	}
 }
