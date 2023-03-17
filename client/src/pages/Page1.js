@@ -8,7 +8,6 @@ import ImageAndText from "../shared-modules/ImageAndText";
 import HeroBanner from "../shared-modules/HeroBanner";
 
 
-
 export default function Page1() {
   return (
 		<div>
