@@ -10,9 +10,7 @@ function Header() {
 
 	async function fetchPages() {
 		try {
-			const response = await fetch(
-				"/api/pages"
-			);
+			const response = await fetch("/api/pages");
 			const fetchedPages = await response.json();
 
 			setPages(fetchedPages);
@@ -27,37 +25,47 @@ function Header() {
 
 	function navList() {
 		return (
-			<ul>
-				<li>
-					{pages.map((page) => (
-						<a key={page.page_id} href="https://twitter.com/">
-							{page.page_title}
-						</a>
-					))}
-				</li>
-			</ul>
+			<li>
+				{pages.map((page) => (
+					<button className="titles" key={page.page_id}>
+						{page.page_title}
+					</button>
+				))}
+			</li>
 		);
 	}
 	return (
-		<div>
-			<header className="header-container">
-				<img src={clientIcon} alt="Logo of Collective Foundation" />
-				<nav>
-					{navList()}
-					<ul>
+		<div id="header_main">
+			<header>
+				<img
+					className="logo"
+					src={clientIcon}
+					alt="Logo of Collective Foundation"
+				/>
+				<nav className="navbar">
+					<ul className="ul">{navList()} </ul>
+					<ul className="ul">
 						<li>
 							<a href="https://twitter.com/">
-								<img src={twitterIcon} alt="Logo of twitter" />
+								<img
+									className="icons"
+									src={twitterIcon}
+									alt="Logo of twitter"
+								/>
 							</a>
 						</li>
 						<li>
 							<a href="https://www.linkedin.com/">
-								<img src={linkedinIcon} alt="Logo of linkedin" />
+								<img
+									className="icons"
+									src={linkedinIcon}
+									alt="Logo of linkedin"
+								/>
 							</a>
 						</li>
 						<li>
 							<a href="https://www.facebook.com/">
-								<img src={fbIcon} alt="Logo of fb" />
+								<img className="icons" src={fbIcon} alt="Logo of fb" />
 							</a>
 						</li>
 					</ul>
