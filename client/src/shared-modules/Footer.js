@@ -1,5 +1,3 @@
-/* eslint-disable no-trailing-spaces */
-/* eslint-disable linebreak-style */
 
 import React from "react";
 import { useState, useEffect } from "react";
@@ -7,13 +5,11 @@ import { useState, useEffect } from "react";
 import "../pages/Footer.css";
 
 function Footer() {
-
-  const [pages, setPages] = useState([]);
+	const [pages, setPages] = useState([]);
 
 	async function fectPages() {
 		try {
-			const response = await fetch("/api/pages"
-			);
+			const response = await fetch("/api/pages");
 			const pagesFromDatabase = await response.json();
 			setPages(pagesFromDatabase);
 		} catch (err) {
@@ -21,49 +17,69 @@ function Footer() {
 		}
 	}
 
+
+	
 	useEffect(() => {
 		fectPages();
 	}, []);
 
+	console.log(pages.map((p) => p.page_title));
 
-
-  return (
+	return (
 		<div className="card-footer">
 			<section className="footer-address-section">
 				<img src="#" alt="The Collective Foundation logo" />
-				<h3>The Collective Foundation</h3>
-				<ul>
-					<li>Address</li>
-					<li>City & Postcod</li>
-					<li>Contact number</li>
+				<h2 className="footer-h2">The Collective Foundation</h2>
+				<ul className="footer-address-section-ul">
+					<li className="footer-address-section-li">Address</li>
+					<li className="footer-address-section-li">City & Postcod</li>
+					<li className="footer-address-section-li footer-contact-number">
+						(555) 555-5555
+					</li>
 				</ul>
 			</section>
 
 			<section className="footer-pageAndSocialmedia-section">
 				<div className="footer-pages">
-					<h2>Our Work</h2>
-          <ul>
-            {/* this is looping throught the pages and creating each back a botton in the footer */}
+					<h2 className="footer-h2">Our Work</h2>
+					<ul id="footer-pages-ul-id" className="footer-pages-ul">
+						{/* this is looping throught the pages and creating each back a botton in the footer */}
 						{pages.map((page) => (
-								<button key={page.page_id}>{page.page_title}</button>
+							<li className="footer-pages-li" key={page.page_id}>
+								<a className="footer-pages-a" href="">
+									{page.page_title}
+								</a>
+							</li>
 						))}
 					</ul>
 				</div>
 
 				<div className="footer-socialmedia">
-					<h2>Follow Us</h2>
+					<h2 className="footer-h2">Follow Us</h2>
 
-					<ul>
-						<li>
-							<a href="https://twitter.com/">Twitter</a>
+					<ul className="footer-socialmedia-ul">
+						<li className="footer-socialmedia-li">
+							<a className="footer-socialmedia-a" href="https://twitter.com/">
+								Twitter
+							</a>
 						</li>
 
-						<li>
-							<a href="https://www.linkedin.com/">LinkedIn</a>
+						<li className="footer-socialmedia-li">
+							<a
+								className="footer-socialmedia-a"
+								href="https://www.linkedin.com/"
+							>
+								LinkedIn
+							</a>
 						</li>
 
-						<li>
-							<a href="https://www.facebook.com/">Facebook</a>
+						<li className="footer-socialmedia-li">
+							<a
+								className="footer-socialmedia-a"
+								href="https://www.facebook.com/"
+							>
+								Facebook
+							</a>
 						</li>
 					</ul>
 				</div>
