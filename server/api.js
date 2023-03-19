@@ -23,56 +23,44 @@ router.get("/pages", (req, res) => {
 		});
 });
 
+//improved endpoints
 
-// this is Home endpoint
-router.get("/home", async (req, res) => {
+router.get("/pages/:title", async (req, res) => {
 	try {
-		const response =
-			await db.query(`SELECT p.page_title, i.text, i.image, i.button, i.hasButton 
-							FROM pages AS p
-							INNER JOIN modules AS m ON p.page_id = m.page_id
-							INNER JOIN imageAndTexts AS i ON m.record_id = i.imageText_id
-							WHERE p.page_title = 'Home' `);
-		res.json(response.rows);
+		const pageName = req.params.title;
+
+		const modulesInfoResponse = await db.query(
+			`SELECT m.module_Type, m.record_id
+							FROM modules AS m
+							INNER JOIN pages AS p ON p.page_id = m.page_id
+							WHERE p.page_title = $1`,
+			[pageName]
+		);
+
+		const modulesInfo = modulesInfoResponse.rows;
+
+		const result = await Promise.all(
+			modulesInfo.map(async (info) => {
+				const detailsResponse = await db.query(
+					`SELECT * from ${info.module_type}
+								WHERE record_id = $1`,
+					[+info.record_id]
+				);
+				return {
+					type: info.module_type,
+					details: detailsResponse.rows[0],
+				};
+			})
+		);
+
+		res.status(200).json({
+			title: req.params.title,
+			modules: result,
+		});
 	} catch (err) {
 		console.error(err);
 		res.status(500).send(err);
 	}
 });
-
-
-// this is About page endpoint
-router.get("/about", async (req, res) => {
-	try {
-		const response =
-			await db.query(`SELECT p.page_title, i.text, i.image, i.button, i.hasButton 
-							FROM pages AS p
-							INNER JOIN modules AS m ON p.page_id = m.page_id
-							INNER JOIN imageAndTexts AS i ON m.record_id = i.imageText_id
-							WHERE p.page_title = 'About' `);
-		res.json(response.rows);
-	} catch (err) {
-		console.error(err);
-		res.status(500).send(err);
-	}
-});
-
-
-// this is Contact page endpoint
-router.get("/contact", async (req, res) => {
-	try {
-		const response =
-			await db.query(`SELECT p.page_title, i.text, i.image, i.button, i.hasButton 
-							FROM pages AS p
-							INNER JOIN modules AS m ON p.page_id = m.page_id
-							INNER JOIN imageAndTexts AS i ON m.record_id = i.imageText_id
-							WHERE p.page_title = 'Contact' `);
-		res.json(response.rows);
-	} catch (err) {
-		console.error(err);
-		res.status(500).send(err);
-	}
-});
-
 
 export default router;
