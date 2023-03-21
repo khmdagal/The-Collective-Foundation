@@ -1,3 +1,8 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
 .container1 {
 	display: flex;
 	flex-direction: row-reverse;
@@ -5,7 +10,7 @@
 	justify-content: center;
 	align-items: center;
 	height: auto;
-	padding-bottom: 10px;
+	padding: 10px;
 }
 
 @media (max-width: 768px) {
@@ -24,7 +29,7 @@
 	justify-content: center;
 	align-items: center;
 	height: auto;
-	padding-top: 10px;
+	padding: 10px;
 }
 
 @media (max-width: 768px) {
@@ -42,8 +47,11 @@
 }
 
 .image-container img {
+	
 	max-width: 100%;
-	height: auto;
+	height: 504px;
+    width: 540px;
+	
 }
 
 .content-container {
