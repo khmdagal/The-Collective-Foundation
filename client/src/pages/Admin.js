@@ -1,12 +1,5 @@
-/* eslint-disable react/jsx-key */
-/* eslint-disable semi */
-/* eslint-disable no-undef */
-/* eslint-disable no-trailing-spaces */
-/* eslint-disable curly */
-/* eslint-disable linebreak-style */
-/* eslint-disable jsx-a11y/label-has-associated-control */
 import React from "react";
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 
 function AdminPage() {
   const [pagesData, setPagesData] = useState([]);
@@ -34,37 +27,36 @@ function AdminPage() {
   }
 
   useEffect(() => {
-		fectPageTitles()
-			.then((pagesTitleResults) => {
-				const pageDetails = Promise.all(
-					pagesTitleResults.map((page) => fectPagesData(page.page_title))
-				);
-				return pageDetails;
-			})
-			.then((pagesData) => setPagesData(pagesData));
-	}, []);
+    fectPageTitles()
+      .then((pagesTitleResults) => {
+        const pageDetails = Promise.all(
+          pagesTitleResults.map((page) => fectPagesData(page.page_title))
+        );
+        return pageDetails;
+      })
+      .then((pagesData) => setPagesData(pagesData));
+  }, []);
 
   if (!pagesData) <p>Loading..</p>;
 
   console.log(pagesData.map((eachPage) => console.log(eachPage.modules)));
- 
+
   return (
-		<>
-			{pagesData.map((eachPage) => (
-				<div>
-					<h1>{eachPage.title}</h1>
-					<div>
-						{eachPage.modules.map((module) => (
-							<div>
-								<h3>{module.type}</h3>
-								
-							</div>
-						))}
-					</div>
-				</div>
-			))}
-		</>
-	);
+    <>
+      {pagesData.map((eachPage) => (
+        <div>
+          <h1>{eachPage.title}</h1>
+          <div>
+            {eachPage.modules.map((module) => (
+              <div>
+                <h3>{module.type}</h3>
+              </div>
+            ))}
+          </div>
+        </div>
+      ))}
+    </>
+  );
 
 }
 
