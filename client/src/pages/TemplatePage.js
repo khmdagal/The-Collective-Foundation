@@ -29,7 +29,9 @@ export default function TemplatePage({pagetitle}) {
       
         { console.log(module.details.text);
           return (<div key={module.details.record_id}> {module.type==='imageAndTexts' && <ImageAndText img={module.details.image} 
-          text={module.details.text} button={module.details.button}/>}</div>)})}
+          textone={module.details.text_header} 
+          texttwo={module.details.text_body}
+          button={module.details.button}/>}</div>)})}
        <Footer/>
     </div>
   )

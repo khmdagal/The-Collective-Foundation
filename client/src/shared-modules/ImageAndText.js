@@ -2,7 +2,7 @@ import homePageImage1 from "../Images/home-page-image-1.jpg"; // omport imges fr
 import homePageImage2 from "../Images/home-page-image-2.jpg";
 import "../shared-modules/ImageAndText.css"; // import styling from css file
 
-function ImageAndText({text,img,button}) {
+function ImageAndText({textone,texttwo,img,button}) {
 	return (
 		// first image and text container
 		<div>
@@ -12,25 +12,23 @@ function ImageAndText({text,img,button}) {
 				</div>
 				<div className="content-container">
 					<div className="content">
-						<h1>{text} </h1>
+						<h1>{textone} </h1>
 						<p>
-							Our Leadership team bring years of experince to bear on the
-							greatest challenge of our time. we are results driven with a
-							proven record of previous successes
+							{texttwo}
 						</p>
 						<button className="button">{button}</button>
 					</div>
 				</div>
 			</div>
 
-			{/* // second image and text container */}
-			<div className="container2">
+		
+			{/* <div className="container2">
 				<div className="image-container">
 					<img src={homePageImage2} alt="img"></img>
 				</div>
 				<div className="content-container">
 					<div className="content">
-						<h1>Ready to take the next step?</h1>
+						<h1>{text}</h1>
 						<p>
 							This is a movement of billions. Whether you’re most comfortable
 							contributing time to help achieve our advocacy goals, money to
@@ -39,8 +37,8 @@ function ImageAndText({text,img,button}) {
 						</p>
 						<button className="button">Take Action</button>
 					</div>
-				</div>
-			</div>
+				</div> */}
+			{/* </div> */}
 		</div>
 	);
 }
