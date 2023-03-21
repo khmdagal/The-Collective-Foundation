@@ -1,8 +1,20 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React from "react";
-// import { useState,useEffect } from "react";
+import { useState,useEffect } from "react";
 
-function AdminPage({pages}) {
+function AdminPage() {
+  const [pages, setPages] = useState([]);
+
+  async function fetchPagesAPI() {
+    const page = await fetch("/api/pages");
+    const response = await page.json();
+    setPages(response);
+	
+  }
+ 
+  useEffect(() => {
+     fetchPagesAPI();
+  }, []);
 
   
 	return (
