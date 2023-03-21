@@ -2,23 +2,23 @@ import homePageImage1 from "../Images/home-page-image-1.jpg"; // omport imges fr
 import homePageImage2 from "../Images/home-page-image-2.jpg";
 import "../shared-modules/ImageAndText.css"; // import styling from css file
 
-function ImageAndText() {
+function ImageAndText({text,img,button}) {
 	return (
 		// first image and text container
 		<div>
 			<div className="container1">
 				<div className="image-container">
-					<img src={homePageImage1} alt="img"></img>
+					<img src={img} alt="img"></img>
 				</div>
 				<div className="content-container">
 					<div className="content">
-						<h1>Changing the word is possible. we have done it before </h1>
+						<h1>{text} </h1>
 						<p>
 							Our Leadership team bring years of experince to bear on the
 							greatest challenge of our time. we are results driven with a
 							proven record of previous successes
 						</p>
-						<button className="button">Learn more</button>
+						<button className="button">{button}</button>
 					</div>
 				</div>
 			</div>

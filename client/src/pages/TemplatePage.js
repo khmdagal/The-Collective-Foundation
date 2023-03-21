@@ -15,8 +15,7 @@ export default function TemplatePage({pagetitle}) {
     useEffect(() => {
        fetchPagesAPI();
     }, []);
-console.log(content);
-    console.log(content);
+
     if (!content.title) {
       return <div>No content available for {pagetitle}.</div>;
     }
@@ -26,7 +25,11 @@ console.log(content);
     <div>
       <Header/>
        
-       {content.modules.map(module=>{return (<div> {module.type==='imageAndTexts' && <ImageAndText/>}</div>)})}
+       {content.modules.map(module=>
+      
+        { console.log(module.details.text);
+          return (<div key={module.details.record_id}> {module.type==='imageAndTexts' && <ImageAndText img={module.details.image} 
+          text={module.details.text} button={module.details.button}/>}</div>)})}
        <Footer/>
     </div>
   )
