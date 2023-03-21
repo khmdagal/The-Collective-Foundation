@@ -1,3 +1,8 @@
+/* eslint-disable curly */
+/* eslint-disable jsx-a11y/label-has-associated-control */
+/* eslint-disable no-trailing-spaces */
+/* eslint-disable linebreak-style */
+/* eslint-disable react/jsx-key */
 import React from "react";
 import { useState, useEffect } from "react";
 
@@ -38,25 +43,30 @@ function AdminPage() {
   }, []);
 
   if (!pagesData) <p>Loading..</p>;
-
-  console.log(pagesData.map((eachPage) => console.log(eachPage.modules)));
-
   return (
-    <>
-      {pagesData.map((eachPage) => (
-        <div>
-          <h1>{eachPage.title}</h1>
-          <div>
-            {eachPage.modules.map((module) => (
-              <div>
-                <h3>{module.type}</h3>
-              </div>
-            ))}
-          </div>
-        </div>
-      ))}
-    </>
-  );
+		<>
+			{pagesData.map((eachPage) => (
+				<div>
+					<h1>{eachPage.title}</h1>
+					<div>
+						{eachPage.modules.map((module) => (
+							<div>
+								<h3>{module.type}</h3>
+							</div>
+						))}
+						<div>
+							<label>Add a module:</label>
+							<select>
+								<option>Module 1</option>
+								<option>Module 2</option>
+							</select>
+						</div>
+					</div>
+				</div>
+			))}
+			<button>Add page</button>
+		</>
+	);
 
 }
 
