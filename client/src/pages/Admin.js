@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-key */
 /* eslint-disable semi */
 /* eslint-disable no-undef */
 /* eslint-disable no-trailing-spaces */
@@ -33,17 +34,37 @@ function AdminPage() {
   }
 
   useEffect(() => {
-    fectPageTitles()
-      .then((pagesTitleResults) => {
-        const data = pagesTitleResults.map((page) => fectPagesData(page.page_title));
-        return data;
-      })
-      .then((pagesData) => setPagesData(pagesData));
-  }, []);
+		fectPageTitles()
+			.then((pagesTitleResults) => {
+				const pageDetails = Promise.all(
+					pagesTitleResults.map((page) => fectPagesData(page.page_title))
+				);
+				return pageDetails;
+			})
+			.then((pagesData) => setPagesData(pagesData));
+	}, []);
 
   if (!pagesData) <p>Loading..</p>;
 
-  console.log(pagesData);
+  console.log(pagesData.map((eachPage) => console.log(eachPage.modules)));
+ 
+  return (
+		<>
+			{pagesData.map((eachPage) => (
+				<div>
+					<h1>{eachPage.title}</h1>
+					<div>
+						{eachPage.modules.map((module) => (
+							<div>
+								<h3>{module.type}</h3>
+								
+							</div>
+						))}
+					</div>
+				</div>
+			))}
+		</>
+	);
 
 }
 
