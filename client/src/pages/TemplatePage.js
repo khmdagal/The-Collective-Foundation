@@ -28,9 +28,11 @@ export default function TemplatePage({pagetitle}) {
        {content.modules.map(module=>
       
         { console.log(module.details.text);
-          return (<div key={module.details.record_id}> {module.type==='imageAndTexts' && <ImageAndText img={module.details.image} 
-          textone={module.details.text_header} 
-          texttwo={module.details.text_body}
+          return (<div key={module.details.record_id}> {module.type==='imageAndTexts' && 
+          <ImageAndText img={module.details.image} 
+          direction={module.details.imagetext_direction}
+          textheader={module.details.text_header} 
+          textbody={module.details.text_body}
           button={module.details.button}/>}</div>)})}
        <Footer/>
     </div>
