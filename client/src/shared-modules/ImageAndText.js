@@ -21,24 +21,6 @@ function ImageAndText({textone,texttwo,img,button}) {
 				</div>
 			</div>
 
-		
-			{/* <div className="container2">
-				<div className="image-container">
-					<img src={homePageImage2} alt="img"></img>
-				</div>
-				<div className="content-container">
-					<div className="content">
-						<h1>{text}</h1>
-						<p>
-							This is a movement of billions. Whether you’re most comfortable
-							contributing time to help achieve our advocacy goals, money to
-							help us grow, or energy to put political pressure on our
-							governments to change, we need you on our team.
-						</p>
-						<button className="button">Take Action</button>
-					</div>
-				</div> */}
-			{/* </div> */}
 		</div>
 	);
 }

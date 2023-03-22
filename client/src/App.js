@@ -21,17 +21,15 @@ const App = () => {
   useEffect(() => {
      fetchPagesAPI();
   }, []);
-  console.log(pages)
+  
 
   return(
   
 	<Routes>
-		{/* <Route path="/" element={<Home />} />
-		<Route path="/about/this/site" element={<About />} /> */}
+	
 		<Route path="/admin" element={<Admin/>} />
-		{/* <Route path="/page1" element={<Page1 />} />
-		<Route path="/page2" element={<Page2 />} /> */}
-    {pages.map((item)=>{return <Route key={item.page_id} path={item.page_path} element={<TemplatePage pagetitle={item.page_title}/>}/>})}
+    {pages.map((item)=>{return <Route key={item.page_id} path={item.page_path} 
+    element={<TemplatePage pagetitle={item.page_title}/>}/>})}
 
 	</Routes>
 )};
