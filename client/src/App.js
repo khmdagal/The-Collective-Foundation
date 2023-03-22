@@ -1,11 +1,9 @@
 import {  Routes, Route } from "react-router-dom";
 import { useState,useEffect } from "react";
-import About from "./pages/About";
-import Home from "./pages/Home";
 import Admin from "./pages/Admin";
-import Page1 from "./pages/Page1";
-import Page2 from "./pages/Page2";
 import TemplatePage from "./pages/TemplatePage";
+import HeroBanner from "./shared-modules/HeroBanner";
+import TextBanner from "./shared-modules/TextBanner"
 
 
 const App = () => {
@@ -28,6 +26,8 @@ const App = () => {
 	<Routes>
 	
 		<Route path="/admin" element={<Admin/>} />
+    <Route path="/page1" element={<HeroBanner/>} />
+    <Route path="/page2" element={<TextBanner/>} />
     {pages.map((item)=>{return <Route key={item.page_id} path={item.page_path} 
     element={<TemplatePage pagetitle={item.page_title}/>}/>})}
 
