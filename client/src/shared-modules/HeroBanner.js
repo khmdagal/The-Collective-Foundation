@@ -6,13 +6,11 @@ const HeroBanner = () => {
 		<>
 			<div className="hero-image-container">
 				<img src={heroimg} alt="img"></img>
-
-				</div>
-				<div className="overlay">
-					<p>Protecting natural habitats from extinction.</p>
-					<button>Learn More</button>
-			    </div>
-
+			<div className="hero-banner-content-overlay">
+				<p>Protecting natural habitats from extinction.</p>
+				<button>Learn More</button>
+			</div>
+			</div>
 		</>
 	);
 };
