@@ -63,7 +63,7 @@ function AdminPage() {
 	}, []);
 
   if (!pagesData) <p>Loading..</p>;
-  console.log(pagesData)
+
 	return (
 		<>
 			{pagesData.map((eachPage) => (
