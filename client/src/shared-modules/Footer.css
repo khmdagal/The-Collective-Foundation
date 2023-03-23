@@ -17,22 +17,38 @@
 	flex-direction: column;
 	font-size: 1.2vw;
 	font-weight: lighter;
+
+}
+
+/* out work section */
+
+footer-pages-li {
+	list-style: none;
+	text-decoration: none;
+	display: flex;
+	flex-direction: column;
+	font-size: 1.2vw;
+	font-weight: lighter;
+	color:red;
+	
 }
 
 .footer-socialmedia-ul,
-.footer-pages-ul {
+.footer-pages-ul li {
 	display: flex;
 	flex-direction: column;
 	text-decoration: underline;
 	font-size: 1vw;
+	list-style-type: none;
 }
 
 .footer-contact-number {
-	text-decoration: underline;
+	text-decoration: none;
 }
 
 /* our work and follow us section */
 .footer-pageAndSocialmedia-section {
+	list-style-type: none;
 	display: flex;
 	gap: 8vw;
 }
