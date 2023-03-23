@@ -1,3 +1,6 @@
+/* eslint-disable no-console */
+/* eslint-disable linebreak-style */
+/* eslint-disable quotes */
 import { Router } from "express";
 import db from "./db";
 import logger from "./utils/logger";
@@ -60,7 +63,7 @@ router.get("/pages/:title", async (req, res) => {
 });
 
 
-router.get("/pages/:page_title/:record_id", async (req, res) => {
+router.delete("/pages/:page_title/:record_id", async (req, res) => {
 	try {
 		const page_title = req.params.page_title;
 
@@ -74,7 +77,7 @@ router.get("/pages/:page_title/:record_id", async (req, res) => {
 		console.log("Page id-->", page_id);
 
 		const deletingModule = await Promise.all([
-			db.query(`SELECT * from modules WHERE page_id = $1 AND record_id = $2`, [
+			db.query(`delete from modules WHERE page_id = $1 AND record_id = $2`, [
 				+page_id,
 				+record_id,
 			]),
