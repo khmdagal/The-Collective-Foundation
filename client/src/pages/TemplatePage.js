@@ -3,6 +3,7 @@ import { useState,useEffect } from "react";
 import ImageAndText from '../shared-modules/ImageAndText';
 import Header from '../shared-modules/Header'
 import Footer from '../shared-modules/Footer'
+import HeroBanner from '../shared-modules/HeroBanner'
 
 export default function TemplatePage({pagetitle}) {
     const [content, setContent] = useState([]);
@@ -24,7 +25,7 @@ export default function TemplatePage({pagetitle}) {
 
     <div>
       <Header/>
-       
+       <HeroBanner/>
        {content.modules.map(module=>
       
         { console.log(module.details.text);

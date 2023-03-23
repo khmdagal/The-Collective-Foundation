@@ -9,7 +9,8 @@ function ImageAndText({textheader,textbody,img,button,direction}) {
 		<div>
 			<div  className={`${direction ? 'left_to_right' : 'right_to_left'}`} >
 				<div className="image-container" >
-					<img src={img} alt="img"></img>
+				<img src={`/Images/textAndImage-${img}`} alt="img"></img>
+					{/* <img src={img} alt="img"></img> */}
 				</div>
 				<div className="content-container">
 					<div className="content">
