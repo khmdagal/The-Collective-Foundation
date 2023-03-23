@@ -1,8 +1,7 @@
-
 import React from "react";
 import { useState, useEffect } from "react";
 
-import "../pages/Footer.css";
+import "../shared-modules/Footer.css";
 
 function Footer() {
 	const [pages, setPages] = useState([]);
@@ -11,14 +10,13 @@ function Footer() {
 		try {
 			const response = await fetch("/api/pages");
 			const pagesFromDatabase = await response.json();
+			console.log(pagesFromDatabase);
 			setPages(pagesFromDatabase);
 		} catch (err) {
 			console.error(err);
 		}
 	}
 
-
-	
 	useEffect(() => {
 		fectPages();
 	}, []);
@@ -42,11 +40,12 @@ function Footer() {
 			<section className="footer-pageAndSocialmedia-section">
 				<div className="footer-pages">
 					<h2 className="footer-h2">Our Work</h2>
+
 					<ul id="footer-pages-ul-id" className="footer-pages-ul">
 						{/* this is looping throught the pages and creating each back a botton in the footer */}
 						{pages.map((page) => (
 							<li className="footer-pages-li" key={page.page_id}>
-								<a className="footer-pages-a" href="">
+								<a className="footer-pages-a" href="{page.page_title}">
 									{page.page_title}
 								</a>
 							</li>

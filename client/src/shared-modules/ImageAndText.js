@@ -2,7 +2,7 @@ import homePageImage1 from "../Images/home-page-image-1.jpg"; // omport imges fr
 import homePageImage2 from "../Images/home-page-image-2.jpg";
 import "../shared-modules/ImageAndText.css"; // import styling from css file
 
-function ImageAndText() {
+const ImageAndText = () => {
 	return (
 		// first image and text container
 		<div>

@@ -4,6 +4,7 @@ import Header from "../shared-modules/Header";
 import Footer from "../shared-modules/Footer";
 import ImageAndText from "../shared-modules/ImageAndText";
 import HeroBanner from "../shared-modules/HeroBanner";
+import TextBanner from "../shared-modules/TextBanner";
 
 
 export default function Page1() {
@@ -11,6 +12,7 @@ export default function Page1() {
 		<div>
 			<Header />
 			<HeroBanner />
+			<TextBanner />
 			<ImageAndText />
 
 			<Footer />
