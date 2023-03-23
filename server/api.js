@@ -1,9 +1,10 @@
-
 import { Router } from "express";
 import db from "./db";
 import logger from "./utils/logger";
+const cors = require('cors')
 
 const router = Router();
+router.use(cors());
 
 router.get("/", (_, res) => {
 	logger.debug("Welcoming everyone...");
@@ -84,29 +85,9 @@ router.get("/pages/:page_title/:record_id", async (req, res) => {
 		res.status(200).json(deletingModule[0].rows);
 	} catch (err) {
 		console.error(err);
-		res.status(500).send(err);
+	res.status(500).json({ error: err.message });
 	}
 
 	
 });
 export default router;
-
-
-/*
-// try {
-	// 	const page_id = req.params.page_id;
-	// 	const record_id = req.params.record_id;
-
-	// 	const deleteModule = await db.query(
-	// 		`select * from modules where page_id = $1 and record_id = $2`,[+page_id,+record_id]
-	// 	);
-
-	// 	console.log(deleteModule.rows);
-
-	// 	res.status(200).json(deleteModule.rows);
-	// } catch (err) {
-	// 	console.error(err);
-	// 	res.status(500).send(err);
-	// }
-
-*/
