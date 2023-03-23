@@ -62,7 +62,8 @@ function AdminPage() {
 			.then((pagesData) => setPagesData(pagesData));
 	}, []);
 
-	if (!pagesData) <p>Loading..</p>;
+  if (!pagesData) <p>Loading..</p>;
+  console.log(pagesData)
 	return (
 		<>
 			{pagesData.map((eachPage) => (
