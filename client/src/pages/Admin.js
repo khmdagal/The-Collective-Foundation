@@ -38,10 +38,12 @@ function AdminPage() {
 
 			if (confirmed) {
 				try {
-					const response = await fetch(`/pages/${pageTitle}/${recordId}`);
+          const response = await fetch(`api/pages/${pageTitle}/${recordId}`, {
+            method: "Delete",
+          });
 					const deletingModule = await response.json();
 					console.log(deletingModule);
-					alert(`This Data ${deletingModule} has been deleted successfully.`);
+					alert(`This Data has been deleted successfully.`);
 				} catch (error) {
 					console.error(error);
 					alert("Failed to delete data.");
