@@ -63,4 +63,23 @@ router.get("/pages/:title", async (req, res) => {
 	}
 });
 
+
+router.get("/pages/:page_id/:record_id", async (req, res) => {
+	try {
+		
+		const page_id = req.params.page_id;
+		const record_id = req.params.record_id;
+
+	const deleteModule = await db.query(
+			`delete * from modules where page_id = ${page_id} and record_id = ${record_id}`
+		);
+
+		console.log(deleteModule.rows)
+		
+		res.status(200).json(deleteModule.rows)
+	} catch (err) {
+		console.error(err);
+		res.status(500).send(err);
+	}
+});
 export default router;
