@@ -25,7 +25,9 @@
 	flex-direction: column;
 	text-decoration: underline;
 	font-size: 1vw;
+	list-style: none;
 }
+
 
 .footer-contact-number {
 	text-decoration: underline;
