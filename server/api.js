@@ -1,14 +1,9 @@
-/* eslint-disable semi */
-/* eslint-disable arrow-parens */
-/* eslint-disable linebreak-style */
-/* eslint-disable no-console */
-/* eslint-disable no-trailing-spaces */
-/* eslint-disable quotes */
 import { Router } from "express";
 import db from "./db";
 import logger from "./utils/logger";
-
+const cors = require("cors");
 const router = Router();
+router.use(cors());
 
 router.get("/", (_, res) => {
 	logger.debug("Welcoming everyone...");
@@ -23,7 +18,8 @@ router.get("/pages", (req, res) => {
 		});
 });
 
-//improved endpoints
+
+//Linking Modules and their respective pages
 
 router.get("/pages/:title", async (req, res) => {
 	try {
@@ -64,17 +60,30 @@ router.get("/pages/:title", async (req, res) => {
 });
 
 
-router.get("/module/:moduleType", (req, res) => {
-	const selectedModuleType = req.params.moduleType
-	
-		db.query(`select *  from ${selectedModuleType}`)
-			.then((moduleList) => res.status(200).json(moduleList.rows))
-			.catch((err) => {
-				console.error(err);
-				res.status(500).send(err);
-			});
-	});
-	
+// Deleting module endpoint
+router.delete("/pages/:page_title/:record_id", async (req, res) => {
+	try {
+		const pageTitle = req.params.page_title;
+
+		const record_id = req.params.record_id;
+
+		const findPageId = await db.query(
+			`select page_id from pages where page_title = $1`,[pageTitle]
+		);
+		const page_id = findPageId.rows[0].page_id;
+		const deletingModule = await db.query(
+			"delete from modules WHERE page_id = $1 AND record_id = $2",
+			[+page_id, +record_id]
+		);
+		res.status(200).json(deletingModule[0].rows);
+
+	} catch (err) {
+		console.error(err);
+	res.status(500).json({ error: err.message });
+	}
+
+
+});
 
 
 // getting available modules
@@ -99,5 +108,6 @@ const selectedModuleType = req.params.moduleType
 			res.status(500).send(err);
 		});
 });
+
 
 export default router;
