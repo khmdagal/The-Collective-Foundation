@@ -2,7 +2,8 @@
 import React from "react";
 import { useState, useEffect } from "react";
 
-import "../pages/Footer.css";
+import "../shared-modules/Footer.css";
+import clientIcon from "../icons/client-logo.png";
 
 function Footer() {
 	const [pages, setPages] = useState([]);
@@ -28,10 +29,14 @@ function Footer() {
 	return (
 		<div className="card-footer">
 			<section className="footer-address-section">
-				<img src="#" alt="The Collective Foundation logo" />
+				<img
+					className="logo"
+					src={clientIcon}
+					alt="Logo of Collective Foundation"
+				/>
 				<h2 className="footer-h2">The Collective Foundation</h2>
 				<ul className="footer-address-section-ul">
-					<li className="footer-address-section-li">Address</li>
+					<li className="footer-address-section-li">123 High street</li>
 					<li className="footer-address-section-li">City & Postcod</li>
 					<li className="footer-address-section-li footer-contact-number">
 						(555) 555-5555
