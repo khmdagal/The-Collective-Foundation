@@ -18,12 +18,12 @@ function Footer() {
 	}
 
 
-	
+
 	useEffect(() => {
 		fectPages();
 	}, []);
 
-	console.log(pages.map((p) => p.page_title));
+
 
 	return (
 		<div className="card-footer">
@@ -42,11 +42,12 @@ function Footer() {
 			<section className="footer-pageAndSocialmedia-section">
 				<div className="footer-pages">
 					<h2 className="footer-h2">Our Work</h2>
+
 					<ul id="footer-pages-ul-id" className="footer-pages-ul">
 						{/* this is looping throught the pages and creating each back a botton in the footer */}
 						{pages.map((page) => (
 							<li className="footer-pages-li" key={page.page_id}>
-								<a className="footer-pages-a" href="">
+								<a className="footer-pages-a" href={page.page_path}>
 									{page.page_title}
 								</a>
 							</li>

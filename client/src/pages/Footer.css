@@ -45,6 +45,9 @@
 	font-family: "Poppins", sans-serif;
 	font-weight: lighter;
 }
+.footer-pages-li {
+	list-style: none;
+}
 
 @media screen and (max-width: 768px) {
 	.card-footer {

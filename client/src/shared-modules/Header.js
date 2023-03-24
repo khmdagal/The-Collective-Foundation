@@ -23,15 +23,18 @@ function Header() {
 		fetchPages();
 	}, []);
 
+
 	function navList() {
 		return (
-			<li>
-				{pages.map((page) => (
-					<button className="titles" key={page.page_id}>
-						{page.page_title}
-					</button>
-				))}
-			</li>
+			<>
+				<li>
+					{pages.map((page) => (
+						<a className="titles" key={page.page_id} href={page.page_path}>
+							{page.page_title}
+						</a>
+					))}
+				</li>
+			</>
 		);
 	}
 	return (
