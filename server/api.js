@@ -73,4 +73,17 @@ router.get("/listOfmodules", (req, res) => {
 		});
 });
 
+
+// Drop down menu change
+router.get("/module/:moduleType", (req, res) => {
+const selectedModuleType = req.params.moduleType
+
+	db.query(`select *  from ${selectedModuleType}`)
+		.then((moduleList) => res.status(200).json(moduleList.rows))
+		.catch((err) => {
+			console.error(err);
+			res.status(500).send(err);
+		});
+});
+
 export default router;

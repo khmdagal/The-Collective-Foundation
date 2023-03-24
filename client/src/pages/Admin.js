@@ -77,7 +77,11 @@ getAvailableModules()
 							<label>Add a module:</label>
 							<select>
 								<option>none</option>
-								{modules.map((moduleType)=> <option >{moduleType.module_type}</option>)}
+								{modules.map((moduleType) => (
+									<option value={moduleType.module_type}>
+										{moduleType.module_type}
+									</option>
+								))}
 							</select>
 						</div>
 					</div>
