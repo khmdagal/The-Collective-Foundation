@@ -9,6 +9,7 @@ import { useState, useEffect } from "react";
 function AdminPage() {
   const [pagesData, setPagesData] = useState([]);
   const [modules, setModules] = useState([]);
+  const [selectedModuleType, setSelectedModuleType] = useState("");
 
   async function fectPageTitles() {
     try {
@@ -43,6 +44,14 @@ async function getAvailableModules(){
   }
 }
 
+async function handleModuleChanges(e) {
+  const seletedModule = e.target.value;
+  setSelectedModuleType(seletedModule)
+}
+
+
+
+
 useEffect(()=>{
 getAvailableModules()
 .then(modulesResult=> setModules(modulesResult))
@@ -60,6 +69,11 @@ getAvailableModules()
   }, []);
 
 
+  useEffect(() => {
+    fetchModuleChanges();
+},[selectedModuleType])
+
+
   
   if (!pagesData || !modules) <p>Loading..</p>;
   return (
@@ -75,7 +89,7 @@ getAvailableModules()
 						))}
 						<div>
 							<label>Add a module:</label>
-							<select>
+							<select onChange={handleModuleChanges}>
 								<option>none</option>
 								{modules.map((moduleType) => (
 									<option value={moduleType.module_type}>
