@@ -1,3 +1,4 @@
+/* eslint-disable quotes */
 /* eslint-disable curly */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable no-trailing-spaces */
@@ -7,44 +8,64 @@ import React from "react";
 import { useState, useEffect } from "react";
 
 function AdminPage() {
-  const [pagesData, setPagesData] = useState([]);
+	const [pagesData, setPagesData] = useState([]);
 
-  async function fectPageTitles() {
-    try {
-      const getPageTitles = await fetch("/api/pages");
-      const allPageTitles = await getPageTitles.json();
-      return allPageTitles;
-    } catch (error) {
-      console.error(error);
-      return "Page TITLES  are not coming!! investigate why";
-    }
-  }
+	async function fectPageTitles() {
+		try {
+			const getPageTitles = await fetch("/api/pages");
+			const allPageTitles = await getPageTitles.json();
+			return allPageTitles;
+		} catch (error) {
+			console.error(error);
+			return "Page TITLES  are not coming!! investigate why";
+		}
+	}
 
-  async function fectPagesData(pageTitle) {
-    try {
-      const getPagesData = await fetch(`api/pages/${pageTitle}`);
-      const pagesData = await getPagesData.json();
-      return pagesData;
-    } catch (error) {
-      console.error(error);
-      return "Pages DATA are not  coming!! investigate why";
-    }
-  }
+	async function fectPagesData(pageTitle) {
+		try {
+			const getPagesData = await fetch(`api/pages/${pageTitle}`);
+			const pagesData = await getPagesData.json();
+			return pagesData;
+		} catch (error) {
+			console.error(error);
+			return "Pages DATA are not  coming!! investigate why";
+		}
+	}
+
+
+   async function handleModuleDelete(pageTitle, recordId) {
+			const confirmed = confirm("Are you sure you want to delete?");
+
+			if (confirmed) {
+				try {
+          const response = await fetch(`api/pages/${pageTitle}/${recordId}`, {
+            method: "Delete",
+          });
+					const deletingModule = await response.json();
+					alert(`This Data ${deletingModule} has been deleted successfully.`);
+					
+				} catch (error) {
+					console.error(error);
+					alert("Failed to delete data.");
+				}
+			}
+		}
 
   useEffect(() => {
-    fectPageTitles()
-      .then((pagesTitleResults) => {
-        const pageDetails = Promise.all(
-          pagesTitleResults.map((page) => fectPagesData(page.page_title))
-        );
-        return pageDetails;
-      })
-      .then((pagesData) => setPagesData(pagesData));
-  }, []);
+		fectPageTitles()
+			.then((pagesTitleResults) => {
+				const pageDetails = Promise.all(
+					pagesTitleResults.map((page) => fectPagesData(page.page_title))
+				);
+				return pageDetails;
+			})
+			.then((pagesData) => setPagesData(pagesData));
+	}, []);
 
 
   if (!pagesData) <p>Loading..</p>;
-  return (
+
+	return (
 		<>
 			{pagesData.map((eachPage) => (
 				<div>
@@ -52,7 +73,9 @@ function AdminPage() {
 					<div>
 						{eachPage.modules.map((module) => (
 							<div>
-								<h3>{module.type}</h3>
+								<h3>{module.type}</h3><button onClick={() =>handleModuleDelete(eachPage.title, module.details.record_id)}>
+									Delete this module
+								</button>
 							</div>
 						))}
 						<div>
@@ -68,7 +91,6 @@ function AdminPage() {
 			<button>Add page</button>
 		</>
 	);
-
 }
 
 export default AdminPage;
