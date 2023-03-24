@@ -1,4 +1,5 @@
 const { merge } = require("webpack-merge");
+const CopyWebpackPlugin = require("copy-webpack-plugin");
 
 const common = require("./common.config");
 
@@ -15,4 +16,12 @@ module.exports = merge(common, {
 		static: false,
 	},
 	mode: "development",
+	plugins: [
+		new CopyWebpackPlugin({
+			patterns: [
+                { from: 'client/src/Images', to: 'Images' } //to the dist root directory
+            ],
+			
+		}),
+	],
 });

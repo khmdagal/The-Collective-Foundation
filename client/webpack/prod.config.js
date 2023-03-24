@@ -1,4 +1,5 @@
 const HtmlWebpackTagsPlugin = require("html-webpack-tags-plugin");
+const CopyWebpackPlugin = require("copy-webpack-plugin");
 const path = require("path");
 const { merge } = require("webpack-merge");
 
@@ -35,6 +36,12 @@ module.exports = merge(common, {
 				path: `https://unpkg.com/${packageName}@${devDependencies[packageName]}/umd/${packageName}.production.min.js`,
 			})),
 			usePublicPath: false,
+		}),
+		new CopyWebpackPlugin({
+			patterns: [
+                { from: 'client/src/Images', to: 'Images' } //to the dist root directory
+            ],
+			
 		}),
 	],
 });

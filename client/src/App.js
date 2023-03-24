@@ -1,20 +1,38 @@
 import {  Routes, Route } from "react-router-dom";
-import About from "./pages/About";
-import Home from "./pages/Home";
+import { useState,useEffect } from "react";
 import Admin from "./pages/Admin";
-import Page1 from "./pages/Page1";
-import Page2 from "./pages/Page2";
+import TemplatePage from "./pages/TemplatePage";
+import HeroBanner from "./shared-modules/HeroBanner";
+import TextBanner from "./shared-modules/TextBanner"
 
 
-const App = () => (
+const App = () => {
+  const [pages, setPages] = useState([]);
+
+  async function fetchPagesAPI() {
+    const page = await fetch("/api/pages");
+    const response = await page.json();
+    setPages(response);
+	
+  }
+ 
+  useEffect(() => {
+     fetchPagesAPI();
+  }, []);
+  
+
+  return(
+  
 	<Routes>
-		<Route path="/" element={<Home />} />
-		<Route path="/about/this/site" element={<About />} />
-		<Route path="/admin" element={<Admin />} />
-		<Route path="/page1" element={<Page1 />} />
-		<Route path="/page2" element={<Page2 />} />
+	
+		<Route path="/admin" element={<Admin/>} />
+    <Route path="/heroBannerShowcase" element={<HeroBanner/>} />
+    <Route path="/textBannerShowcase" element={<TextBanner/>} />
+    {pages.map((item)=>{return <Route key={item.page_id} path={item.page_path} 
+    element={<TemplatePage pagetitle={item.page_title}/>}/>})}
+
 	</Routes>
-);
+)};
 
 
 export default App;

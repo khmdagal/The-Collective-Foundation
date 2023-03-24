@@ -62,6 +62,7 @@ function AdminPage() {
 			.then((pagesData) => setPagesData(pagesData));
 	}, []);
 
+
   if (!pagesData) <p>Loading..</p>;
 
 	return (
