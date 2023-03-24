@@ -69,7 +69,7 @@ router.delete("/pages/:page_title/:record_id", async (req, res) => {
 		const record_id = req.params.record_id;
 
 		const findPageId = await db.query(
-			`select page_id from pages where page_title = '$1'`,[pageTitle]
+			`select page_id from pages where page_title = $1`,[pageTitle]
 		);
 		const page_id = findPageId.rows[0].page_id;
 		const deletingModule = await Promise.all([
