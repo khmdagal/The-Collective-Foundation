@@ -49,7 +49,18 @@ async function handleModuleChanges(e) {
   setSelectedModuleType(seletedModule)
 }
 
+async function fetchModuleChanges() {
+  try {
+      const availableModule = await fetch(`/api/module/${selectedModuleType}`)
+      const modulesData = await availableModule.json();
+      console.log(modulesData)
+      return modulesData;
 
+
+  } catch (error) {
+      console.log(error)
+  }
+}
 
 
 useEffect(()=>{
