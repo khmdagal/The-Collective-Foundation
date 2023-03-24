@@ -8,6 +8,7 @@ import { useState, useEffect } from "react";
 
 function AdminPage() {
   const [pagesData, setPagesData] = useState([]);
+  const [modules, setModules] = useState([]);
 
   async function fectPageTitles() {
     try {
@@ -31,19 +32,36 @@ function AdminPage() {
     }
   }
 
+async function getAvailableModules(){
+  try {
+    const availableModule = await fetch("/api/listOfmodules");
+    const modulesData = await availableModule.json();
+    return modulesData;
+  } catch (error) {
+    console.error(error);
+    return "No Module is not avaialbe";
+  }
+}
+
+useEffect(()=>{
+getAvailableModules()
+.then(modulesResult=> setModules(modulesResult))
+},[]);
+
+
+
   useEffect(() => {
     fectPageTitles()
       .then((pagesTitleResults) => {
-        const pageDetails = Promise.all(
-          pagesTitleResults.map((page) => fectPagesData(page.page_title))
-        );
+        const pageDetails = Promise.all(pagesTitleResults.map((page) => fectPagesData(page.page_title)));
         return pageDetails;
       })
       .then((pagesData) => setPagesData(pagesData));
   }, []);
 
 
-  if (!pagesData) <p>Loading..</p>;
+  
+  if (!pagesData || !modules) <p>Loading..</p>;
   return (
 		<>
 			{pagesData.map((eachPage) => (
@@ -58,8 +76,8 @@ function AdminPage() {
 						<div>
 							<label>Add a module:</label>
 							<select>
-								<option>Module 1</option>
-								<option>Module 2</option>
+								<option>none</option>
+								{modules.map((moduleType)=> <option >{moduleType.module_type}</option>)}
 							</select>
 						</div>
 					</div>

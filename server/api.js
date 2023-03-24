@@ -63,4 +63,14 @@ router.get("/pages/:title", async (req, res) => {
 	}
 });
 
+// getting available modules
+router.get("/listOfmodules", (req, res) => {
+	db.query("select distinct module_type from modules")
+		.then((moduleList) => res.status(200).json(moduleList.rows))
+		.catch((err) => {
+			console.error(err);
+			res.status(500).send(err);
+		});
+});
+
 export default router;
