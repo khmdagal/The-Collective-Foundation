@@ -55,8 +55,12 @@
 }
 
 /* Responsive to view on mobile*/
-@media screen and (max-width: 400px) {
+
+
+
+@media screen and (max-width: 786px) {
 	#header_main header {
+		display: none;
 		font-size: 3vw;
 	}
 
