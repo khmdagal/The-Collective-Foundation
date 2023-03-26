@@ -6,13 +6,15 @@
 /* eslint-disable react/jsx-key */
 import React from "react";
 import { useState, useEffect } from "react";
+import clientIcon from "../icons/client-logo.png";
+
+import { Button } from "antd";
+import "antd/dist/reset.css";
 
 function AdminPage() {
-
-  const [pagesData, setPagesData] = useState([]);
-  const [modules, setModules] = useState([]);
-  const [selectedModuleType, setSelectedModuleType] = useState("");
-
+	const [pagesData, setPagesData] = useState([]);
+	const [modules, setModules] = useState([]);
+	const [selectedModuleType, setSelectedModuleType] = useState("");
 
 	async function fectPageTitles() {
 		try {
@@ -36,91 +38,105 @@ function AdminPage() {
 		}
 	}
 
+	async function handleModuleDelete(pageTitle, recordId) {
+		const confirmed = confirm("Are you sure you want to delete?");
 
-   async function handleModuleDelete(pageTitle, recordId) {
-			const confirmed = confirm("Are you sure you want to delete?");
-
-			if (confirmed) {
-				try {
-          const response = await fetch(`api/pages/${pageTitle}/${recordId}`, {
-            method: "Delete",
-          });
-					const deletingModule = await response.json();
-					alert(`This Data ${deletingModule} has been deleted successfully.`);
-					
-				} catch (error) {
-					console.error(error);
-					alert("Failed to delete data.");
-				}
+		if (confirmed) {
+			try {
+				const response = await fetch(`api/pages/${pageTitle}/${recordId}`, {
+					method: "Delete",
+				});
+				const deletingModule = await response.json();
+				alert(`This Data ${deletingModule} has been deleted successfully.`);
+			} catch (error) {
+				console.error(error);
+				alert("Failed to delete data.");
 			}
 		}
+	}
 
-async function getAvailableModules(){
-  try {
-    const availableModule = await fetch("/api/listOfmodules");
-    const modulesData = await availableModule.json();
-    return modulesData;
-  } catch (error) {
-    console.error(error);
-    return "No Module is not avaialbe";
-  }
-}
+	async function getAvailableModules() {
+		try {
+			const availableModule = await fetch("/api/listOfmodules");
+			const modulesData = await availableModule.json();
+			return modulesData;
+		} catch (error) {
+			console.error(error);
+			return "No Module is not avaialbe";
+		}
+	}
 
-async function handleModuleChanges(e) {
-  const seletedModule = e.target.value;
-  setSelectedModuleType(seletedModule)
-}
+	async function handleModuleChanges(e) {
+		const seletedModule = e.target.value;
+		setSelectedModuleType(seletedModule);
+	}
 
-async function fetchModuleChanges() {
-  try {
-      const availableModule = await fetch(`/api/module/${selectedModuleType}`)
-      const modulesData = await availableModule.json();
-      console.log(modulesData)
-      return modulesData;
+	async function fetchModuleChanges() {
+		try {
+			const availableModule = await fetch(`/api/module/${selectedModuleType}`);
+			const modulesData = await availableModule.json();
+			console.log(modulesData);
+			return modulesData;
+		} catch (error) {
+			console.log(error);
+		}
+	}
 
+	useEffect(() => {
+		getAvailableModules().then((modulesResult) => setModules(modulesResult));
+	}, []);
 
-  } catch (error) {
-      console.log(error)
-  }
-}
+	useEffect(() => {
+		fectPageTitles()
+			.then((pagesTitleResults) => {
+				const pageDetails = Promise.all(
+					pagesTitleResults.map((page) => fectPagesData(page.page_title))
+				);
+				return pageDetails;
+			})
+			.then((pagesData) => setPagesData(pagesData));
+	}, []);
 
+	useEffect(() => {
+		fetchModuleChanges();
+	}, [selectedModuleType]);
 
-useEffect(()=>{
-getAvailableModules()
-.then(modulesResult=> setModules(modulesResult))
-},[]);
-
-
-
-  useEffect(() => {
-
-    fectPageTitles()
-      .then((pagesTitleResults) => {
-        const pageDetails = Promise.all(pagesTitleResults.map((page) => fectPagesData(page.page_title)));
-        return pageDetails;
-      })
-      .then((pagesData) => setPagesData(pagesData));
-  }, []);
-
-
-  useEffect(() => {
-    fetchModuleChanges();
-},[selectedModuleType])
+	if (!pagesData || !modules) <p>Loading..</p>;
 
 
-  
-  if (!pagesData || !modules) <p>Loading..</p>;
-  return (
+
+
+
+
+
+
+
+
+
+
+
+	return (
 		<>
+			<img
+				className="logo"
+				src={clientIcon}
+				alt="Logo of Collective Foundation"
+			/>
 			{pagesData.map((eachPage) => (
 				<div>
-					<h1>{eachPage.title}</h1>
+					<h1 className="h1">{eachPage.title}</h1>
 					<div>
 						{eachPage.modules.map((module) => (
 							<div>
-								<h3>{module.type}</h3><button onClick={() =>handleModuleDelete(eachPage.title, module.details.record_id)}>
+								<h3>{module.type}</h3>
+								<Button
+									type="primary"
+									onClick={() =>
+										handleModuleDelete(eachPage.title, module.details.record_id)
+									}
+								>
 									Delete this module
-								</button>
+								</Button>
 							</div>
 						))}
 						<div>
@@ -137,7 +153,7 @@ getAvailableModules()
 					</div>
 				</div>
 			))}
-			<button>Add page</button>
+			<Button type='dashed'>Add page</Button>
 		</>
 	);
 }
