@@ -17,7 +17,8 @@ function ImageAndTextBannerForm() {
 			text_header.trim() === "" ||
 			text_body.trim() === "" ||
 			image.trim() === "" ||
-            button.trim() === ""
+			button.trim() === "" ||
+			button.trim() === ""
 		) {
 			setErrorMessage("Please fill all the fields");
 		}
@@ -48,7 +49,7 @@ function ImageAndTextBannerForm() {
 	};
 
 	return (
-		<form onSubmit={handleSubmit}>
+		<form className="msform" onSubmit={handleSubmit}>
 			<label htmlFor="text_header">
 				Text header:
 				<input
@@ -72,7 +73,7 @@ function ImageAndTextBannerForm() {
 			<label htmlFor="image">
 				Image:
 				<input
-					type="image"
+					type="file"
 					alt={text_header}
 					name="image"
 					value={image}
@@ -83,7 +84,7 @@ function ImageAndTextBannerForm() {
 			<label htmlFor="button">
 				Button:
 				<input
-					type="button"
+					type="text"
 					name="button"
 					value={button}
 					required

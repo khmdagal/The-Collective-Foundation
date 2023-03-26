@@ -2,6 +2,7 @@
 /* eslint-disable comma-dangle */
 
 import React, { useState } from "react";
+import "../Forms/Forms.css";
 
 function TextBannerForm() {
  const [boldText, setBoldText] = useState("");
@@ -40,9 +41,9 @@ function TextBannerForm() {
 	};
 
   return (
-		<form onSubmit={handleSubmit}>
+		<form className="msform" onSubmit={handleSubmit}>
 			<label htmlFor="bodlText">
-				BoldText:
+				Bold Text:
 				<input
 					type="text"
 					name="bodlText"
@@ -52,7 +53,7 @@ function TextBannerForm() {
 				/>
 			</label>
 			<label htmlFor="normalText">
-				NormalText:
+				Normal Text:
 				<input
 					type="text"
 					name="normalText"
