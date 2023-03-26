@@ -1,9 +1,15 @@
+/* eslint-disable no-console */
 import { Router } from "express";
 import db from "./db";
 import logger from "./utils/logger";
+
 const cors = require("cors");
 const router = Router();
+const bodyParser = require("body-parser");
+
 router.use(cors());
+router.use(bodyParser.urlencoded({ extended: true }));
+router.use(bodyParser.json());
 
 router.get("/", (_, res) => {
 	logger.debug("Welcoming everyone...");
@@ -99,7 +105,7 @@ router.get("/listOfmodules", (req, res) => {
 
 // Drop down menu change
 router.get("/module/:moduleType", (req, res) => {
-const selectedModuleType = req.params.moduleType
+const selectedModuleType = req.params.moduleType;
 
 	db.query(`select *  from ${selectedModuleType}`)
 		.then((moduleList) => res.status(200).json(moduleList.rows))
@@ -107,6 +113,30 @@ const selectedModuleType = req.params.moduleType
 			console.error(err);
 			res.status(500).send(err);
 		});
+});
+
+router.post("/api/modules/textbanner", async (req, res) => {
+	const { boldText, normalText, background } = req.body;
+
+
+	if (!boldText || !normalText || !background) {
+		res.status(500).json("Please fill all the fields");
+	}
+	console.log(boldText, normalText, background);
+
+	try {
+		const textBannerData = await db.query(
+			`INSERT INTO textbanner (textbold, textnormal, background) 
+      VALUES ($1, $2, $3)`,
+			[boldText, normalText, background]
+		);
+		return res
+			.status(200)
+			.json({ message: `${textBannerData} successfuly submitted`});
+	} catch (error) {
+		console.error(error);
+		res.status(500).json({ error });
+	}
 });
 
 

@@ -6,6 +6,8 @@
 /* eslint-disable react/jsx-key */
 import React from "react";
 import { useState, useEffect } from "react";
+import ImageAndTextsBannerForm from "../shared-modules/Forms/ImageAndTextsBannerForm";
+import TextBannerForm from "../shared-modules/Forms/TextBannerForm";
 
 function AdminPage() {
 
@@ -68,26 +70,26 @@ async function getAvailableModules(){
 
 async function handleModuleChanges(e) {
   const seletedModule = e.target.value;
-  setSelectedModuleType(seletedModule)
+  setSelectedModuleType(seletedModule);
 }
 
 async function fetchModuleChanges() {
   try {
-      const availableModule = await fetch(`/api/module/${selectedModuleType}`)
+      const availableModule = await fetch(`/api/module/${selectedModuleType}`);
       const modulesData = await availableModule.json();
-      console.log(modulesData)
+      console.log(modulesData);
       return modulesData;
 
 
   } catch (error) {
-      console.log(error)
+      console.log(error);
   }
 }
 
 
 useEffect(()=>{
 getAvailableModules()
-.then(modulesResult=> setModules(modulesResult))
+.then(modulesResult=> setModules(modulesResult));
 },[]);
 
 
@@ -105,9 +107,20 @@ getAvailableModules()
 
   useEffect(() => {
     fetchModuleChanges();
-},[selectedModuleType])
+},[selectedModuleType]);
 
+let formComponent;
+switch (selectedModuleType) {
 
+	case "textBanner":
+		formComponent = <TextBannerForm />;
+		break;
+	case "imageAndTexts":
+		formComponent = <ImageAndTextsBannerForm />;
+		break;
+	default:
+		formComponent = null;
+}
   
   if (!pagesData || !modules) <p>Loading..</p>;
   return (
@@ -118,7 +131,12 @@ getAvailableModules()
 					<div>
 						{eachPage.modules.map((module) => (
 							<div>
-								<h3>{module.type}</h3><button onClick={() =>handleModuleDelete(eachPage.title, module.details.record_id)}>
+								<h3>{module.type}</h3>
+								<button
+									onClick={() =>
+										handleModuleDelete(eachPage.title, module.details.record_id)
+									}
+								>
 									Delete this module
 								</button>
 							</div>
@@ -137,6 +155,7 @@ getAvailableModules()
 					</div>
 				</div>
 			))}
+			{formComponent}
 			<button>Add page</button>
 		</>
 	);
