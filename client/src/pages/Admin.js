@@ -135,7 +135,7 @@ function AdminPage() {
 										handleModuleDelete(eachPage.title, module.details.record_id)
 									}
 								>
-									Delete this module
+									Delete Module
 								</Button>
 							</div>
 						))}
