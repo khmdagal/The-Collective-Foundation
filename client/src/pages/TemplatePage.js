@@ -16,6 +16,7 @@ export default function TemplatePage({pagetitle}) {
     useEffect(() => {
        fetchPagesAPI();
     }, []);
+    console.log(content);
 
     if (!content.title) {
       return <div>No content available for {pagetitle}.</div>;
@@ -28,7 +29,7 @@ export default function TemplatePage({pagetitle}) {
        <HeroBanner/>
        {content.modules.map(module=>
       
-        { console.log(module.details.text);
+        { 
           return (<div key={module.details.record_id}> {module.type==='imageAndTexts' && 
           <ImageAndText img={module.details.image} 
           direction={module.details.imagetext_direction}
