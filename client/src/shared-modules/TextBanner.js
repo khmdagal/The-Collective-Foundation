@@ -1,10 +1,10 @@
 import "../shared-modules/TextBanner.css";
 
-const TextBanner = (prop) => {
+const TextBanner = () => {
 	return (
 		<div className="text-banner-container">
-			<p className="left-text">{prop.leftText}</p>
-			<p className="right-text">{prop.rightText}</p>
+			<p className="left-text">Hello</p>
+			<p className="right-text">World</p>
 		</div>
 	);
 };

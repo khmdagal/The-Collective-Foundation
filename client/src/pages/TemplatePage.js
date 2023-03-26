@@ -4,9 +4,13 @@ import ImageAndText from '../shared-modules/ImageAndText';
 import Header from '../shared-modules/Header'
 import Footer from '../shared-modules/Footer'
 import HeroBanner from '../shared-modules/HeroBanner'
+import TextBanner from '../shared-modules/TextBanner';
+// import { log } from 'winston';
 
 export default function TemplatePage({pagetitle}) {
     const [content, setContent] = useState([]);
+    console.log(content);
+
     async function fetchPagesAPI() {
       const page = await fetch(`/api/pages/${pagetitle}`);
       const response = await page.json();
@@ -16,7 +20,6 @@ export default function TemplatePage({pagetitle}) {
     useEffect(() => {
        fetchPagesAPI();
     }, []);
-    console.log(content);
 
     if (!content.title) {
       return <div>No content available for {pagetitle}.</div>;
@@ -26,16 +29,26 @@ export default function TemplatePage({pagetitle}) {
 
     <div>
       <Header/>
-       <HeroBanner/>
-       {content.modules.map(module=>
+       {/* <HeroBanner/> */}
+       
+       {
+       content.modules.map(module=>
       
         { 
-          return (<div key={module.details.record_id}> {module.type==='imageAndTexts' && 
+          return (<div key={module.details.record_id}> 
+          {
+            module.type==='heroBanner' ?  <HeroBanner/>
+          
+          : module.type==='textBanner' ?  <TextBanner/>
+          :
           <ImageAndText img={module.details.image} 
           direction={module.details.imagetext_direction}
           textheader={module.details.text_header} 
           textbody={module.details.text_body}
-          button={module.details.button}/>}</div>)})}
+          button={module.details.button}/>}
+         
+          
+          </div>)})}
        <Footer/>
     </div>
   )
