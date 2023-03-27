@@ -70,22 +70,10 @@ async function getAvailableModules(){
   }
 }
 
-async function fetchModuleChanges() {
-  try {
-      const availableModule = await fetch(`/api/module/${selectedModuleType}`);
-      const modulesData = await availableModule.json();
-      console.log(modulesData);
-      return modulesData;
-  } catch (error) {
-      console.log(error);
-  }
-}
 
-
-useEffect(()=>{
-getAvailableModules()
-.then(modulesResult=> setModules(modulesResult));
-},[]);
+useEffect(() => {
+	getAvailableModules().then((modulesResult) => setModules(modulesResult));
+}, [selectedModuleType]);
 
 
 
@@ -99,10 +87,6 @@ getAvailableModules()
       .then((pagesData) => setPagesData(pagesData));
   }, []);
 
-
-  useEffect(() => {
-    fetchModuleChanges();
-},[selectedModuleType]);
 
 let formComponent;
 switch (selectedModuleType) {
