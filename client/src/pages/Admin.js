@@ -9,7 +9,14 @@ import { useState, useEffect } from "react";
 // ant design
 import clientIcon from "../icons/client-logo.png";
 import "../pages/Admin.css";
-import { DeleteOutlined } from "@ant-design/icons";
+import {
+	DeleteOutlined,
+	HomeOutlined,
+	PoweroffOutlined,
+	UserOutlined,
+	UnorderedListOutlined,
+	
+} from "@ant-design/icons";
 import { Button, Select, Form, Menu } from "antd";
 
 
@@ -115,28 +122,38 @@ function AdminPage() {
 	if (!pagesData || !modules) <p>Loading..</p>;
 
 	return (
-		<>
-			<header className="AppHeader"> 
+		
+		<div className="admin-page-container">
+
+			<header className="AppHeader">
 				<img
 					className="logo"
 					src={clientIcon}
 					alt="Logo of Collective Foundation"
 				/>
-			<h1>Admin Panel</h1>
-			<p> The Collective Foundation</p>
+				<h1>Admin Panel</h1>
+				<p> The Collective Foundation</p>
 			</header>
-			<div className="admin-page-container">
-			<Menu className="menu" mode="vertical">
-				<Menu.Item key="home">Home</Menu.Item>
 
-				<Menu.Item key="product1">Pages</Menu.Item>
-				<Menu.Item key="product2">Edit profile</Menu.Item>
-
-				<Menu.Item key="Logout"></Menu.Item>
-				
-			</Menu>
+			<div className="menu">
+				<Menu
+					onClick={({ key }) => {}}
+					items={[
+						{ label: "Home", key: "/", icon: <HomeOutlined /> },
+						{ label: "Pages", key: "Pages", icon: <UnorderedListOutlined /> },
+						{ label: "Edit Profile", key: "profile", icon: <UserOutlined /> },
+						{
+							label: "Logout",
+							key: "logout",
+							icon: <PoweroffOutlined />,
+							danger: true,
+						},
+					]}
+				></Menu>
+			</div>
+			<div className="cintent">
 				{pagesData.map((eachPage) => (
-					<div className="page-content">
+					<div>
 						<h1 className="each-page-title">{eachPage.title}</h1>
 						<div>
 							{eachPage.modules.map((module) => (
@@ -178,39 +195,10 @@ function AdminPage() {
 					</div>
 				))}
 				<Button type="dashed">Add page</Button>
-				{/* Admin login form  */}
-				<Form onFinish={onFinish}>
-					<Form.Item
-						Input
-						placeholder="Enter your name"
-						label="Username"
-						name="username"
-						rules={[
-							{
-								required: true,
-								message: "Please input your username!",
-							},
-						]}
-					></Form.Item>
-					<Form.Item
-						placeholder="Enter your password"
-						label="password"
-						name="password"
-						rules={[
-							{
-								required: true,
-								message: "Please input your password!",
-							},
-						]}
-					></Form.Item>
-					<Form.Item>
-						<Button type="primary" htmlType="submit">
-							Login
-						</Button>
-					</Form.Item>
-				</Form>
+				
+				
 			</div>
-		</>
+		</div>
 	);
 }
 
