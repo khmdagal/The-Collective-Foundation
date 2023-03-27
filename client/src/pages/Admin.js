@@ -6,17 +6,25 @@
 /* eslint-disable react/jsx-key */
 import React from "react";
 import { useState, useEffect } from "react";
+// ant design
 import clientIcon from "../icons/client-logo.png";
-
+import "../pages/Admin.css";
+import { DeleteOutlined } from "@ant-design/icons";
 import { Button } from "antd";
+import { Select } from "antd";
 import "antd/dist/reset.css";
 
 function AdminPage() {
 	const [pagesData, setPagesData] = useState([]);
 	const [modules, setModules] = useState([]);
 	const [selectedModuleType, setSelectedModuleType] = useState("");
+	const [loading, setloading] = useState(false);
+
+	// set loading button 
+
 
 	async function fectPageTitles() {
+		
 		try {
 			const getPageTitles = await fetch("/api/pages");
 			const allPageTitles = await getPageTitles.json();
@@ -80,6 +88,7 @@ function AdminPage() {
 		} catch (error) {
 			console.log(error);
 		}
+		
 	}
 
 	useEffect(() => {
@@ -103,17 +112,7 @@ function AdminPage() {
 
 	if (!pagesData || !modules) <p>Loading..</p>;
 
-
-
-
-
-
-
-
-
-
-
-
+	
 
 	return (
 		<>
@@ -124,13 +123,16 @@ function AdminPage() {
 			/>
 			{pagesData.map((eachPage) => (
 				<div>
-					<h1 className="h1">{eachPage.title}</h1>
+					<h1 className="each-page-title">{eachPage.title}</h1>
 					<div>
 						{eachPage.modules.map((module) => (
 							<div>
 								<h3>{module.type}</h3>
 								<Button
-									type="primary"
+									icon={<DeleteOutlined />}
+									className="delete-button"
+									loading={loading}
+									type="ghost"
 									onClick={() =>
 										handleModuleDelete(eachPage.title, module.details.record_id)
 									}
@@ -140,22 +142,28 @@ function AdminPage() {
 							</div>
 						))}
 						<div>
-							<label>Add a module:</label>
-							<select onChange={handleModuleChanges}>
-								<option>none</option>
-								{modules.map((moduleType) => (
-									<option value={moduleType.module_type}>
+							<label>Add a Module:</label>
+							<Select
+								onChange={handleModuleChanges}
+								placeholder={"Select a Module"}
+								mode="multiple"
+								className="Select-menu"
+								allowClear
+							>
+								{modules.map((moduleType, index) => (
+									<Select.Option key={index} value={moduleType.module_type}>
 										{moduleType.module_type}
-									</option>
+									</Select.Option>
 								))}
-							</select>
+							</Select>
 						</div>
 					</div>
 				</div>
 			))}
-			<Button type='dashed'>Add page</Button>
+			<Button type="dashed">Add page</Button>
 		</>
 	);
+
 }
 
 export default AdminPage;
