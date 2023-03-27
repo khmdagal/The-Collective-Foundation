@@ -1,3 +1,4 @@
+/* eslint-disable object-curly-spacing */
 /* eslint-disable quotes */
 /* eslint-disable comma-dangle */
 import React, { useState } from "react";
@@ -17,29 +18,41 @@ function ImageAndTextBannerForm({ selectedPage }) {
 			text_header.trim() === "" ||
 			text_body.trim() === "" ||
 			image.trim() === "" ||
-			button.trim() === "" ||
 			button.trim() === ""
+
 		) {
 			setErrorMessage("Please fill all the fields");
 		}
 
 		try {
-			const sendingData = await fetch("/api/modules/imageAndTextBannerForm", {
-				method: "POST",
-				body: JSON.stringify({
-					text_header,
-					text_body,
-					image,
-					button,
-					hasbutton,
-					imagetext_direction,
-				}),
+			const imagAndTextBannerResponse = await fetch(
+				`/api/modules/imageAndTexts/${selectedPage}`,
+				{
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					body: JSON.stringify({
+						text_header,
+						text_body,
+						image,
+						button,
+						hasbutton,
+						imagetext_direction,
+					}),
+				}
+			);
+			const imagAndTextBannerData = await imagAndTextBannerResponse.json();
 
-				headers: {
-					"Content-Type": "application/json;",
-				},
-			});
-			console.log(sendingData); // handle response here
+			console.log({
+				text_header,
+				text_body,
+				image,
+				button,
+				hasbutton,
+				imagetext_direction,
+			}, { selectedPage }); 
+
 		} catch (err) {
 			console.error(err);
 		}

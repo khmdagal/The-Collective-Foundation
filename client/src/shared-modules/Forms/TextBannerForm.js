@@ -22,7 +22,7 @@ function TextBannerForm({ selectedPage }) {
 		}
 		console.log({ boldText, normalText, background });
 		try {
-			const dataResponse = await fetch(`/api/modules/textBanner/${selectedPage}`, {
+			const textBannerResponse = await fetch(`/api/modules/textBanner/${selectedPage}`, {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
@@ -33,7 +33,7 @@ function TextBannerForm({ selectedPage }) {
 					background,
 				}),
 			});
-			const sendingData = await dataResponse.json();
+			const textBannerData = await textBannerResponse.json();
 
 			console.log(sendingData);
 		} catch (err) {

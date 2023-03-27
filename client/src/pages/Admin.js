@@ -9,6 +9,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import ImageAndTextsBannerForm from "../shared-modules/Forms/ImageAndTextsBannerForm";
 import TextBannerForm from "../shared-modules/Forms/TextBannerForm";
+import HeroBannerForm from "../shared-modules/Forms/HeroBannerForm";
 
 function AdminPage() {
 
@@ -90,16 +91,19 @@ useEffect(() => {
 
 let formComponent;
 switch (selectedModuleType) {
-
+	case "heroBanner":
+		formComponent = <HeroBannerForm selectedPage={selectedPage} />;
+		break;
 	case "textBanner":
 		formComponent = <TextBannerForm selectedPage={selectedPage} />;
 		break;
+
 	case "imageAndTexts":
 		formComponent = <ImageAndTextsBannerForm selectedPage={selectedPage} />;
 		break;
 	default:
 		formComponent = null;
-	}
+}
 	
 
   
