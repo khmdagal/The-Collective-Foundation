@@ -10,7 +10,8 @@ import { useState, useEffect } from "react";
 import clientIcon from "../icons/client-logo.png";
 import "../pages/Admin.css";
 import { DeleteOutlined } from "@ant-design/icons";
-import { Button, Select, Form } from "antd";
+import { Button, Select, Form, Menu } from "antd";
+
 
 import "antd/dist/reset.css";
 
@@ -115,82 +116,100 @@ function AdminPage() {
 
 	return (
 		<>
-			<img
-				className="logo"
-				src={clientIcon}
-				alt="Logo of Collective Foundation"
-			/>
-			{pagesData.map((eachPage) => (
-				<div>
-					<h1 className="each-page-title">{eachPage.title}</h1>
-					<div>
-						{eachPage.modules.map((module) => (
-							<div>
-								<h3>{module.type}</h3>
-								<Button
-									icon={<DeleteOutlined />}
-									className="delete-button"
-									loading={loading}
-									type="ghost"
-									onClick={() =>
-										handleModuleDelete(eachPage.title, module.details.record_id)
-									}
-								>
-									Delete Module
-								</Button>
-							</div>
-						))}
+			<header className="AppHeader"> 
+				<img
+					className="logo"
+					src={clientIcon}
+					alt="Logo of Collective Foundation"
+				/>
+			<h1>Admin Panel</h1>
+			<p> The Collective Foundation</p>
+			</header>
+			<div className="admin-page-container">
+			<Menu className="menu" mode="vertical">
+				<Menu.Item key="home">Home</Menu.Item>
+
+				<Menu.Item key="product1">Pages</Menu.Item>
+				<Menu.Item key="product2">Edit profile</Menu.Item>
+
+				<Menu.Item key="Logout"></Menu.Item>
+				
+			</Menu>
+				{pagesData.map((eachPage) => (
+					<div className="page-content">
+						<h1 className="each-page-title">{eachPage.title}</h1>
 						<div>
-							<label>Add a Module:</label>
-							<Select
-								onChange={handleModuleChanges}
-								placeholder={"Select a Module"}
-								mode="multiple"
-								className="Select-menu"
-								allowClear
-							>
-								{modules.map((moduleType, index) => (
-									<Select.Option key={index} value={moduleType.module_type}>
-										{moduleType.module_type}
-									</Select.Option>
-								))}
-							</Select>
+							{eachPage.modules.map((module) => (
+								<div>
+									<h3>{module.type}</h3>
+									<Button
+										icon={<DeleteOutlined />}
+										className="delete-button"
+										loading={loading}
+										type="ghost"
+										onClick={() =>
+											handleModuleDelete(
+												eachPage.title,
+												module.details.record_id
+											)
+										}
+									>
+										Delete Module
+									</Button>
+								</div>
+							))}
+							<div>
+								<label>Add a Module:</label>
+								<Select
+									onChange={handleModuleChanges}
+									placeholder={"Select a Module"}
+									mode="multiple"
+									className="Select-menu"
+									allowClear
+								>
+									{modules.map((moduleType, index) => (
+										<Select.Option key={index} value={moduleType.module_type}>
+											{moduleType.module_type}
+										</Select.Option>
+									))}
+								</Select>
+							</div>
 						</div>
 					</div>
-				</div>
-			))}
-			<Button type="dashed">Add page</Button>
-			<Form onFinish={onFinish}>
-				<Form.Item
-					input="username"
-					placeholder="Enter your name"
-					label="Username"
-					name="username"
-					rules={[
-						{
-							required: true,
-							message: "Please input your username!",
-						},
-					]}
-				></Form.Item>
-				<Form.Item
-					input="password"
-					placeholder="Enter your password"
-					label="password"
-					name="password"
-					rules={[
-						{
-							required: true,
-							message: "Please input your password!",
-						},
-					]}
-				></Form.Item>
-				<Form.Item>
-					<Button  type="primary" htmlType="submit">
-						Login
-					</Button>
-				</Form.Item>
-			</Form>
+				))}
+				<Button type="dashed">Add page</Button>
+				{/* Admin login form  */}
+				<Form onFinish={onFinish}>
+					<Form.Item
+						Input
+						placeholder="Enter your name"
+						label="Username"
+						name="username"
+						rules={[
+							{
+								required: true,
+								message: "Please input your username!",
+							},
+						]}
+					></Form.Item>
+					<Form.Item
+						placeholder="Enter your password"
+						label="password"
+						name="password"
+						rules={[
+							{
+								required: true,
+								message: "Please input your password!",
+							},
+						]}
+					></Form.Item>
+					<Form.Item>
+						<Button type="primary" htmlType="submit">
+							Login
+						</Button>
+					</Form.Item>
+				</Form>
+			</div>
 		</>
 	);
 }
