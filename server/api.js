@@ -1,3 +1,4 @@
+/* eslint-disable quotes */
 /* eslint-disable no-console */
 import { Router } from "express";
 import db from "./db";
@@ -23,7 +24,6 @@ router.get("/pages", (req, res) => {
 			res.status(500).send(err);
 		});
 });
-
 
 //Linking Modules and their respective pages
 
@@ -65,7 +65,6 @@ router.get("/pages/:title", async (req, res) => {
 	}
 });
 
-
 // Deleting module endpoint
 router.delete("/pages/:page_title/:record_id", async (req, res) => {
 	try {
@@ -74,7 +73,8 @@ router.delete("/pages/:page_title/:record_id", async (req, res) => {
 		const record_id = req.params.record_id;
 
 		const findPageId = await db.query(
-			`select page_id from pages where page_title = $1`,[pageTitle]
+			`select page_id from pages where page_title = $1`,
+			[pageTitle]
 		);
 		const page_id = findPageId.rows[0].page_id;
 		const deletingModule = await db.query(
@@ -82,15 +82,11 @@ router.delete("/pages/:page_title/:record_id", async (req, res) => {
 			[+page_id, +record_id]
 		);
 		res.status(200).json(deletingModule[0].rows);
-
 	} catch (err) {
 		console.error(err);
-	res.status(500).json({ error: err.message });
+		res.status(500).json({ error: err.message });
 	}
-
-
 });
-
 
 // getting available modules
 router.get("/listOfmodules", (req, res) => {
@@ -102,30 +98,53 @@ router.get("/listOfmodules", (req, res) => {
 		});
 });
 
-
-router.post("/api/modules/textbanner", async (req, res) => {
+router.post("/modules/textBanner/:pageTitle", async (req, res) => {
+	const pageTitle = req.params.pageTitle;
 	const { boldText, normalText, background } = req.body;
-
 
 	if (!boldText || !normalText || !background) {
 		res.status(500).json("Please fill all the fields");
 	}
-	console.log(boldText, normalText, background);
 
 	try {
+
+		// First inserting the textBanner table
 		const textBannerData = await db.query(
 			`INSERT INTO textbanner (textbold, textnormal, background) 
       VALUES ($1, $2, $3)`,
 			[boldText, normalText, background]
 		);
-		return res
-			.status(200)
-			.json({ message: `${textBannerData} successfuly submitted`});
+
+
+		//Second finding the pagge id
+		const findPageId = await db.query(
+			`select page_id from pages where page_title = $1`,
+			[pageTitle]
+		);
+		const page_id = findPageId.rows[0].page_id;
+
+
+		// third finding the last record in the textBnner table
+		const lastRecord = await db.query(
+			`select record_id from textbanner order by record_id desc limit 1`
+		);
+		const record_id = lastRecord.rows[0].record_id;
+
+
+
+		// fourth inserting the above datas into the modules table
+		const insertingModulesTable = await db.query(
+			`insert into modules(page_id,module_type,record_id) values($1,$2,$3)`,
+			[page_id, "textBanner", record_id]
+		);
+
+		return res.status(200).json({
+			message: `Data is stored successfuly into textBanner table`,
+		});
 	} catch (error) {
 		console.error(error);
 		res.status(500).json({ error });
 	}
 });
-
 
 export default router;

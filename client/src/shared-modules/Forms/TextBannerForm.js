@@ -22,20 +22,20 @@ function TextBannerForm({ selectedPage }) {
 		}
 		console.log({ boldText, normalText, background });
 		try {
-			const dataResponse = await fetch("/api/modules/textbanner", {
+			const dataResponse = await fetch(`/api/modules/textBanner/${selectedPage}`, {
 				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
 				body: JSON.stringify({
 					boldText,
 					normalText,
 					background,
 				}),
-				headers: {
-					"Content-Type": "application/json",
-				},
 			});
 			const sendingData = await dataResponse.json();
 
-			console.log(sendingData); // handle response here
+			console.log(sendingData);
 		} catch (err) {
 			console.error(err);
 		}
