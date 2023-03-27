@@ -1,14 +1,15 @@
+/* eslint-disable react/no-unknown-property */
 /* eslint-disable quotes */
 /* eslint-disable comma-dangle */
 
 import React, { useState } from "react";
 import "../Forms/Forms.css";
 
-function TextBannerForm() {
- const [boldText, setBoldText] = useState("");
- const [normalText, setNormalText] = useState("");
- const [background, setBackground] = useState("");
- const [errorMessage, setErrorMessage] = useState("");
+function TextBannerForm({ selectedPage }) {
+	const [boldText, setBoldText] = useState("");
+	const [normalText, setNormalText] = useState("");
+	const [background, setBackground] = useState("");
+	const [errorMessage, setErrorMessage] = useState("");
 
 	const handleSubmit = async (event) => {
 		event.preventDefault();
@@ -40,8 +41,12 @@ function TextBannerForm() {
 		}
 	};
 
-  return (
+	return (
 		<form className="msform" onSubmit={handleSubmit}>
+			<label htmlFor="selectedPage">
+				Page:{selectedPage}
+				<input type="text" name="selectedPage" value={selectedPage} disabled />
+			</label>
 			<label htmlFor="bodlText">
 				Bold Text:
 				<input

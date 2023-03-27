@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /* eslint-disable quotes */
 /* eslint-disable curly */
 /* eslint-disable jsx-a11y/label-has-associated-control */
@@ -14,6 +15,7 @@ function AdminPage() {
   const [pagesData, setPagesData] = useState([]);
   const [modules, setModules] = useState([]);
   const [selectedModuleType, setSelectedModuleType] = useState("");
+  const [selectedPage, setSelectedPage] = useState("");
 
 
 	async function fectPageTitles() {
@@ -68,19 +70,12 @@ async function getAvailableModules(){
   }
 }
 
-async function handleModuleChanges(e) {
-  const seletedModule = e.target.value;
-  setSelectedModuleType(seletedModule);
-}
-
 async function fetchModuleChanges() {
   try {
       const availableModule = await fetch(`/api/module/${selectedModuleType}`);
       const modulesData = await availableModule.json();
       console.log(modulesData);
       return modulesData;
-
-
   } catch (error) {
       console.log(error);
   }
@@ -113,16 +108,20 @@ let formComponent;
 switch (selectedModuleType) {
 
 	case "textBanner":
-		formComponent = <TextBannerForm />;
+		formComponent = <TextBannerForm selectedPage={selectedPage} />;
 		break;
 	case "imageAndTexts":
-		formComponent = <ImageAndTextsBannerForm />;
+		formComponent = <ImageAndTextsBannerForm selectedPage={selectedPage} />;
 		break;
 	default:
 		formComponent = null;
-}
+	}
+	
+
   
-  if (!pagesData || !modules) <p>Loading..</p>;
+	if (!pagesData || !modules) <p>Loading..</p>;
+	
+	console.log(selectedModuleType, selectedPage);
   return (
 		<>
 			{pagesData.map((eachPage) => (
@@ -142,8 +141,13 @@ switch (selectedModuleType) {
 							</div>
 						))}
 						<div>
-							<label>Add a module:</label>
-							<select onChange={handleModuleChanges}>
+							<label>Add a module:{eachPage.title}</label>
+							<select
+								onChange={(e) => {
+									setSelectedModuleType(e.target.value);
+									setSelectedPage(eachPage.title);
+								}}
+							>
 								<option>none</option>
 								{modules.map((moduleType) => (
 									<option value={moduleType.module_type}>

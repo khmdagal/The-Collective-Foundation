@@ -2,13 +2,13 @@
 /* eslint-disable comma-dangle */
 import React, { useState } from "react";
 
-function ImageAndTextBannerForm() {
+function ImageAndTextBannerForm({ selectedPage }) {
 	const [text_header, setText_header] = useState("");
 	const [text_body, setText_body] = useState("");
-    const [image, setImage] = useState("");
-    const [button, setButton] = useState("");
-    const [hasbutton, setHasButton] = useState(false);
-    const [imagetext_direction, setImagetext_direction] = useState(false);
+	const [image, setImage] = useState("");
+	const [button, setButton] = useState("");
+	const [hasbutton, setHasButton] = useState(false);
+	const [imagetext_direction, setImagetext_direction] = useState(false);
 	const [errorMessage, setErrorMessage] = useState("");
 
 	const handleSubmit = async (event) => {
@@ -24,24 +24,21 @@ function ImageAndTextBannerForm() {
 		}
 
 		try {
-            const sendingData = await fetch(
-							"/api/modules/imageAndTextBannerForm",
-							{
-								method: "POST",
-								body: JSON.stringify({
-									text_header,
-									text_body,
-									image,
-									button,
-									hasbutton,
-									imagetext_direction,
-								}),
+			const sendingData = await fetch("/api/modules/imageAndTextBannerForm", {
+				method: "POST",
+				body: JSON.stringify({
+					text_header,
+					text_body,
+					image,
+					button,
+					hasbutton,
+					imagetext_direction,
+				}),
 
-								headers: {
-									"Content-Type": "application/json;",
-								},
-							}
-						);
+				headers: {
+					"Content-Type": "application/json;",
+				},
+			});
 			console.log(sendingData); // handle response here
 		} catch (err) {
 			console.error(err);
@@ -50,6 +47,10 @@ function ImageAndTextBannerForm() {
 
 	return (
 		<form className="msform" onSubmit={handleSubmit}>
+			<label htmlFor="selectedPage">
+				Page:{selectedPage}
+				<input type="text" name="selectedPage" value={selectedPage} disabled />
+			</label>
 			<label htmlFor="text_header">
 				Text header:
 				<input
