@@ -10,8 +10,8 @@ import { useState, useEffect } from "react";
 import clientIcon from "../icons/client-logo.png";
 import "../pages/Admin.css";
 import { DeleteOutlined } from "@ant-design/icons";
-import { Button } from "antd";
-import { Select } from "antd";
+import { Button, Select, Form } from "antd";
+
 import "antd/dist/reset.css";
 
 function AdminPage() {
@@ -20,11 +20,13 @@ function AdminPage() {
 	const [selectedModuleType, setSelectedModuleType] = useState("");
 	const [loading, setloading] = useState(false);
 
-	// set loading button 
+	// set finish button
 
+	const onFinish = (values) => {
+		console.log("Username:", values.username);
+	};
 
 	async function fectPageTitles() {
-		
 		try {
 			const getPageTitles = await fetch("/api/pages");
 			const allPageTitles = await getPageTitles.json();
@@ -88,7 +90,6 @@ function AdminPage() {
 		} catch (error) {
 			console.log(error);
 		}
-		
 	}
 
 	useEffect(() => {
@@ -111,8 +112,6 @@ function AdminPage() {
 	}, [selectedModuleType]);
 
 	if (!pagesData || !modules) <p>Loading..</p>;
-
-	
 
 	return (
 		<>
@@ -161,9 +160,39 @@ function AdminPage() {
 				</div>
 			))}
 			<Button type="dashed">Add page</Button>
+			<Form onFinish={onFinish}>
+				<Form.Item
+					input="username"
+					placeholder="Enter your name"
+					label="Username"
+					name="username"
+					rules={[
+						{
+							required: true,
+							message: "Please input your username!",
+						},
+					]}
+				></Form.Item>
+				<Form.Item
+					input="password"
+					placeholder="Enter your password"
+					label="password"
+					name="password"
+					rules={[
+						{
+							required: true,
+							message: "Please input your password!",
+						},
+					]}
+				></Form.Item>
+				<Form.Item>
+					<Button  type="primary" htmlType="submit">
+						Login
+					</Button>
+				</Form.Item>
+			</Form>
 		</>
 	);
-
 }
 
 export default AdminPage;
