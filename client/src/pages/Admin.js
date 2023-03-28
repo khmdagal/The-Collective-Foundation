@@ -43,7 +43,7 @@ function AdminPage() {
 
 
    async function handleModuleDelete(pageTitle, recordId) {
-			const confirmed = confirm("Are you sure you want to delete?");
+			const confirmed = confirm("Are you sure you want to delete this module and all of its content?");
 
 			if (confirmed) {
 				try {
