@@ -74,7 +74,7 @@ async function getAvailableModules(){
 
 useEffect(() => {
 	getAvailableModules().then((modulesResult) => setModules(modulesResult));
-}, [selectedModuleType]);
+}, []);
 
 
 
@@ -109,7 +109,7 @@ switch (selectedModuleType) {
   
 	if (!pagesData || !modules) <p>Loading..</p>;
 	
-	console.log(selectedModuleType, selectedPage);
+
   return (
 		<>
 			{pagesData.map((eachPage) => (

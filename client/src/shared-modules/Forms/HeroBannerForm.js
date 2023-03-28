@@ -18,7 +18,6 @@ function HeroBannerForm({ selectedPage }) {
 		) {
 			setErrorMessage("Please fill all the fields");
 		}
-		console.log({ heroImage, heroText });
 		try {
 			const heroBannerResponse = await fetch(
 				`/api/modules/heroBanner/${selectedPage}`,

@@ -1,6 +1,7 @@
 /* eslint-disable quotes */
 /* eslint-disable no-console */
 import { Router } from "express";
+import { Await } from "react-router-dom";
 import db from "./db";
 import logger from "./utils/logger";
 
@@ -107,7 +108,7 @@ router.post("/modules/textBanner/:pageTitle", async (req, res) => {
 	}
 
 	try {
-
+		await db.query("begin");
 		// First inserting the textBanner table
 		const textBannerData = await db.query(
 			`INSERT INTO textbanner (textbold, textnormal, background) 
@@ -134,12 +135,17 @@ router.post("/modules/textBanner/:pageTitle", async (req, res) => {
 			[page_id, "textBanner", record_id]
 		);
 
+		await db.query("commit");
+
 		return res.status(200).json({
 			message: `Data is stored successfuly into textBanner table`,
 		});
 	} catch (error) {
 		console.error(error);
+		await db.query("rollback");
 		res.status(500).json({ error });
+	} finally {
+		await db.release();
 	}
 });
 
@@ -159,6 +165,7 @@ router.post("/modules/imageAndTexts/:pageTitle", async (req, res) => {
 	}
 
 	try {
+		await db.query("begin");
 		// First inserting the textBanner table
 		const imageAndTexts = await db.query(
 			`INSERT INTO imageandtexts (text_header,text_body,image,button,hasbutton,imagetext_direction) 
@@ -185,13 +192,16 @@ router.post("/modules/imageAndTexts/:pageTitle", async (req, res) => {
 			`insert into modules(page_id,module_type,record_id) values($1,$2,$3)`,
 			[page_id, "imageAndTexts", record_id]
 		);
-
+		await db.query("commit");
 		return res.status(200).json({
 			message: `Data is stored successfuly into imageAndTexts table`,
 		});
 	} catch (error) {
 		console.error(error);
+		await db.query("rollback");
 		res.status(500).json({ error });
+	} finally {
+		await db.release();
 	}
 });
 
@@ -204,6 +214,7 @@ router.post("/modules/heroBanner/:pageTitle", async (req, res) => {
 	}
 
 	try {
+		await db.query("begin");
 		// First inserting the textBanner table
 		const imageAndTexts = await db.query(
 			`INSERT INTO herobanner (hero_image,hero_text) 
@@ -230,13 +241,16 @@ router.post("/modules/heroBanner/:pageTitle", async (req, res) => {
 			`insert into modules(page_id,module_type,record_id) values($1,$2,$3)`,
 			[page_id, "heroBanner", record_id]
 		);
-
+		await db.query("commit");
 		return res.status(200).json({
 			message: `Data is stored successfuly into imageAndTexts table`,
 		});
 	} catch (error) {
 		console.error(error);
+		await db.query("rollback");
 		res.status(500).json({ error });
+	} finally {
+		await db.release();
 	}
 });
 export default router;
