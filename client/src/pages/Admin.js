@@ -15,9 +15,9 @@ import {
 	PoweroffOutlined,
 	UserOutlined,
 	UnorderedListOutlined,
-	
+	PlusOutlined,
 } from "@ant-design/icons";
-import { Button, Select, Form, Menu } from "antd";
+import { Button, Select, Menu } from "antd";
 
 
 import "antd/dist/reset.css";
@@ -122,10 +122,8 @@ function AdminPage() {
 	if (!pagesData || !modules) <p>Loading..</p>;
 
 	return (
-		
 		<div className="admin-page-container">
-
-			<header className="AppHeader">
+			<header className="header">
 				<img
 					className="logo"
 					src={clientIcon}
@@ -151,38 +149,24 @@ function AdminPage() {
 					]}
 				></Menu>
 			</div>
-			<div className="cintent">
+			<div className="cards">
 				{pagesData.map((eachPage) => (
 					<div>
-						<h1 className="each-page-title">{eachPage.title}</h1>
-						<div>
+						<div className="each-card">
+							<h1 className="each-page-title">{eachPage.title}</h1>
 							{eachPage.modules.map((module) => (
 								<div>
 									<h3>{module.type}</h3>
-									<Button
-										icon={<DeleteOutlined />}
-										className="delete-button"
-										loading={loading}
-										type="ghost"
-										onClick={() =>
-											handleModuleDelete(
-												eachPage.title,
-												module.details.record_id
-											)
-										}
-									>
-										Delete Module
-									</Button>
 								</div>
 							))}
 							<div>
-								<label>Add a Module:</label>
 								<Select
 									onChange={handleModuleChanges}
 									placeholder={"Select a Module"}
 									mode="multiple"
 									className="Select-menu"
 									allowClear
+									style={{ width: "100%" }}
 								>
 									{modules.map((moduleType, index) => (
 										<Select.Option key={index} value={moduleType.module_type}>
@@ -191,15 +175,34 @@ function AdminPage() {
 									))}
 								</Select>
 							</div>
+							<Button icon={<PlusOutlined />} type="primary">
+								Add Module
+							</Button>
+							<Button
+								icon={<DeleteOutlined />}
+								className="delete-button"
+								loading={loading}
+								type="ghost"
+								onClick={() =>
+									handleModuleDelete(eachPage.title, module.details.record_id)
+								}
+							>
+								Delete Module
+							</Button>
 						</div>
 					</div>
 				))}
-				<Button type="dashed">Add page</Button>
-				
-				
+				<Button icon={<PlusOutlined />} type="primary">
+					Add page
+				</Button>
 			</div>
+			<footer className="footer">
+				<p>© 2021 The Collective Foundation</p>
+			</footer>
 		</div>
 	);
 }
 
 export default AdminPage;
+
+
