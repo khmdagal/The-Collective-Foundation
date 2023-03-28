@@ -1,4 +1,4 @@
-// import heroimg from "../Images/Hero-banner-image1.jpg";
+
 import "../shared-modules/HeroBanner.css";
 
 const HeroBanner = ({herotext,heroimage}) => {

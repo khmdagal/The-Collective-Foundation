@@ -1,5 +1,4 @@
-// import homePageImage1 from "../Images/home-page-image-1.jpg"; // omport imges from local files for now
-// import homePageImage2 from "../Images/home-page-image-2.jpg";
+
 import "../shared-modules/ImageAndText.css"; // import styling from css file
 
 function ImageAndText({textheader,textbody,img,button,direction}) {
