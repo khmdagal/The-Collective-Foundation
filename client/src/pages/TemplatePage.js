@@ -37,13 +37,13 @@ export default function TemplatePage({pagetitle}) {
         { 
           return (<div key={module.details.record_id}> 
           {
-            module.type==='heroBanner' ?  <HeroBanner herotext={module.details.hero_text}
-            heroimage={module.details.hero_image} />
+            module.type==='heroBanner' && <HeroBanner herotext={module.details.hero_text}
+            heroimage={module.details.hero_image} />}
           
-          : module.type==='textBanner' ?  <TextBanner righttext={module.details.textbold}
+           {module.type==='textBanner' &&  <TextBanner righttext={module.details.textbold}
           lefttext={module.details.textnormal} backgroundcolor={module.details.background}/>
-          :
-          <ImageAndText img={module.details.image} 
+        }
+          {module.type==='imageAndTexts' &&<ImageAndText img={module.details.image} 
           direction={module.details.imagetext_direction}
           textheader={module.details.text_header} 
           textbody={module.details.text_body}
