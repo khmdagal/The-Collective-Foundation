@@ -49,7 +49,7 @@ function HeroBannerForm({ selectedPage }) {
 			<label htmlFor="heroImage">
 				Hero Image:
 				<input
-					type="file"
+					type="text"
 					name="heroImage"
 					value={heroImage}
 					required

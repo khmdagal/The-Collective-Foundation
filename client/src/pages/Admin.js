@@ -12,12 +12,10 @@ import TextBannerForm from "../shared-modules/Forms/TextBannerForm";
 import HeroBannerForm from "../shared-modules/Forms/HeroBannerForm";
 
 function AdminPage() {
-
-  const [pagesData, setPagesData] = useState([]);
-  const [modules, setModules] = useState([]);
-  const [selectedModuleType, setSelectedModuleType] = useState("");
-  const [selectedPage, setSelectedPage] = useState("");
-
+	const [pagesData, setPagesData] = useState([]);
+	const [modules, setModules] = useState([]);
+	const [selectedModuleType, setSelectedModuleType] = useState("");
+	const [selectedPage, setSelectedPage] = useState("");
 
 	async function fectPageTitles() {
 		try {
@@ -41,76 +39,73 @@ function AdminPage() {
 		}
 	}
 
+	async function handleModuleDelete(pageTitle, recordId) {
+		const confirmed = confirm(
+			"Are you sure you want to delete this module and all of its content?"
+		);
 
-   async function handleModuleDelete(pageTitle, recordId) {
-			const confirmed = confirm("Are you sure you want to delete this module and all of its content?");
-
-			if (confirmed) {
-				try {
-          const response = await fetch(`api/pages/${pageTitle}/${recordId}`, {
-            method: "Delete",
-          });
-					const deletingModule = await response.json();
-					alert(`This Data ${deletingModule} has been deleted successfully.`);
-					
-				} catch (error) {
-					console.error(error);
-					alert("Failed to delete data.");
-				}
+		if (confirmed) {
+			try {
+				const response = await fetch(`api/pages/${pageTitle}/${recordId}`, {
+					method: "Delete",
+				});
+				const deletingModule = await response.json();
+				alert(`The module has been successfully deleted.`);
+			} catch (error) {
+				console.error(error);
+				alert("Failed to delete data.");
 			}
 		}
+	}
 
-async function getAvailableModules(){
-  try {
-    const availableModule = await fetch("/api/listOfmodules");
-    const modulesData = await availableModule.json();
-    return modulesData;
-  } catch (error) {
-    console.error(error);
-    return "No Module is not avaialbe";
-  }
-}
+	async function getAvailableModules() {
+		try {
+			const availableModule = await fetch("/api/listOfmodules");
+			const modulesData = await availableModule.json();
+			return modulesData;
+		} catch (error) {
+			console.error(error);
+			return "No Module is not avaialbe";
+		}
+	}
 
+	// useEffect(() => {
 
-useEffect(() => {
-	getAvailableModules().then((modulesResult) => setModules(modulesResult));
-}, []);
+	// }, []);
 
+	useEffect(() => {
+		fectPageTitles()
+			.then((pagesTitleResults) => {
+				const pageDetails = Promise.all(
+					pagesTitleResults.map((page) => fectPagesData(page.page_title))
+				);
+				return pageDetails;
+			})
+			.then((pagesData) => setPagesData(pagesData));
 
+		// This is to get the available modules
+		getAvailableModules().then((modulesResult) => setModules(modulesResult));
+	}, []);
 
-  useEffect(() => {
+	let formComponent;
+	switch (selectedModuleType) {
+		case "heroBanner":
+			formComponent = <HeroBannerForm selectedPage={selectedPage} />;
+			break;
+		case "textBanner":
+			formComponent = <TextBannerForm selectedPage={selectedPage} />;
+			break;
 
-    fectPageTitles()
-      .then((pagesTitleResults) => {
-        const pageDetails = Promise.all(pagesTitleResults.map((page) => fectPagesData(page.page_title)));
-        return pageDetails;
-      })
-      .then((pagesData) => setPagesData(pagesData));
-  }, []);
+		case "imageAndTexts":
+			formComponent = <ImageAndTextsBannerForm selectedPage={selectedPage} />;
+			break;
+		default:
+			formComponent = null;
+	}
 
-
-let formComponent;
-switch (selectedModuleType) {
-	case "heroBanner":
-		formComponent = <HeroBannerForm selectedPage={selectedPage} />;
-		break;
-	case "textBanner":
-		formComponent = <TextBannerForm selectedPage={selectedPage} />;
-		break;
-
-	case "imageAndTexts":
-		formComponent = <ImageAndTextsBannerForm selectedPage={selectedPage} />;
-		break;
-	default:
-		formComponent = null;
-}
-	
-
-  
 	if (!pagesData || !modules) <p>Loading..</p>;
-	
 
-  return (
+	return (
 		<>
 			{pagesData.map((eachPage) => (
 				<div>
