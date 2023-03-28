@@ -9,7 +9,7 @@ import TextBanner from '../shared-modules/TextBanner';
 
 export default function TemplatePage({pagetitle}) {
     const [content, setContent] = useState([]);
-    console.log(content);
+   
 
     async function fetchPagesAPI() {
       const page = await fetch(`/api/pages/${pagetitle}`);
@@ -29,7 +29,7 @@ export default function TemplatePage({pagetitle}) {
 
     <div>
       <Header/>
-       {/* <HeroBanner/> */}
+      
        
        {
        content.modules.map(module=>
