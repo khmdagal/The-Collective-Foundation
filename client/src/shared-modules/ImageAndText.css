@@ -61,11 +61,14 @@ h1 {
 .button {
 	display: inline-block;
 	padding: 20px 30px;
-	background-color: rgb(8, 11, 77);
+	background-color: hsla( 218.1818181818182,37.28813559322033%,23.137254901960784% ,1);
 	color: white;
 	text-decoration: none;
+	letter-spacing: 0.20em;
 	border-radius: 1px;
 	margin-top: 20px;
+	font-weight: bold;	
+	
 }
 
 @media (max-width: 768px) {
