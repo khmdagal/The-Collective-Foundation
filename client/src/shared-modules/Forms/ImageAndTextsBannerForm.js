@@ -87,7 +87,7 @@ function ImageAndTextBannerForm({ selectedPage }) {
 			<label htmlFor="image">
 				Image:
 				<input
-					type="file"
+					type="text"
 					alt={text_header}
 					name="image"
 					value={image}
