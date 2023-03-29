@@ -28,12 +28,7 @@ function AdminPage() {
 	const [selectedModuleType, setSelectedModuleType] = useState("");
 	const [loading, setloading] = useState(false);
 
-	// set finish button
-
-	const onFinish = (values) => {
-		console.log("Username:", values.username);
-	};
-
+	
 	async function fectPageTitles() {
 		try {
 			const getPageTitles = await fetch("/api/pages");
@@ -163,7 +158,6 @@ function AdminPage() {
 								<Select
 									onChange={handleModuleChanges}
 									placeholder={"Select a Module"}
-									mode="multiple"
 									className="Select-menu"
 									allowClear
 									style={{ width: "100%" }}
@@ -192,7 +186,13 @@ function AdminPage() {
 						</div>
 					</div>
 				))}
-				<Button icon={<PlusOutlined />} type="primary">
+				<Button 
+				onClick={() => {
+ window.location.href = "/admin/add-page"; 
+}}
+								
+				icon={<PlusOutlined />} 
+				type="primary">
 					Add page
 				</Button>
 			</div>
