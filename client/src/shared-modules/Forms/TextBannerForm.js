@@ -1,7 +1,3 @@
-/* eslint-disable react/no-unknown-property */
-/* eslint-disable quotes */
-/* eslint-disable comma-dangle */
-
 import React, { useState } from "react";
 import "../Forms/Forms.css";
 

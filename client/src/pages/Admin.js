@@ -1,11 +1,4 @@
-/* eslint-disable no-undef */
-/* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable quotes */
-/* eslint-disable curly */
-/* eslint-disable jsx-a11y/label-has-associated-control */
-/* eslint-disable no-trailing-spaces */
-/* eslint-disable linebreak-style */
-/* eslint-disable react/jsx-key */
+
 import React from "react";
 import { useState, useEffect } from "react";
 import ImageAndTextsBannerForm from "../shared-modules/Forms/ImageAndTextsBannerForm";

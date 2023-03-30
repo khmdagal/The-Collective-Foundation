@@ -1,6 +1,3 @@
-/* eslint-disable object-curly-spacing */
-/* eslint-disable quotes */
-/* eslint-disable comma-dangle */
 import React, { useState } from "react";
 
 function ImageAndTextBannerForm({ pageToAddModules, handleModuleAdd }) {
