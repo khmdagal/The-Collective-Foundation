@@ -63,7 +63,7 @@ VALUES
 
 INSERT INTO heroBanner(hero_image,hero_text)
 VALUES 
-('image1.jpg','Protecting natural habitats from extinction.'),
-('image2.jpg','Protecting natural habitats from extinction.'),
-('image3.jpg','Protecting natural habitats from extinction.');
+('image1.jpg','Starts With You'),
+('image2.jpg','Starts With You'),
+('image3.jpg','Starts With You');
 
