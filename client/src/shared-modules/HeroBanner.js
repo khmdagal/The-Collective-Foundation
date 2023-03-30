@@ -1,13 +1,13 @@
-import heroimg from "../Images/Hero-banner-image1.jpg";
+
 import "../shared-modules/HeroBanner.css";
 
-const HeroBanner = () => {
+const HeroBanner = ({herotext,heroimage}) => {
 	return (
 		<>
 			<div className="hero-image-container">
-				<img src={heroimg} alt="img"></img>
+				<img src={`/Images/herobanner-${heroimage}`} alt="img"></img>
 			<div className="hero-banner-content-overlay">
-				<p>Protecting natural habitats from extinction.</p>
+				<p>{herotext}</p>
 				<button>Learn More</button>
 			</div>
 			</div>

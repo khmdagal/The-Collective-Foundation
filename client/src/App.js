@@ -28,7 +28,8 @@ const App = () => {
 		<Route path="/admin" element={<Admin/>} />
     <Route path="/heroBannerShowcase" element={<HeroBanner/>} />
     <Route path="/textBannerShowcase" element={<TextBanner/>} />
-    {pages.map((item)=>{return <Route key={item.page_id} path={item.page_path} 
+    {pages.map((item)=>{
+      return <Route key={item.page_id} path={item.page_path} 
     element={<TemplatePage pagetitle={item.page_title}/>}/>})}
 
 	</Routes>
