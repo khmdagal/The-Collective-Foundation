@@ -134,7 +134,7 @@ function AdminPage() {
 			case "imageAndTexts":
 				return (
 					<ImageAndTextModuleAdminPage
-						key={module.details.record_id}
+						key={`${module.type}-${module.details.record_id}`}
 						textheader={module.details.text_header}
 						textbody={module.details.text_body}
 						img={module.details.image}
@@ -146,7 +146,7 @@ function AdminPage() {
 			case "heroBanner":
 				return (
 					<HeroBannerModuleAdminPage
-						key={module.details.record_id}
+						key={`${module.type}-${module.details.record_id}`}
 						hero_image={module.details.hero_image}
 						hero_text={module.details.hero_text}
 					/>
@@ -154,7 +154,7 @@ function AdminPage() {
 			case "textBanner":
 				return (
 					<TextBannerModuleAdminPage
-						key={module.details.record_id}
+						key={`${module.type}-${module.details.record_id}`}
 						textbold={module.details.textbold}
 						textnormal={module.details.textnormal}
 					/>
@@ -162,7 +162,6 @@ function AdminPage() {
 			default:
 				return null;
 		}
-
 	}
 
 	//--------------------
