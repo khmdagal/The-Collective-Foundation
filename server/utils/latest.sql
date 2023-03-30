@@ -1,8 +1,34 @@
-DELETE FROM pages;
-DELETE FROM modules;
-DELETE FROM herobanner;
-DELETE FROM textbanner;
-DELETE FROM imageandtexts;
+CREATE TABLE pages(
+page_id serial unique primary key,
+page_title VARCHAR,
+page_path VARCHAR(100)
+);
+CREATE TABLE imageAndTexts (
+record_id serial unique primary key,
+text_header VARCHAR,
+text_body VARCHAR,
+image VARCHAR,
+button VARCHAR,
+hasButton boolean,
+imagetext_direction boolean
+);
+CREATE TABLE modules(
+id serial unique primary key,
+page_id INT REFERENCES pages(page_id),
+module_Type VARCHAR,
+record_id INT
+);
+CREATE TABLE textBanner (
+    record_id SERIAL PRIMARY key,
+    textBold VARCHAR,
+    textNormal VARCHAR,
+    background VARCHAR
+);
+CREATE TABLE heroBanner (
+record_id serial unique primary key,
+hero_image VARCHAR,
+hero_text VARCHAR
+);
 INSERT INTO pages (page_title,page_path)
 VALUES 
 ('Home','/'),
@@ -21,11 +47,6 @@ VALUES
 (3,'heroBanner',3),
 (3,'imageAndTexts',5),
 (3,'textBanner',3);
-INSERT INTO heroBanner(hero_image,hero_text)
-VALUES 
-('image1.jpg','Protecting natural habitats from extinction.'),
-('image2.jpg','Protecting natural habitats from extinction.'),
-('image3.jpg','Protecting natural habitats from extinction.');
 INSERT INTO imageAndTexts (text_header,text_body,image,button,hasButton,imagetext_direction)
 VALUES
 ('Changing the world is possible. We’ve done it before.','Our leadership team bring years of experience to bear on the greatest challenge of our time. We’re results driven, with a proven record of previous successes.','image1.jpg','click me1',true,true),
@@ -40,4 +61,9 @@ VALUES
 ('Climate change threatens every part of the planet. It’s a global problem that requires global cooperation.', 'Our mission is to create international consensus around the climate emergency, as well a shared plan for saving the planet’s most exceptional wild places.','#ff00'),
 ('Climate change threatens every part of the planet. It’s a global problem that requires global cooperation.', 'Our mission is to create international consensus around the climate emergency, as well a shared plan for saving the planet’s most exceptional wild places.','#fff00');
 
+INSERT INTO heroBanner(hero_image,hero_text)
+VALUES 
+('image1.jpg','Protecting natural habitats from extinction.'),
+('image2.jpg','Protecting natural habitats from extinction.'),
+('image3.jpg','Protecting natural habitats from extinction.');
 
