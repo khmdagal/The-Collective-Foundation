@@ -1,7 +1,6 @@
 import React from "react";
-
-
 const ImageAndTextModuleAdminPage = ({
+	type,
 	textheader,
 	textbody,
 	img,
@@ -12,30 +11,17 @@ const ImageAndTextModuleAdminPage = ({
 
 	return (
 		<div className="card">
-			<p>----start Image and text----</p>
-			<div>{textheader}</div>
-			<div>{textbody}</div>
-			<div>{img}</div>
-			<div>{direction}</div>
-			<div>{button}</div>
-			<p>----end Image and text----</p>
-			{/* <img
-				src={`/Images/textAndImage-${image}`}
-				alt={textHeader}
-				className={`card-image ${imageTextDirection}`}
+			<p>Module Type: {type}</p>
+			<img
+				// src={`/Images/textAndImage-${img}`}
+				alt="Text_and_Image"
+				className={`card-image ${direction}`}
 			/>
 			<div className="card-content">
-				<div className="card-header">{textHeader}</div>
-				<div className="card-body">{textBody}</div>
-				<button
-					className="card-button"
-					onClick={() =>
-						console.log(`Clicked on card with record ID: ${recordId}`)
-					}
-				>
-					{button}
-				</button>
-			</div> */}
+				<h2 className="card-header">{textheader}</h2>
+				<p className="card-body">{textbody}</p>
+				<button>{button}</button>
+			</div>
 		</div>
 	);
 };
