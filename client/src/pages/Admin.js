@@ -19,6 +19,8 @@ import {
 } from "@ant-design/icons";
 import { Button, Select, Menu } from "antd";
 
+import AddPageForm from "./AddPageForm";
+
 
 import "antd/dist/reset.css";
 
@@ -187,10 +189,8 @@ function AdminPage() {
 					</div>
 				))}
 				<Button 
-				onClick={() => {
- window.location.href = "/admin/add-page"; 
-}}
-								
+				onClick={() => {AddPageForm}
+				}
 				icon={<PlusOutlined />} 
 				type="primary">
 					Add page
