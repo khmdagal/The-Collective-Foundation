@@ -9,16 +9,22 @@ import { useState, useEffect } from "react";
 // ant design
 import clientIcon from "../icons/client-logo.png";
 import "../pages/Admin.css";
+import Header from "../shared-modules/Header";
+import Footer from "../shared-modules/Footer";
+import ImageAndText from "../shared-modules/ImageAndText";
+import ImageAndTextModuleAdminPage from "../shared-modules/modules-in-the-admin-page/ImageAndTextModuleAdminPage";
+import HeroBannerModuleAdminPage from "../shared-modules/modules-in-the-admin-page/HeroBannerModuleAdminPage";
+import TextBannerModuleAdminPage from "../shared-modules/modules-in-the-admin-page/TextBannerModuleAdminPage";
+
 import {
 	DeleteOutlined,
 	HomeOutlined,
-	PoweroffOutlined,
-	UserOutlined,
 	UnorderedListOutlined,
 	PlusOutlined,
+	PoweroffOutlined,
+	UserOutlined,
 } from "@ant-design/icons";
 import { Button, Select, Menu } from "antd";
-
 
 import "antd/dist/reset.css";
 
@@ -26,7 +32,7 @@ function AdminPage() {
 	const [pagesData, setPagesData] = useState([]);
 	const [modules, setModules] = useState([]);
 	const [selectedModuleType, setSelectedModuleType] = useState("");
-	const [loading, setloading] = useState(false);
+	const [selectedTitle, setSelectedTitle] = useState(pagesData[0]);
 
 	// set finish button
 
@@ -121,49 +127,132 @@ function AdminPage() {
 
 	if (!pagesData || !modules) <p>Loading..</p>;
 
+	//----------------
+
+	function displayModule(module) {
+		switch (module.type) {
+			case "imageAndTexts":
+				return (
+					<ImageAndTextModuleAdminPage
+						key={module.details.record_id}
+						textheader={module.details.text_header}
+						textbody={module.details.text_body}
+						img={module.details.image}
+						direction={module.details.imagetext_direction}
+						// hasButton={module.details.hasbutton}
+						button={module.details.button}
+					/>
+				);
+			case "heroBanner":
+				return (
+					<HeroBannerModuleAdminPage
+						key={module.details.record_id}
+						hero_image={module.details.hero_image}
+						hero_text={module.details.hero_text}
+					/>
+				);
+			case "textBanner":
+				return (
+					<TextBannerModuleAdminPage
+						key={module.details.record_id}
+						textbold={module.details.textbold}
+						textnormal={module.details.textnormal}
+					/>
+				);
+			default:
+				return null;
+		}
+
+	}
+
+	//--------------------
+	const selectedPage = pagesData.find((page) => page.title === selectedTitle);
+
+	const selectedModules = selectedPage?.modules;
+
+	const allModules = selectedPage?.modules?.map((module) =>
+		displayModule(module)
+	);
+
+	console.log("selected modules--->>>",selectedModules);
+	console.log("selectedPage-->>>", selectedPage);
+	console.log("allModules>>>>>>", allModules);
+	
+
+
+
 	return (
 		<div className="admin-page-container">
-			<header className="header">
-				<img
-					className="logo"
-					src={clientIcon}
-					alt="Logo of Collective Foundation"
-				/>
-				<h1>Admin Panel</h1>
-				<p> The Collective Foundation</p>
-			</header>
+			<header className="header">{/* <Header /> */}</header>
 
 			<div className="menu">
 				<Menu
-					onClick={({ key }) => {}}
-					items={[
-						{ label: "Home", key: "/", icon: <HomeOutlined /> },
-						{ label: "Pages", key: "Pages", icon: <UnorderedListOutlined /> },
-						{ label: "Edit Profile", key: "profile", icon: <UserOutlined /> },
-						{
-							label: "Logout",
-							key: "logout",
-							icon: <PoweroffOutlined />,
-							danger: true,
-						},
-					]}
-				></Menu>
+					onClick={(key) => {
+						setSelectedTitle(key.key);
+					}}
+				>
+					{pagesData.map((page) => (
+						<Menu.Item key={page.title} className="custom-menu-item">
+							{page.title === "Home" && <HomeOutlined icon={page.title} />}
+							{page.title !== "Home" && (
+								<UnorderedListOutlined icon={page.title} />
+							)}
+							{page.title}
+						</Menu.Item>
+					))}
+					<Menu.Item>
+						{" "}
+						<PlusOutlined /> Add New Page{" "}
+					</Menu.Item>
+					<Menu.Item>
+						{" "}
+						<PoweroffOutlined /> Logout
+					</Menu.Item>
+				</Menu>
 			</div>
-			<div className="cards">
-				{pagesData.map((eachPage) => (
-					<div>
+			<div>
+				<div>{allModules && allModules}</div>
+			</div>
+
+			<footer className="footer">
+				<Footer />
+			</footer>
+		</div>
+	);
+
+}
+
+export default AdminPage;
+
+/*
+
+{pagesData.map((eachPage) => (
+					<div key={eachPage.title}>
 						<div className="each-card">
 							<h1 className="each-page-title">{eachPage.title}</h1>
 							{eachPage.modules.map((module) => (
 								<div>
 									<h3>{module.type}</h3>
+									{dipalyModule(module)}
+									<Button
+										icon={<DeleteOutlined />}
+										className="delete-button"
+										loading={loading}
+										type="ghost"
+										onClick={() =>
+											handleModuleDelete(
+												eachPage.title,
+												module.details.record_id
+											)
+										}
+									>
+										Delete Module
+									</Button>
 								</div>
 							))}
 							<div>
 								<Select
 									onChange={handleModuleChanges}
-									placeholder={"Select a Module"}
-									mode="multiple"
 									className="Select-menu"
 									allowClear
 									style={{ width: "100%" }}
@@ -175,34 +264,110 @@ function AdminPage() {
 									))}
 								</Select>
 							</div>
-							<Button icon={<PlusOutlined />} type="primary">
-								Add Module
-							</Button>
-							<Button
-								icon={<DeleteOutlined />}
-								className="delete-button"
-								loading={loading}
-								type="ghost"
-								onClick={() =>
-									handleModuleDelete(eachPage.title, module.details.record_id)
-								}
-							>
-								Delete Module
-							</Button>
 						</div>
 					</div>
 				))}
-				<Button icon={<PlusOutlined />} type="primary">
-					Add page
-				</Button>
+
+
+
+=============================================================
+<div className="admin-page-container">
+			<header className="header">{ <Header />}</header>
+
+			<div className="menu">
+				<Menu
+					onClick={(key) => {
+						console.log(key);
+						setSelectedTitle(key.item);
+					}}
+				>
+					{pagesData.map((page) => (
+						<Menu.Item key={page.title} className="custom-menu-item">
+							{page.title === "Home" && <HomeOutlined icon={page.title} />}
+							{page.title !== "Home" && (
+								<UnorderedListOutlined icon={page.title} />
+							)}
+							{page.title}
+						</Menu.Item>
+					))}
+					<Menu.Item>
+						{" "}
+						<PlusOutlined /> Add New Page{" "}
+					</Menu.Item>
+					<Menu.Item>
+						{" "}
+						<PoweroffOutlined /> Logout
+					</Menu.Item>
+				</Menu>
+				
 			</div>
+
+			<div className="cards">
+				{pagesData.map((eachPage) => (
+					<div key={eachPage.title}>
+						<div className="each-card">
+							<h1 className="each-page-title">{eachPage.title}</h1>
+							{eachPage.modules.map((module) => (
+								<div>
+									<h3>{module.type}</h3>
+									{dipalyModule(module)}
+									<Button
+										icon={<DeleteOutlined />}
+										className="delete-button"
+										loading={loading}
+										type="ghost"
+										onClick={() =>
+											handleModuleDelete(
+												eachPage.title,
+												module.details.record_id
+											)
+										}
+									>
+										Delete Module
+									</Button>
+								</div>
+							))}
+							<div>
+								<Select
+									onChange={handleModuleChanges}
+									className="Select-menu"
+									allowClear
+									style={{ width: "100%" }}
+								>
+									{modules.map((moduleType, index) => (
+										<Select.Option key={index} value={moduleType.module_type}>
+											{moduleType.module_type}
+										</Select.Option>
+									))}
+								</Select>
+							</div>
+						</div>
+					</div>
+				))}
+				<button type="primary">Add page</button>
+			</div>
+
 			<footer className="footer">
-				<p>© 2021 The Collective Foundation</p>
+				<Footer />
 			</footer>
 		</div>
-	);
-}
-
-export default AdminPage;
 
 
+-----------------------------------------------
+{ <Menu
+					onClick={({ key }) => {}}
+					// onClick={({ key }) => {seSelectedPage(key)}}
+					items={[
+						{ label: "Home", key: "/", icon:  },
+						{ label: "Pages", key: "Pages", icon: <UnorderedListOutlined /> },
+						{ label: "Edit Profile", key: "profile", icon: <UserOutlined /> },
+						{
+							label: "Logout",
+							key: "logout",
+							icon: <PoweroffOutlined />,
+							danger: true,
+						},
+					]}
+				></Menu> }
+
+*/
