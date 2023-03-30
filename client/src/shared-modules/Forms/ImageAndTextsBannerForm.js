@@ -3,7 +3,7 @@
 /* eslint-disable comma-dangle */
 import React, { useState } from "react";
 
-function ImageAndTextBannerForm({ selectedPage }) {
+function ImageAndTextBannerForm({ pageToAddModules }) {
 	const [text_header, setText_header] = useState("");
 	const [text_body, setText_body] = useState("");
 	const [image, setImage] = useState("");
@@ -26,7 +26,7 @@ function ImageAndTextBannerForm({ selectedPage }) {
 
 		try {
 			const imagAndTextBannerResponse = await fetch(
-				`/api/modules/imageAndTexts/${selectedPage}`,
+				`/api/modules/imageAndTexts/${pageToAddModules}`,
 				{
 					method: "POST",
 					headers: {
@@ -51,7 +51,7 @@ function ImageAndTextBannerForm({ selectedPage }) {
 				button,
 				hasbutton,
 				imagetext_direction,
-			}, { selectedPage }); 
+			}, { pageToAddModules }); 
 
 		} catch (err) {
 			console.error(err);
@@ -60,9 +60,9 @@ function ImageAndTextBannerForm({ selectedPage }) {
 
 	return (
 		<form className="msform" onSubmit={handleSubmit}>
-			<label htmlFor="selectedPage">
-				Page:{selectedPage}
-				<input type="text" name="selectedPage" value={selectedPage} disabled />
+			<label htmlFor="pageToAddModules">
+				Page:{pageToAddModules}
+				<input type="text" name="pageToAddModules" value={pageToAddModules} disabled />
 			</label>
 			<label htmlFor="text_header">
 				Text header:

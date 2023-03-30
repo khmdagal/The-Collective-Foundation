@@ -5,7 +5,7 @@
 import React, { useState } from "react";
 import "../Forms/Forms.css";
 
-function TextBannerForm({ selectedPage }) {
+function TextBannerForm({ pageToAddModules }) {
 	const [boldText, setBoldText] = useState("");
 	const [normalText, setNormalText] = useState("");
 	const [background, setBackground] = useState("");
@@ -22,7 +22,7 @@ function TextBannerForm({ selectedPage }) {
 		}
 		console.log({ boldText, normalText, background });
 		try {
-			const textBannerResponse = await fetch(`/api/modules/textBanner/${selectedPage}`, {
+			const textBannerResponse = await fetch(`/api/modules/textBanner/${pageToAddModules}`, {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
@@ -43,9 +43,9 @@ function TextBannerForm({ selectedPage }) {
 
 	return (
 		<form className="msform" onSubmit={handleSubmit}>
-			<label htmlFor="selectedPage">
-				Page:{selectedPage}
-				<input type="text" name="selectedPage" value={selectedPage} disabled />
+			<label htmlFor="pageToAddModules">
+				Page:{pageToAddModules}
+				<input type="text" name="pageToAddModules" value={pageToAddModules} disabled />
 			</label>
 			<label htmlFor="bodlText">
 				Bold Text:

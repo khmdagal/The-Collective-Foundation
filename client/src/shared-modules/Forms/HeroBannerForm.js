@@ -5,7 +5,7 @@
 import React, { useState } from "react";
 import "../Forms/Forms.css";
 
-function HeroBannerForm({ selectedPage }) {
+function HeroBannerForm({ pageToAddModules }) {
 	const [heroImage, setHeroImage] = useState("");
 	const [heroText, setHeroText] = useState("");
 	const [errorMessage, setErrorMessage] = useState("");
@@ -20,7 +20,7 @@ function HeroBannerForm({ selectedPage }) {
 		}
 		try {
 			const heroBannerResponse = await fetch(
-				`/api/modules/heroBanner/${selectedPage}`,
+				`/api/modules/heroBanner/${pageToAddModules}`,
 				{
 					method: "POST",
 					headers: {
@@ -42,9 +42,14 @@ function HeroBannerForm({ selectedPage }) {
 
 	return (
 		<form className="msform" onSubmit={handleSubmit}>
-			<label htmlFor="selectedPage">
-				Page:{selectedPage}
-				<input type="text" name="selectedPage" value={selectedPage} disabled />
+			<label htmlFor="pageToAddModules">
+				Page:{pageToAddModules}
+				<input
+					type="text"
+					name="selectedPage"
+					value={pageToAddModules}
+					disabled
+				/>
 			</label>
 			<label htmlFor="heroImage">
 				Hero Image:

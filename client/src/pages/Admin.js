@@ -40,7 +40,7 @@ function AdminPage() {
 	const [pagesData, setPagesData] = useState([]);
 	const [modules, setModules] = useState([]);
 	const [selectedModuleType, setSelectedModuleType] = useState("");
-	const [selectedPage, setSelectedPage] = useState("");
+	const [pageToAddModules, setPageToAddModules] = useState("");
 	const [selectedTitle, setSelectedTitle] = useState("Home");
 
 	async function fectPageTitles() {
@@ -96,11 +96,6 @@ function AdminPage() {
 		}
 	}
 
-
-	// useEffect(() => {
-
-	// }, []);
-
 	useEffect(() => {
 		fectPageTitles()
 			.then((pagesTitleResults) => {
@@ -120,26 +115,28 @@ function AdminPage() {
 	let formComponent;
 	switch (selectedModuleType) {
 		case "heroBanner":
-			formComponent = <HeroBannerForm selectedPage={selectedPage} />;
+			formComponent = <HeroBannerForm pageToAddModules={pageToAddModules} />;
 			break;
 		case "textBanner":
-			formComponent = <TextBannerForm selectedPage={selectedPage} />;
+			formComponent = <TextBannerForm pageToAddModules={pageToAddModules} />;
 			break;
 
 		case "imageAndTexts":
-			formComponent = <ImageAndTextsBannerForm selectedPage={selectedPage} />;
+			formComponent = <ImageAndTextsBannerForm pageToAddModules={pageToAddModules} />;
 			break;
 		default:
 			formComponent = null;
 	}
 
-	if (!pagesData || !modules) <p>Loading..</p>;
+	
 
 	useEffect(() => {
-		fetchModuleChanges();
+		// fetchModuleChanges();
 	}, [selectedModuleType]);
 
-	if (!pagesData || !modules) <p>Loading..</p>;
+	if (!pagesData || !modules) {
+		return <p>Loading..</p>;
+	}
 
 
 	function displayModule(module) {
@@ -253,7 +250,7 @@ function AdminPage() {
 							{page.title}
 						</Menu.Item>
 					))}
-					<Menu.Item>
+					<Menu.Item >
 						{" "}
 						<PlusOutlined /> Add New Page{" "}
 					</Menu.Item>
@@ -265,11 +262,26 @@ function AdminPage() {
 			</div>
 			<div>
 				<h2 className="each-page-title">{selectedTitle} Page</h2>
-				<Card className="cards">
-					{allModules && allModules}
-				</Card>
+				<Card className="cards">{allModules && allModules}</Card>
+				<Select
+					className="Select-menu"
+					onChange={(e) => {
+						setSelectedModuleType(e.target.value);
+						setPageToAddModules(selectedTitle);
+					}}
+				>
+					<Select.Option value="">Select Module</Select.Option>
+					{modules.map((moduleType) => (
+						<Select.Option
+							key={moduleType.module_type}
+							value={moduleType.module_type}
+						>
+							{moduleType.module_type}
+						</Select.Option>
+					))}
+				</Select>
+				{formComponent}
 			</div>
-{formComponent}
 
 			<footer className="footer">
 				<Footer />
