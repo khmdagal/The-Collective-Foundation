@@ -84,24 +84,24 @@ router.delete("/pages/:page_title/:record_id", async (req, res) => {
 // add new page endpoint
 
 router.post("/pages/:newpage", async (req, res) => {
-	const newpage = req.params.pageTitle;
-	const { page_id, page_title, page_path } = req.body;
+	const newpage = req.params.newpage;
+	const { page_title, page_path } = req.body;
 
-	if (!page_id || !page_title || !page_path) {
+	if ( !page_title || !page_path) {
 		res.status(500).json("Please fill all the fields");
 	}
 
 	try {
 		// introduce a new row into the pages table
-		const newpage = await db.query(
+		const CreateNewPage = await db.query(
 			`INSERT INTO pages (page_title, page_path)
       VALUES ($1, $2,)`,
-			[page_title, page_path]
+			[newpage, page_path]
 		);
 
 
 		return res.status(200).json({
-			message: "Data is stored successfuly into pages table",
+			message: " page has been created",
 		});
 	} catch (error) {
 		res.status(500).json({ error });
@@ -109,7 +109,7 @@ router.post("/pages/:newpage", async (req, res) => {
 });
 
 // delete new page endpoint
-router.delete("/pages/:id", async (req, res) => {
+router.delete("/pages/deletepages/:page_id", async (req, res) => {
 	try {
 		const pageTitle = req.params.page_title;
 
