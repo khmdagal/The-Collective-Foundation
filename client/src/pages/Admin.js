@@ -56,8 +56,6 @@ function AdminPage() {
 	}
 
 	async function handleModuleAdd(pageTitle) {
-		
-
 		// refetch the pages data
 		const updatedPagesData = await fectPagesData(pageTitle);
 		// update the state with the new data
