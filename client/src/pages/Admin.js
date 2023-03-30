@@ -266,7 +266,7 @@ function AdminPage() {
 				<Select
 					className="Select-menu"
 					onChange={(e) => {
-						setSelectedModuleType(e.target.value);
+						setSelectedModuleType(e);
 						setPageToAddModules(selectedTitle);
 					}}
 				>
