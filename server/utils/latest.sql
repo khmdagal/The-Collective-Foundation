@@ -1,3 +1,11 @@
+DROP TABLE IF EXISTS
+pages,
+imageAndTexts,
+heroBanner,
+textBanner,
+modules CASCADE;
+
+
 CREATE TABLE pages(
 page_id serial unique primary key,
 page_title VARCHAR,
@@ -63,7 +71,13 @@ VALUES
 
 INSERT INTO heroBanner(hero_image,hero_text)
 VALUES 
-('image1.jpg','Starts With You'),
+('image1.jpg',' They inspire everyone to care for the planet.'),
 ('image2.jpg','Starts With You'),
-('image3.jpg','Starts With You');
+('image3.jpg','Protecting natural habitats from extinction.');
+
+
+
+
+
+
 
