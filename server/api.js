@@ -110,4 +110,78 @@ const selectedModuleType = req.params.moduleType
 });
 
 
+ // add new page
+
+
+
+router.post("/pages/:newpage", async (req, res) => {
+	const pageTitle = req.params.pageTitle;
+	const { page_id, page_title, page_path } = req.body;
+
+	if (!page_id || !page_title  || !page_path) {
+		res.status(500).json("Please fill all the fields");
+	}
+
+	try {
+		// First inserting the pages tablepost
+		const pages = await db.query(
+			`INSERT INTO pages (page_title, page_path)
+      VALUES ($1, $2)`,
+			[page_title, page_path]
+		);
+
+		//Second finding the page id
+		const findPageId = await db.query(
+			`select page_id from pages where page_title = $1`,
+			[pageTitle]
+		);
+		const page_id = findPageId.rows[0].page_id;
+		console.log(page_id);
+
+		// third finding the last record in the pages table
+		const lastRecord = await db.query(
+			`select record_id from pages order by record_id desc limit 1`
+		);
+		const record_id = lastRecord.rows[0].record_id;
+
+		// fourth inserting the above datas into the pages table
+		const insertingModulesTable = await db.query(
+			`insert into pages(page_id,page_title,record_id) values($1,$2,$3)`,
+			[page_id, "pages", record_id]
+		);
+
+		return res.status(200).json({
+			message: `Data is stored successfuly into pages table`,
+		});
+	} catch (error) {
+		console.error(error);
+
+		res.status(500).json({ error });
+	}
+});
+
+// delete page
+router.delete("/pages/:page_title/:record_id", async (req, res) => {
+	try {
+		const pageTitle = req.params.page_title;
+
+		const record_id = req.params.record_id;
+
+		const findPageId = await db.query(
+			`select page_id from pages where page_title = $1`,[pageTitle]
+		);
+		const page_id = findPageId.rows[0].page_id;
+		const deletingPage = await db.query(
+			"delete from modules WHERE page_id = $1 AND record_id = $2",
+			[+page_id, +record_id]
+		);
+		res.status(200).json(deletingpage[0].rows);
+
+	} catch (err) {
+		console.error(err);
+	res.status(500).json({ error: err.message });
+	}
+
+
+});
 export default router;
