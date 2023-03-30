@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable quotes */
 /* eslint-disable curly */
 /* eslint-disable jsx-a11y/label-has-associated-control */
@@ -6,12 +7,12 @@
 /* eslint-disable react/jsx-key */
 import React from "react";
 import { useState, useEffect } from "react";
-// ant design
+
 import clientIcon from "../icons/client-logo.png";
 import "../pages/Admin.css";
-import Header from "../shared-modules/Header";
+
 import Footer from "../shared-modules/Footer";
-import ImageAndText from "../shared-modules/ImageAndText";
+
 import ImageAndTextModuleAdminPage from "../shared-modules/modules-in-the-admin-page/ImageAndTextModuleAdminPage";
 import HeroBannerModuleAdminPage from "../shared-modules/modules-in-the-admin-page/HeroBannerModuleAdminPage";
 import TextBannerModuleAdminPage from "../shared-modules/modules-in-the-admin-page/TextBannerModuleAdminPage";
@@ -23,8 +24,11 @@ import {
 	PlusOutlined,
 	PoweroffOutlined,
 	UserOutlined,
+	MenuFoldOutlined,
+	MenuUnfoldOutlined,
 } from "@ant-design/icons";
-import { Button, Select, Menu } from "antd";
+import { Menu, Button, Card, Select } from "antd";
+
 
 import "antd/dist/reset.css";
 
@@ -32,13 +36,8 @@ function AdminPage() {
 	const [pagesData, setPagesData] = useState([]);
 	const [modules, setModules] = useState([]);
 	const [selectedModuleType, setSelectedModuleType] = useState("");
-	const [selectedTitle, setSelectedTitle] = useState(pagesData[0]);
+	const [selectedTitle, setSelectedTitle] = useState("Home");
 
-	// set finish button
-
-	const onFinish = (values) => {
-		console.log("Username:", values.username);
-	};
 
 	async function fectPageTitles() {
 		try {
@@ -108,7 +107,7 @@ function AdminPage() {
 
 	useEffect(() => {
 		getAvailableModules().then((modulesResult) => setModules(modulesResult));
-	}, []);
+	}, [pagesData]);
 
 	useEffect(() => {
 		fectPageTitles()
@@ -127,62 +126,102 @@ function AdminPage() {
 
 	if (!pagesData || !modules) <p>Loading..</p>;
 
-	//----------------
 
 	function displayModule(module) {
 		switch (module.type) {
 			case "imageAndTexts":
 				return (
-					<ImageAndTextModuleAdminPage
+					<div
+						className="each-card"
 						key={`${module.type}-${module.details.record_id}`}
-						textheader={module.details.text_header}
-						textbody={module.details.text_body}
-						img={module.details.image}
-						direction={module.details.imagetext_direction}
-						// hasButton={module.details.hasbutton}
-						button={module.details.button}
-					/>
+					>
+						<ImageAndTextModuleAdminPage
+							type={module.type}
+							textheader={module.details.text_header}
+							textbody={module.details.text_body}
+							img={module.details.image}
+							direction={module.details.imagetext_direction}
+							// hasButton={module.details.hasbutton}
+							button={module.details.button}
+						/>
+						<Button
+							className="delete-button"
+							onClick={() =>
+								handleModuleDelete(selectedTitle, module.details.record_id)
+							}
+							danger
+							size="small"
+							icon={<DeleteOutlined />}
+						>
+							Delete
+						</Button>
+					</div>
 				);
 			case "heroBanner":
 				return (
-					<HeroBannerModuleAdminPage
+					<div
+						className="each-card"
 						key={`${module.type}-${module.details.record_id}`}
-						hero_image={module.details.hero_image}
-						hero_text={module.details.hero_text}
-					/>
+					>
+						<HeroBannerModuleAdminPage
+							type={module.type}
+							hero_image={module.details.hero_image}
+							hero_text={module.details.hero_text}
+						/>
+						<Button
+							className="delete-button"
+							onClick={() =>
+								handleModuleDelete(selectedTitle, module.details.record_id)
+							}
+							danger
+							size="small"
+							icon={<DeleteOutlined />}
+						>
+							Delete
+						</Button>
+					</div>
 				);
 			case "textBanner":
 				return (
-					<TextBannerModuleAdminPage
+					<div
+						className="each-card"
 						key={`${module.type}-${module.details.record_id}`}
-						textbold={module.details.textbold}
-						textnormal={module.details.textnormal}
-					/>
+					>
+						<TextBannerModuleAdminPage
+							type={module.type}
+							textbold={module.details.textbold}
+							textnormal={module.details.textnormal}
+						/>
+						<Button
+							className="delete-button"
+							onClick={() =>
+								handleModuleDelete(selectedTitle, module.details.record_id)
+							}
+							danger
+							size="small"
+							icon={<DeleteOutlined />}
+						>
+							Delete
+						</Button>
+					</div>
 				);
 			default:
 				return null;
 		}
 	}
 
-	//--------------------
+	
 	const selectedPage = pagesData.find((page) => page.title === selectedTitle);
-
-	const selectedModules = selectedPage?.modules;
 
 	const allModules = selectedPage?.modules?.map((module) =>
 		displayModule(module)
 	);
 
-	console.log("selected modules--->>>",selectedModules);
-	console.log("selectedPage-->>>", selectedPage);
-	console.log("allModules>>>>>>", allModules);
-	
-
-
-
 	return (
 		<div className="admin-page-container">
-			<header className="header">{/* <Header /> */}</header>
+			<header className="header">
+				<h1>Admin Panel</h1>
+			</header>
 
 			<div className="menu">
 				<Menu
@@ -210,7 +249,10 @@ function AdminPage() {
 				</Menu>
 			</div>
 			<div>
-				<div>{allModules && allModules}</div>
+				<h2 className="each-page-title">{selectedTitle} Page</h2>
+				<Card className="cards">
+					{allModules && allModules}
+				</Card>
 			</div>
 
 			<footer className="footer">
@@ -225,59 +267,13 @@ export default AdminPage;
 
 /*
 
-{pagesData.map((eachPage) => (
-					<div key={eachPage.title}>
-						<div className="each-card">
-							<h1 className="each-page-title">{eachPage.title}</h1>
-							{eachPage.modules.map((module) => (
-								<div>
-									<h3>{module.type}</h3>
-									{dipalyModule(module)}
-									<Button
-										icon={<DeleteOutlined />}
-										className="delete-button"
-										loading={loading}
-										type="ghost"
-										onClick={() =>
-											handleModuleDelete(
-												eachPage.title,
-												module.details.record_id
-											)
-										}
-									>
-										Delete Module
-									</Button>
-								</div>
-							))}
-							<div>
-								<Select
-									onChange={handleModuleChanges}
-									className="Select-menu"
-									allowClear
-									style={{ width: "100%" }}
-								>
-									{modules.map((moduleType, index) => (
-										<Select.Option key={index} value={moduleType.module_type}>
-											{moduleType.module_type}
-										</Select.Option>
-									))}
-								</Select>
-							</div>
-						</div>
-					</div>
-				))}
-
-
-
-=============================================================
-<div className="admin-page-container">
-			<header className="header">{ <Header />}</header>
-
-			<div className="menu">
-				<Menu
+ return (
+      <Layout className="layout">
+        <Sider trigger={null} collapsible collapsed={collapsed}>
+          <div className="logo" />
+          <Menu
 					onClick={(key) => {
-						console.log(key);
-						setSelectedTitle(key.item);
+						setSelectedTitle(key.key);
 					}}
 				>
 					{pagesData.map((page) => (
@@ -298,75 +294,24 @@ export default AdminPage;
 						<PoweroffOutlined /> Logout
 					</Menu.Item>
 				</Menu>
-				
-			</div>
+        </Sider>
+        <Layout className="site-layout">
+          <Header className="site-layout-background">
+            Admin Panel
+          </Header>
+          <Content
+              className="site-layout-background"
+              style={{
+                margin: '24px 16px',
+                padding: 24,
+              }}
+          >
+            Content
+          </Content>
+        </Layout>
+      </Layout>
+  )
+}
 
-			<div className="cards">
-				{pagesData.map((eachPage) => (
-					<div key={eachPage.title}>
-						<div className="each-card">
-							<h1 className="each-page-title">{eachPage.title}</h1>
-							{eachPage.modules.map((module) => (
-								<div>
-									<h3>{module.type}</h3>
-									{dipalyModule(module)}
-									<Button
-										icon={<DeleteOutlined />}
-										className="delete-button"
-										loading={loading}
-										type="ghost"
-										onClick={() =>
-											handleModuleDelete(
-												eachPage.title,
-												module.details.record_id
-											)
-										}
-									>
-										Delete Module
-									</Button>
-								</div>
-							))}
-							<div>
-								<Select
-									onChange={handleModuleChanges}
-									className="Select-menu"
-									allowClear
-									style={{ width: "100%" }}
-								>
-									{modules.map((moduleType, index) => (
-										<Select.Option key={index} value={moduleType.module_type}>
-											{moduleType.module_type}
-										</Select.Option>
-									))}
-								</Select>
-							</div>
-						</div>
-					</div>
-				))}
-				<button type="primary">Add page</button>
-			</div>
-
-			<footer className="footer">
-				<Footer />
-			</footer>
-		</div>
-
-
------------------------------------------------
-{ <Menu
-					onClick={({ key }) => {}}
-					// onClick={({ key }) => {seSelectedPage(key)}}
-					items={[
-						{ label: "Home", key: "/", icon:  },
-						{ label: "Pages", key: "Pages", icon: <UnorderedListOutlined /> },
-						{ label: "Edit Profile", key: "profile", icon: <UserOutlined /> },
-						{
-							label: "Logout",
-							key: "logout",
-							icon: <PoweroffOutlined />,
-							danger: true,
-						},
-					]}
-				></Menu> }
 
 */
