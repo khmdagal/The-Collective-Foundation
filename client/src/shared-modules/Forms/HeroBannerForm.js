@@ -5,17 +5,14 @@
 import React, { useState } from "react";
 import "../Forms/Forms.css";
 
-function HeroBannerForm({ pageToAddModules }) {
+function HeroBannerForm({ pageToAddModules, handleModuleAdd }) {
 	const [heroImage, setHeroImage] = useState("");
 	const [heroText, setHeroText] = useState("");
 	const [errorMessage, setErrorMessage] = useState("");
 
 	const handleSubmit = async (event) => {
 		event.preventDefault();
-		if (
-			heroImage.trim() === "" ||
-			heroText.trim() === ""
-		) {
+		if (heroImage.trim() === "" || heroText.trim() === "") {
 			setErrorMessage("Please fill all the fields");
 		}
 		try {
@@ -33,8 +30,10 @@ function HeroBannerForm({ pageToAddModules }) {
 				}
 			);
 			const heroBannerData = await heroBannerResponse.json();
-
-			console.log(heroBannerData);
+			
+			// Calling the the function the we want to refetch the pages data after adding new module
+           handleModuleAdd(pageToAddModules);
+			// console.log(heroBannerData);
 		} catch (err) {
 			console.error(err);
 		}

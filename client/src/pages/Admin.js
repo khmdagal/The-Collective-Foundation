@@ -1,4 +1,3 @@
-
 /* eslint-disable no-undef */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable quotes */
@@ -12,7 +11,6 @@ import { useState, useEffect } from "react";
 import ImageAndTextsBannerForm from "../shared-modules/Forms/ImageAndTextsBannerForm";
 import TextBannerForm from "../shared-modules/Forms/TextBannerForm";
 import HeroBannerForm from "../shared-modules/Forms/HeroBannerForm";
-
 
 import clientIcon from "../icons/client-logo.png";
 import "../pages/Admin.css";
@@ -34,7 +32,6 @@ import {
 } from "@ant-design/icons";
 import { Menu, Button, Card, Select } from "antd";
 import "antd/dist/reset.css";
-
 
 function AdminPage() {
 	const [pagesData, setPagesData] = useState([]);
@@ -65,8 +62,21 @@ function AdminPage() {
 		}
 	}
 
-	async function handleModuleDelete(pageTitle, recordId) {
+	async function handleModuleAdd(pageTitle) {
+		
 
+		// refetch the pages data
+		const updatedPagesData = await fectPagesData(pageTitle);
+		// update the state with the new data
+		setPagesData((prevPagesData) =>
+			prevPagesData.map((pageData) =>
+				pageData.title === pageTitle ? updatedPagesData : pageData
+			)
+		);
+	}
+
+
+	async function handleModuleDelete(pageTitle, recordId) {
 		const confirmed = confirm(
 			"Are you sure you want to delete this module and all of its content?"
 		);
@@ -77,6 +87,16 @@ function AdminPage() {
 					method: "Delete",
 				});
 				const deletingModule = await response.json();
+
+				// This is to update the pages data and reset the state after each deleting 
+				const updatedPagesData = await fectPagesData(pageTitle);
+
+				setPagesData((prevPagesData) =>
+					prevPagesData.map((pageData) =>
+						pageData.title === pageTitle ? updatedPagesData : pageData
+					)
+				);
+
 				alert(`The module has been successfully deleted.`);
 			} catch (error) {
 				console.error(error);
@@ -105,8 +125,6 @@ function AdminPage() {
 				return pageDetails;
 			})
 			.then((pagesData) => setPagesData(pagesData));
-    
-
 
 		// This is to get the available modules
 		getAvailableModules().then((modulesResult) => setModules(modulesResult));
@@ -115,20 +133,33 @@ function AdminPage() {
 	let formComponent;
 	switch (selectedModuleType) {
 		case "heroBanner":
-			formComponent = <HeroBannerForm pageToAddModules={pageToAddModules} />;
+			formComponent = (
+				<HeroBannerForm
+					handleModuleAdd={handleModuleAdd}
+					pageToAddModules={pageToAddModules}
+				/>
+			);
 			break;
 		case "textBanner":
-			formComponent = <TextBannerForm pageToAddModules={pageToAddModules} />;
+			formComponent = (
+				<TextBannerForm
+					handleModuleAdd={handleModuleAdd}
+					pageToAddModules={pageToAddModules}
+				/>
+			);
 			break;
 
 		case "imageAndTexts":
-			formComponent = <ImageAndTextsBannerForm pageToAddModules={pageToAddModules} />;
+			formComponent = (
+				<ImageAndTextsBannerForm
+					handleModuleAdd={handleModuleAdd}
+					pageToAddModules={pageToAddModules}
+				/>
+			);
 			break;
 		default:
 			formComponent = null;
 	}
-
-	
 
 	useEffect(() => {
 		// fetchModuleChanges();
@@ -137,7 +168,6 @@ function AdminPage() {
 	if (!pagesData || !modules) {
 		return <p>Loading..</p>;
 	}
-
 
 	function displayModule(module) {
 		switch (module.type) {
@@ -222,7 +252,6 @@ function AdminPage() {
 		}
 	}
 
-	
 	const selectedPage = pagesData.find((page) => page.title === selectedTitle);
 
 	const allModules = selectedPage?.modules?.map((module) =>
@@ -250,7 +279,7 @@ function AdminPage() {
 							{page.title}
 						</Menu.Item>
 					))}
-					<Menu.Item >
+					<Menu.Item>
 						{" "}
 						<PlusOutlined /> Add New Page{" "}
 					</Menu.Item>
@@ -288,7 +317,6 @@ function AdminPage() {
 			</footer>
 		</div>
 	);
-
 }
 
 export default AdminPage;

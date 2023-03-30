@@ -3,7 +3,7 @@
 /* eslint-disable comma-dangle */
 import React, { useState } from "react";
 
-function ImageAndTextBannerForm({ pageToAddModules }) {
+function ImageAndTextBannerForm({ pageToAddModules, handleModuleAdd }) {
 	const [text_header, setText_header] = useState("");
 	const [text_body, setText_body] = useState("");
 	const [image, setImage] = useState("");
@@ -19,7 +19,6 @@ function ImageAndTextBannerForm({ pageToAddModules }) {
 			text_body.trim() === "" ||
 			image.trim() === "" ||
 			button.trim() === ""
-
 		) {
 			setErrorMessage("Please fill all the fields");
 		}
@@ -44,15 +43,8 @@ function ImageAndTextBannerForm({ pageToAddModules }) {
 			);
 			const imagAndTextBannerData = await imagAndTextBannerResponse.json();
 
-			console.log({
-				text_header,
-				text_body,
-				image,
-				button,
-				hasbutton,
-				imagetext_direction,
-			}, { pageToAddModules }); 
-
+			// Calling the the function the we want to refetch the pages data after adding new module
+			handleModuleAdd(pageToAddModules);
 		} catch (err) {
 			console.error(err);
 		}
@@ -62,7 +54,12 @@ function ImageAndTextBannerForm({ pageToAddModules }) {
 		<form className="msform" onSubmit={handleSubmit}>
 			<label htmlFor="pageToAddModules">
 				Page:{pageToAddModules}
-				<input type="text" name="pageToAddModules" value={pageToAddModules} disabled />
+				<input
+					type="text"
+					name="pageToAddModules"
+					value={pageToAddModules}
+					disabled
+				/>
 			</label>
 			<label htmlFor="text_header">
 				Text header:

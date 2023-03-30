@@ -5,7 +5,7 @@
 import React, { useState } from "react";
 import "../Forms/Forms.css";
 
-function TextBannerForm({ pageToAddModules }) {
+function TextBannerForm({ pageToAddModules, handleModuleAdd }) {
 	const [boldText, setBoldText] = useState("");
 	const [normalText, setNormalText] = useState("");
 	const [background, setBackground] = useState("");
@@ -22,20 +22,24 @@ function TextBannerForm({ pageToAddModules }) {
 		}
 		console.log({ boldText, normalText, background });
 		try {
-			const textBannerResponse = await fetch(`/api/modules/textBanner/${pageToAddModules}`, {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify({
-					boldText,
-					normalText,
-					background,
-				}),
-			});
+			const textBannerResponse = await fetch(
+				`/api/modules/textBanner/${pageToAddModules}`,
+				{
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					body: JSON.stringify({
+						boldText,
+						normalText,
+						background,
+					}),
+				}
+			);
 			const textBannerData = await textBannerResponse.json();
 
-			console.log(sendingData);
+			// Calling the the function the we want to refetch the pages data after adding new module
+			handleModuleAdd(pageToAddModules);
 		} catch (err) {
 			console.error(err);
 		}
@@ -45,7 +49,12 @@ function TextBannerForm({ pageToAddModules }) {
 		<form className="msform" onSubmit={handleSubmit}>
 			<label htmlFor="pageToAddModules">
 				Page:{pageToAddModules}
-				<input type="text" name="pageToAddModules" value={pageToAddModules} disabled />
+				<input
+					type="text"
+					name="pageToAddModules"
+					value={pageToAddModules}
+					disabled
+				/>
 			</label>
 			<label htmlFor="bodlText">
 				Bold Text:
