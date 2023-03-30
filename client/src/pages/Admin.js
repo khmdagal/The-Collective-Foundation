@@ -1,3 +1,5 @@
+
+/* eslint-disable no-undef */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable quotes */
 /* eslint-disable curly */
@@ -7,10 +9,13 @@
 /* eslint-disable react/jsx-key */
 import React from "react";
 import { useState, useEffect } from "react";
+import ImageAndTextsBannerForm from "../shared-modules/Forms/ImageAndTextsBannerForm";
+import TextBannerForm from "../shared-modules/Forms/TextBannerForm";
+import HeroBannerForm from "../shared-modules/Forms/HeroBannerForm";
+
 
 import clientIcon from "../icons/client-logo.png";
 import "../pages/Admin.css";
-
 import Footer from "../shared-modules/Footer";
 
 import ImageAndTextModuleAdminPage from "../shared-modules/modules-in-the-admin-page/ImageAndTextModuleAdminPage";
@@ -28,16 +33,15 @@ import {
 	MenuUnfoldOutlined,
 } from "@ant-design/icons";
 import { Menu, Button, Card, Select } from "antd";
-
-
 import "antd/dist/reset.css";
+
 
 function AdminPage() {
 	const [pagesData, setPagesData] = useState([]);
 	const [modules, setModules] = useState([]);
 	const [selectedModuleType, setSelectedModuleType] = useState("");
+	const [selectedPage, setSelectedPage] = useState("");
 	const [selectedTitle, setSelectedTitle] = useState("Home");
-
 
 	async function fectPageTitles() {
 		try {
@@ -62,7 +66,10 @@ function AdminPage() {
 	}
 
 	async function handleModuleDelete(pageTitle, recordId) {
-		const confirmed = confirm("Are you sure you want to delete?");
+
+		const confirmed = confirm(
+			"Are you sure you want to delete this module and all of its content?"
+		);
 
 		if (confirmed) {
 			try {
@@ -70,7 +77,7 @@ function AdminPage() {
 					method: "Delete",
 				});
 				const deletingModule = await response.json();
-				alert(`This Data ${deletingModule} has been deleted successfully.`);
+				alert(`The module has been successfully deleted.`);
 			} catch (error) {
 				console.error(error);
 				alert("Failed to delete data.");
@@ -89,25 +96,10 @@ function AdminPage() {
 		}
 	}
 
-	async function handleModuleChanges(e) {
-		const seletedModule = e.target.value;
-		setSelectedModuleType(seletedModule);
-	}
 
-	async function fetchModuleChanges() {
-		try {
-			const availableModule = await fetch(`/api/module/${selectedModuleType}`);
-			const modulesData = await availableModule.json();
-			console.log(modulesData);
-			return modulesData;
-		} catch (error) {
-			console.log(error);
-		}
-	}
+	// useEffect(() => {
 
-	useEffect(() => {
-		getAvailableModules().then((modulesResult) => setModules(modulesResult));
-	}, [pagesData]);
+	// }, []);
 
 	useEffect(() => {
 		fectPageTitles()
@@ -118,7 +110,30 @@ function AdminPage() {
 				return pageDetails;
 			})
 			.then((pagesData) => setPagesData(pagesData));
+    
+
+
+		// This is to get the available modules
+		getAvailableModules().then((modulesResult) => setModules(modulesResult));
 	}, []);
+
+	let formComponent;
+	switch (selectedModuleType) {
+		case "heroBanner":
+			formComponent = <HeroBannerForm selectedPage={selectedPage} />;
+			break;
+		case "textBanner":
+			formComponent = <TextBannerForm selectedPage={selectedPage} />;
+			break;
+
+		case "imageAndTexts":
+			formComponent = <ImageAndTextsBannerForm selectedPage={selectedPage} />;
+			break;
+		default:
+			formComponent = null;
+	}
+
+	if (!pagesData || !modules) <p>Loading..</p>;
 
 	useEffect(() => {
 		fetchModuleChanges();
@@ -254,6 +269,7 @@ function AdminPage() {
 					{allModules && allModules}
 				</Card>
 			</div>
+{formComponent}
 
 			<footer className="footer">
 				<Footer />
@@ -264,54 +280,3 @@ function AdminPage() {
 }
 
 export default AdminPage;
-
-/*
-
- return (
-      <Layout className="layout">
-        <Sider trigger={null} collapsible collapsed={collapsed}>
-          <div className="logo" />
-          <Menu
-					onClick={(key) => {
-						setSelectedTitle(key.key);
-					}}
-				>
-					{pagesData.map((page) => (
-						<Menu.Item key={page.title} className="custom-menu-item">
-							{page.title === "Home" && <HomeOutlined icon={page.title} />}
-							{page.title !== "Home" && (
-								<UnorderedListOutlined icon={page.title} />
-							)}
-							{page.title}
-						</Menu.Item>
-					))}
-					<Menu.Item>
-						{" "}
-						<PlusOutlined /> Add New Page{" "}
-					</Menu.Item>
-					<Menu.Item>
-						{" "}
-						<PoweroffOutlined /> Logout
-					</Menu.Item>
-				</Menu>
-        </Sider>
-        <Layout className="site-layout">
-          <Header className="site-layout-background">
-            Admin Panel
-          </Header>
-          <Content
-              className="site-layout-background"
-              style={{
-                margin: '24px 16px',
-                padding: 24,
-              }}
-          >
-            Content
-          </Content>
-        </Layout>
-      </Layout>
-  )
-}
-
-
-*/
