@@ -1,4 +1,4 @@
-import {  Routes, Route } from "react-router-dom";
+import {  Routes, Route, BrowserRouter } from "react-router-dom";
 import { useState,useEffect } from "react";
 import Admin from "./pages/Admin";
 import TemplatePage from "./pages/TemplatePage";
@@ -17,23 +17,23 @@ const App = () => {
   }
  
   useEffect(() => {
-     fetchPagesAPI();
+    fetchPagesAPI();
   }, []);
   
 
-  return(
+
+  return (
   
-	<Routes>
+    <Routes>
 	
-		<Route path="/admin" element={<Admin/>} />
-    <Route path="/heroBannerShowcase" element={<HeroBanner/>} />
-    <Route path="/textBannerShowcase" element={<TextBanner/>} />
-    {pages.map((item)=>{
-      return <Route key={item.page_id} path={item.page_path} 
-    element={<TemplatePage pagetitle={item.page_title}/>}/>})}
-
-	</Routes>
-)};
-
+      <Route path="/admin" element={<Admin />} />
+      <Route path="/heroBannerShowcase" element={<HeroBanner />} />
+      <Route path="/textBannerShowcase" element={<TextBanner />} />
+      {pages.map((item) => {
+        return <Route key={item.page_id} path={item.page_path}
+          element={<TemplatePage pagetitle={item.page_title} />} />
+      })}
+    </Routes>)
+}
 
 export default App;
