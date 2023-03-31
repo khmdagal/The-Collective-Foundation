@@ -14,6 +14,10 @@
     'sidebar content content'
     'footer footer footer';  
 }
+
+span{
+    font-weight: bolder;
+}
 @media screen and (max-width: 768px) {
     .admin-page-container{
         grid-template-columns: 1fr;
@@ -66,12 +70,15 @@
 }
 
 .delete-button {
-	background-color: red;
-	color: rgb(241, 236, 236);
+    background-color: red;
+    width: 10%;
 	border-radius: 5px;
 	padding: 5px;
 	cursor: pointer;
     
+}
+.delete-button * {
+    color: #fff;
 }
 
 .Select-menu {
@@ -83,17 +90,20 @@
 	margin-bottom: 10px;
 }
 .menu {
-    width: 200px;
-   
+  
+    width: fit-content;
+    height: fit-content;
+    margin: 10px;
+
+}
+.menu *{
+margin: 5px;
 }
 .cards{
    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr;
     grid-template-areas:
     'content content'
-    'content content'
-    'footer footer';
+    'content content';
     grid-gap: 20px;
     padding: 20px;
     background-color: #f5f5f5;

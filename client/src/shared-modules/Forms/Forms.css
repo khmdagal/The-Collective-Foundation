@@ -4,13 +4,20 @@
 /*basic reset*/
 * {margin: 0; padding: 0;}
 
+.double-line {
+	display: flex;
+  border-top: 5px double #000;
+}
 
 .msform {
 	width: 400px;
-	margin: 50px auto;
+	margin: -50px auto;
+	border-radius: 10px;
 	text-align: center;
-	position: relative;
     background:linear-gradient(rgba(196, 102, 0, 0.6), rgba(155, 89, 182, 0.6));
+}
+legend{
+	font-weight: 700;
 }
 .msform input {
 	background: white;
@@ -21,24 +28,10 @@
 	box-sizing: border-box;
 	width: 80%;
 	margin: 0 10%;
-	
-	/*stacking fieldsets above each other*/
 	position: relative;
 }
-/*Hide all except first fieldset*/
 
-/*inputs*/
-#msform input,  {
-	padding: 15px;
-	border: 1px solid #ccc;
-	border-radius: 3px;
-	margin-bottom: 10px;
-	width: 100%;
-	box-sizing: border-box;
-	font-family: montserrat;
-	color: #2C3E50;
-	font-size: 13px;
-}
+
 /*buttons*/
 .msform button {
 	width: 100px;

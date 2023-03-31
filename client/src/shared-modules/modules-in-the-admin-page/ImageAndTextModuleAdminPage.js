@@ -11,16 +11,28 @@ const ImageAndTextModuleAdminPage = ({
 
 	return (
 		<div className="card">
-			<p>Module Type: {type}</p>
+			<p>
+				<span>Type: </span> {type}
+			</p>
+			<span>Image: </span>
 			<img
 				// src={`/Images/textAndImage-${img}`}
 				alt="Text_and_Image"
 				className={`card-image ${direction}`}
 			/>
 			<div className="card-content">
-				<h2 className="card-header">{textheader}</h2>
-				<p className="card-body">{textbody}</p>
-				<button>{button}</button>
+				<h2 className="card-header">
+					<span>Text Header: </span>
+					{textheader}
+				</h2>
+				<p className="card-body">
+					<span>Text Body: </span>
+					{textbody}
+				</p>
+				<p>
+					<span>Button: </span>
+					{button}
+				</p>
 			</div>
 		</div>
 	);

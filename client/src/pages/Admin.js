@@ -294,25 +294,27 @@ function AdminPage() {
 			</div>
 			<div>
 				<h2 className="each-page-title">{selectedTitle} Page</h2>
-				<Card className="cards">{allModules && allModules}</Card>
-				<Select
-					className="Select-menu"
-					onChange={(e) => {
-						setSelectedModuleType(e);
-						setPageToAddModules(selectedTitle);
-					}}
-				>
-					<Select.Option value="">Select Module</Select.Option>
-					{modules.map((moduleType) => (
-						<Select.Option
-							key={moduleType.module_type}
-							value={moduleType.module_type}
-						>
-							{moduleType.module_type}
-						</Select.Option>
-					))}
-				</Select>
-				{formComponent}
+				<Card className="cards">
+					{allModules && allModules}
+					<Select
+						className="Select-menu"
+						onChange={(e) => {
+							setSelectedModuleType(e);
+							setPageToAddModules(selectedTitle);
+						}}
+					>
+						<Select.Option value="">Select Module</Select.Option>
+						{modules.map((moduleType) => (
+							<Select.Option
+								key={moduleType.module_type}
+								value={moduleType.module_type}
+							>
+								{moduleType.module_type}
+							</Select.Option>
+						))}
+					</Select>
+					{formComponent}
+				</Card>
 			</div>
 
 			<footer className="footer">

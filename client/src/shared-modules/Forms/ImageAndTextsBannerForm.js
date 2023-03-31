@@ -49,78 +49,75 @@ function ImageAndTextBannerForm({ pageToAddModules, handleModuleAdd }) {
 
 	return (
 		<form className="msform" onSubmit={handleSubmit}>
-			<label htmlFor="pageToAddModules">
-				Page:{pageToAddModules}
-				<input
-					type="text"
-					name="pageToAddModules"
-					value={pageToAddModules}
-					disabled
-				/>
-			</label>
-			<label htmlFor="text_header">
-				Text header:
-				<input
-					type="text"
-					name="text_header"
-					value={text_header}
-					required
-					onChange={(event) => setText_header(event.target.value)}
-				/>
-			</label>
-			<label htmlFor="text_body">
-				Text body:
-				<input
-					type="text"
-					name="text_body"
-					value={text_body}
-					required
-					onChange={(event) => setText_body(event.target.value)}
-				/>
-			</label>
-			<label htmlFor="image">
-				Image:
-				<input
-					type="text"
-					alt={text_header}
-					name="image"
-					value={image}
-					required
-					onChange={(event) => setImage(event.target.value)}
-				/>
-			</label>
-			<label htmlFor="button">
-				Button:
-				<input
-					type="text"
-					name="button"
-					value={button}
-					required
-					onChange={(event) => setButton(event.target.value)}
-				/>
-			</label>
-			<label htmlFor="hasbutton">
-				Has Button:
-				<input
-					type="checkbox"
-					name="hasbutton"
-					value={hasbutton}
-					required
-					onChange={(event) => setHasButton(event.target.value)}
-				/>
-			</label>
-			<label htmlFor="imagetext_direction">
-				Imagetext Direction:
-				<input
-					type="checkbox"
-					name="imagetext_direction"
-					value={imagetext_direction}
-					required
-					onChange={(event) => setImagetext_direction(event.target.value)}
-				/>
-			</label>
-			<button type="submit">Submit</button>
-			{errorMessage && <div style={{ color: "red" }}>{errorMessage}</div>}
+			<fieldset>
+				<legend htmlFor="pageToAddModules">
+					Adding to {pageToAddModules} Page
+				</legend>
+				<hr class="double-line"></hr>
+				<label htmlFor="text_header">
+					Text header:
+					<input
+						type="text"
+						name="text_header"
+						value={text_header}
+						required
+						onChange={(event) => setText_header(event.target.value)}
+					/>
+				</label>
+				<label htmlFor="text_body">
+					Text body:
+					<input
+						type="text"
+						name="text_body"
+						value={text_body}
+						required
+						onChange={(event) => setText_body(event.target.value)}
+					/>
+				</label>
+				<label htmlFor="image">
+					Image:
+					<input
+						type="text"
+						alt={text_header}
+						name="image"
+						value={image}
+						required
+						onChange={(event) => setImage(event.target.value)}
+					/>
+				</label>
+				<label htmlFor="button">
+					Button:
+					<input
+						type="text"
+						name="button"
+						value={button}
+						required
+						onChange={(event) => setButton(event.target.value)}
+					/>
+				</label>
+				<label htmlFor="hasbutton">
+					Has Button:
+					<input
+						type="checkbox"
+						name="hasbutton"
+						value={hasbutton}
+						required
+						onChange={(event) => setHasButton(event.target.value)}
+					/>
+				</label>
+				<label htmlFor="imagetext_direction">
+					Imagetext Direction:
+					<input
+						type="checkbox"
+						name="imagetext_direction"
+						value={imagetext_direction}
+						required
+						onChange={(event) => setImagetext_direction(event.target.value)}
+					/>
+				</label>
+				<button type="submit">Submit</button>
+				{errorMessage && <div style={{ color: "red" }}>{errorMessage}</div>}
+			</fieldset>
 		</form>
 	);
 }

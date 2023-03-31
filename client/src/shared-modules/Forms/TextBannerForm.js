@@ -43,49 +43,44 @@ function TextBannerForm({ pageToAddModules, handleModuleAdd }) {
 
 	return (
 		<form className="msform" onSubmit={handleSubmit}>
-			<label htmlFor="pageToAddModules">
-				Page:{pageToAddModules}
-				<input
-					type="text"
-					name="pageToAddModules"
-					value={pageToAddModules}
-					disabled
-				/>
-			</label>
-			<label htmlFor="bodlText">
-				Bold Text:
-				<input
-					type="text"
-					name="bodlText"
-					value={boldText}
-					required
-					onChange={(event) => setBoldText(event.target.value)}
-				/>
-			</label>
-			<label htmlFor="normalText">
-				Normal Text:
-				<input
-					type="text"
-					name="normalText"
-					value={normalText}
-					required
-					onChange={(event) => setNormalText(event.target.value)}
-				/>
-			</label>
-			<label htmlFor="background">
-				Background:
-				<input
-					type="text"
-					name="background"
-					value={background}
-					required
-					onChange={(event) => setBackground(event.target.value)}
-				/>
-			</label>
-			<button onClick={handleSubmit} type="submit">
-				Submit
-			</button>
-			{errorMessage && <div style={{ color: "red" }}>{errorMessage}</div>}
+			<fieldset>
+				<legend htmlFor="pageToAddModules">Adding to {pageToAddModules} Page</legend>
+		<hr class="double-line"></hr>
+				<label htmlFor="bodlText">
+					Bold Text:
+					<input
+						type="text"
+						name="bodlText"
+						value={boldText}
+						required
+						onChange={(event) => setBoldText(event.target.value)}
+					/>
+				</label>
+				<label htmlFor="normalText">
+					Normal Text:
+					<input
+						type="text"
+						name="normalText"
+						value={normalText}
+						required
+						onChange={(event) => setNormalText(event.target.value)}
+					/>
+				</label>
+				<label htmlFor="background">
+					Background:
+					<input
+						type="text"
+						name="background"
+						value={background}
+						required
+						onChange={(event) => setBackground(event.target.value)}
+					/>
+				</label>
+				<button onClick={handleSubmit} type="submit">
+					Submit
+				</button>
+				{errorMessage && <div style={{ color: "red" }}>{errorMessage}</div>}
+			</fieldset>
 		</form>
 	);
 }
