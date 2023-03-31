@@ -247,4 +247,65 @@ router.post("/modules/heroBanner/:pageTitle", async (req, res) => {
 		res.status(500).json({ error });
 	}
 });
+// add new page endpoint
+
+router.post("/pages/:newpage", async (req, res) => {
+	const newpage = req.params.newpage;
+	const { page_title, page_path } = req.body;
+
+	if (!page_title || !page_path) {
+		res.status(500).json("Please fill all the fields");
+	}
+
+	try {
+		// introduce a new row into the pages table
+		const CreateNewPage = await db.query(
+			`INSERT INTO pages (page_title, page_path)
+      VALUES ($1, $2,)`,
+			[newpage, page_path]
+		);
+
+		return res.status(200).json({
+			message: " page has been created",
+		});
+	} catch (error) {
+		res.status(500).json({ error });
+	}
+});
+
+// delete a page endpoint
+router.delete("/pages/deletepages/:page_id", async (req, res) => {
+	try {
+		const pageTitle = req.params.page_title;
+
+		const findPageId = await db.query(
+			"select page_id from pages where page_title = $1",
+			[pageTitle]
+		);
+		const page_id = findPageId.rows[0].page_id;
+
+		const checkModules = await db.query(
+			"select * from modules where page_id = $1",
+			[page_id]
+		);
+
+		if (checkModules.rows.length > 0) {
+			return res.status(400).json({
+				message: "please delete the modules first",
+			});
+		} else {
+			deletingPage;
+		}
+		const deletingPage = await db.query(
+			"delete from pages WHERE page_id = $1",
+			[page_id]
+		);
+
+		res.status(200).json(deletingPage[0].rows);
+	} catch (err) {
+		res.status(500).json({ error: err.message });
+	}
+});
+
+
 export default router;
