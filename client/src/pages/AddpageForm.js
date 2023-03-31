@@ -1,32 +1,85 @@
-import { Form, Input, Button } from "antd";
-import "../pages/AddPageForm.css";
+import React, { useState } from "react";
+import "../Forms/Forms.css";
 
-const AddPageForm = () => {
-	const onFinish = (values) => {
-		console.log("Page Title:", values.title);
+function AddNewPageForm() {
+	const [pageTitle, setPageTitle] = useState("");
+	const [pagePath, setPagePath] = useState("");
+	const [errorMessage, setErrorMessage] = useState("");
+	const [successMessage, setSuccessMessage] = useState("");
+
+	const handleSubmit = async (event) => {
+		event.preventDefault();
+		if (pageTitle.trim() === "" || pagePath.trim() === "") {
+			setErrorMessage("Please fill all the fields");
+		}
+		try {
+			const addNewPage = await fetch(`/api/pages/newpage`,
+				{
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					body: JSON.stringify({
+						pageTitle,
+						pagePath,
+					}),
+				}
+			);
+			const New_Page = await addNewPage.json();
+
+// Calling the the function the we want to refetch the pages data after adding new module
+			// handleModuleAdd(pageToAddModules);
+
+
+			// Clearing the input fields after the submission
+			setPageTitle("");
+			setPagePath("");
+
+			setSuccessMessage(`Your new page is successfully created`);
+
+			
+		} catch (err) {
+			console.error(err);
+		}
 	};
 
 	return (
-		<Form onFinish={onFinish}>
-			<Form.Item
-				label="ADD PAGE"
-				name="title"
-				rules={[
-					{
-						required: true,
-						message: "Please input your page title!",
-					},
-				]}
-			>
-				<Input placeholder="Enter page title" />
-			</Form.Item>
-			<Form.Item>
-				<Button type="primary" htmlType="submit">
-					Add Page
-				</Button>
-			</Form.Item>
-		</Form>
+		<form className="msform" onSubmit={handleSubmit}>
+			<fieldset>
+				<legend htmlFor="pageToAddModules">
+					Creating new page
+				</legend>
+				<hr className="double-line"></hr>
+				<label htmlFor="pageTitle">
+					Page Title:
+					<input
+						type="text"
+						name="pageTitle"
+						value={pageTitle}
+						required
+						onChange={(event) => setPageTitle(event.target.value)}
+					/>
+				</label>
+				<label htmlFor="pagePath">
+					Page Path:
+					<input
+						type="heroText"
+						name="pagePath"
+						value={pagePath}
+						required
+						onChange={(event) => setPagePath(event.target.value)}
+					/>
+				</label>
+				<button  type="submit">
+					Submit
+				</button>
+				{errorMessage && <div className="error-message">{errorMessage}</div>}
+				{successMessage && (
+					<div className="success-message">{successMessage}</div>
+				)}
+			</fieldset>
+		</form>
 	);
-};
+}
 
-export default AddPageForm;
+export default AddNewPageForm;

@@ -249,8 +249,8 @@ router.post("/modules/heroBanner/:pageTitle", async (req, res) => {
 });
 // add new page endpoint
 
-router.post("/pages/:newpage", async (req, res) => {
-	const newpage = req.params.newpage;
+router.post("/pages/newpage", async (req, res) => {
+	// const newpage = req.params.newpage;
 	const { page_title, page_path } = req.body;
 
 	if (!page_title || !page_path) {
@@ -262,7 +262,7 @@ router.post("/pages/:newpage", async (req, res) => {
 		const CreateNewPage = await db.query(
 			`INSERT INTO pages (page_title, page_path)
       VALUES ($1, $2,)`,
-			[newpage, page_path]
+			[page_title, page_path]
 		);
 
 		return res.status(200).json({
@@ -274,7 +274,7 @@ router.post("/pages/:newpage", async (req, res) => {
 });
 
 // delete a page endpoint
-router.delete("/pages/deletepages/:page_id", async (req, res) => {
+router.delete("/pages/deletepages/:page_title", async (req, res) => {
 	try {
 		const pageTitle = req.params.page_title;
 

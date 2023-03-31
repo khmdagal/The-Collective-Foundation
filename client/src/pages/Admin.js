@@ -4,6 +4,8 @@ import { useState, useEffect } from "react";
 import ImageAndTextsBannerForm from "../shared-modules/Forms/ImageAndTextsBannerForm";
 import TextBannerForm from "../shared-modules/Forms/TextBannerForm";
 import HeroBannerForm from "../shared-modules/Forms/HeroBannerForm";
+//add page form
+import AddNewPageForm from "./AddPageForm";
 
 import clientIcon from "../icons/client-logo.png";
 import "../pages/Admin.css";
@@ -35,7 +37,7 @@ function AdminPage() {
 	const [selectedModuleType, setSelectedModuleType] = useState("");
 	const [pageToAddModules, setPageToAddModules] = useState("");
 	const [selectedTitle, setSelectedTitle] = useState("Home");
-
+    const [showAddPageForm, setShowAddPageForm] = useState(false);
 	async function fectPageTitles() {
 		try {
 			const getPageTitles = await fetch("/api/pages");
@@ -264,6 +266,10 @@ function AdminPage() {
 		displayModule(module)
 	);
 
+const handleButtonClick = () => {
+    setShowAddPageForm(!showAddPageForm);
+  }
+
 	return (
 		<div className="admin-page-container">
 			<header className="header">
@@ -287,7 +293,7 @@ function AdminPage() {
 					))}
 					<Menu.Item>
 						{" "}
-						<PlusOutlined /> Add New Page{" "}
+						<PlusOutlined onClick={()=> handleButtonClick} /> Add New Page{" "}
 					</Menu.Item>
 					<Menu.Item>
 						{" "}
@@ -317,6 +323,7 @@ function AdminPage() {
 						))}
 					</Select>
 					{formComponent}
+					{showAddPageForm && (AddNewPageForm)}
 				</Card>
 				{/* add page form here */}
 				<div className="Add-page-Form-card">
