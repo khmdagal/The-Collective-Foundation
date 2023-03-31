@@ -8,6 +8,7 @@ const PageTitleForm = () => {
 
 	return (
 		<Form onFinish={onFinish}>
+        
 			<Form.Item
 				label="ADD PAGE"
 				name="title"
@@ -22,7 +23,7 @@ const PageTitleForm = () => {
 			</Form.Item>
 			<Form.Item>
 				<Button type="primary" htmlType="submit">
-					Submit
+					Add Page
 				</Button>
 			</Form.Item>
 		</Form>

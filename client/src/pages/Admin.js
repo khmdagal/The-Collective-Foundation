@@ -96,9 +96,10 @@ function AdminPage() {
 				</div>
 			))}
 			{/* add page form here */}
-			<div className="pageForm">PageTitleForm</div>
-			<AddPageForm/>
-			<button>Add page</button>
+			<div className="Add-page-Form-card">
+				<AddPageForm />
+				
+			</div>
 		</>
 	);
 }
