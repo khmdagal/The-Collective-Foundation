@@ -119,9 +119,11 @@ router.delete("/pages/deletepages/:page_id", async (req, res) => {
 		);
 		const page_id = findPageId.rows[0].page_id;
 
-		if (deletingPage.rows !== "") {
-			return res.status(400).json("please delete the modules first");
-		}
+			if (findPageId.rows.length > 0) {
+				return res.status(400).json({
+					message: "please delete the modules first",
+				});
+			}
 		const deletingPage = await db.query(
 			"delete from pages WHERE page_id = $1",
 			[page_id]
