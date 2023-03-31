@@ -67,16 +67,20 @@ function AdminPage() {
 	}
 
 
-	async function handleModuleDelete(pageTitle, recordId) {
+	async function handleModuleDelete(pageTitle, moduleTpe, recordId) {
+		console.log(pageTitle, moduleTpe, recordId);
 		const confirmed = confirm(
 			"Are you sure you want to delete this module and all of its content?"
 		);
 
 		if (confirmed) {
 			try {
-				const response = await fetch(`api/pages/${pageTitle}/${recordId}`, {
-					method: "Delete",
-				});
+				const response = await fetch(
+					`api/pages/${pageTitle}/${moduleTpe}/${recordId}`,
+					{
+						method: "Delete",
+					}
+				);
 				const deletingModule = await response.json();
 
 				// This is to update the pages data and reset the state after each deleting 
@@ -180,7 +184,7 @@ function AdminPage() {
 						<Button
 							className="delete-button"
 							onClick={() =>
-								handleModuleDelete(selectedTitle, module.details.record_id)
+								handleModuleDelete(selectedTitle, module.type, module.details.record_id)
 							}
 							danger
 							size="small"
@@ -204,7 +208,11 @@ function AdminPage() {
 						<Button
 							className="delete-button"
 							onClick={() =>
-								handleModuleDelete(selectedTitle, module.details.record_id)
+								handleModuleDelete(
+									selectedTitle,
+									module.type,
+									module.details.record_id
+								)
 							}
 							danger
 							size="small"
@@ -228,7 +236,11 @@ function AdminPage() {
 						<Button
 							className="delete-button"
 							onClick={() =>
-								handleModuleDelete(selectedTitle, module.details.record_id)
+								handleModuleDelete(
+									selectedTitle,
+									module.type,
+									module.details.record_id
+								)
 							}
 							danger
 							size="small"

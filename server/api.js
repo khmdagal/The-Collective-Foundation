@@ -67,10 +67,10 @@ router.get("/pages/:title", async (req, res) => {
 });
 
 // Deleting module endpoint
-router.delete("/pages/:page_title/:record_id", async (req, res) => {
+router.delete("/pages/:page_title/:module_type/:record_id", async (req, res) => {
 	try {
 		const pageTitle = req.params.page_title;
-
+		const moduleTpe = req.params.module_type;
 		const record_id = req.params.record_id;
 
 		const findPageId = await db.query(
@@ -79,8 +79,8 @@ router.delete("/pages/:page_title/:record_id", async (req, res) => {
 		);
 		const page_id = findPageId.rows[0].page_id;
 		const deletingModule = await db.query(
-			"delete from modules WHERE page_id = $1 AND record_id = $2",
-			[+page_id, +record_id]
+			"delete from modules WHERE page_id = $1 AND module_type = $2 AND record_id = $3",
+			[+page_id, moduleTpe, +record_id]
 		);
 		res.status(200).json(deletingModule[0].rows);
 	} catch (err) {
