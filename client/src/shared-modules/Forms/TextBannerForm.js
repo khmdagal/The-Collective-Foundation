@@ -6,6 +6,7 @@ function TextBannerForm({ pageToAddModules, handleModuleAdd }) {
 	const [normalText, setNormalText] = useState("");
 	const [background, setBackground] = useState("");
 	const [errorMessage, setErrorMessage] = useState("");
+	const [successMessage, setSuccessMessage] = useState("");
 
 	const handleSubmit = async (event) => {
 		event.preventDefault();
@@ -16,7 +17,7 @@ function TextBannerForm({ pageToAddModules, handleModuleAdd }) {
 		) {
 			setErrorMessage("Please fill all the fields");
 		}
-		console.log({ boldText, normalText, background });
+
 		try {
 			const textBannerResponse = await fetch(
 				`/api/modules/textBanner/${pageToAddModules}`,
@@ -36,6 +37,16 @@ function TextBannerForm({ pageToAddModules, handleModuleAdd }) {
 
 			// Calling the the function the we want to refetch the pages data after adding new module
 			handleModuleAdd(pageToAddModules);
+
+			// Clearing the input fields after the submission
+			setBoldText("");
+			setNormalText("");
+			setBackground("");
+
+			setSuccessMessage("Your new module is successfully added");
+
+			// Calling the the function the we want to refetch the pages data after adding new module
+
 		} catch (err) {
 			console.error(err);
 		}
@@ -44,8 +55,10 @@ function TextBannerForm({ pageToAddModules, handleModuleAdd }) {
 	return (
 		<form className="msform" onSubmit={handleSubmit}>
 			<fieldset>
-				<legend htmlFor="pageToAddModules">Adding to {pageToAddModules} Page</legend>
-		<hr class="double-line"></hr>
+				<legend htmlFor="pageToAddModules">
+					Adding to {pageToAddModules} Page
+				</legend>
+				<hr className="double-line"></hr>
 				<label htmlFor="bodlText">
 					Bold Text:
 					<input
@@ -76,10 +89,13 @@ function TextBannerForm({ pageToAddModules, handleModuleAdd }) {
 						onChange={(event) => setBackground(event.target.value)}
 					/>
 				</label>
-				<button onClick={handleSubmit} type="submit">
+				<button type="submit">
 					Submit
 				</button>
-				{errorMessage && <div style={{ color: "red" }}>{errorMessage}</div>}
+				{errorMessage && <div className="error-message">{errorMessage}</div>}
+				{successMessage && (
+					<div className="success-message">{successMessage}</div>
+				)}
 			</fieldset>
 		</form>
 	);

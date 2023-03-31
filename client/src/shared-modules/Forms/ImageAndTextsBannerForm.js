@@ -8,6 +8,7 @@ function ImageAndTextBannerForm({ pageToAddModules, handleModuleAdd }) {
 	const [hasbutton, setHasButton] = useState(false);
 	const [imagetext_direction, setImagetext_direction] = useState(false);
 	const [errorMessage, setErrorMessage] = useState("");
+	const [successMessage, setSuccessMessage] = useState("");
 
 	const handleSubmit = async (event) => {
 		event.preventDefault();
@@ -40,20 +41,43 @@ function ImageAndTextBannerForm({ pageToAddModules, handleModuleAdd }) {
 			);
 			const imagAndTextBannerData = await imagAndTextBannerResponse.json();
 
-			// Calling the the function the we want to refetch the pages data after adding new module
+// Calling the the function the we want to refetch the pages data after adding new module
 			handleModuleAdd(pageToAddModules);
+
+			// Clearing the input fields after the submission
+			setText_header("");
+			setText_body("");
+			setImage("");
+			setButton("");
+			setHasButton(false);
+			setImagetext_direction(false);
+
+			setSuccessMessage(
+				`Your new module is successfully added`);
+
 		} catch (err) {
 			console.error(err);
 		}
 	};
 
+
+	function displayMessages() {
+		let message;
+		if (successMessage) {
+			message = <div className="error-message">{errorMessage}</div>;
+		}
+		if (errorMessage) {
+			message = <div className="error-message">{errorMessage}</div>;
+		}
+		return message;
+	}
 	return (
 		<form className="msform" onSubmit={handleSubmit}>
 			<fieldset>
 				<legend htmlFor="pageToAddModules">
 					Adding to {pageToAddModules} Page
 				</legend>
-				<hr class="double-line"></hr>
+				<hr className="double-line"></hr>
 				<label htmlFor="text_header">
 					Text header:
 					<input
@@ -116,7 +140,12 @@ function ImageAndTextBannerForm({ pageToAddModules, handleModuleAdd }) {
 					/>
 				</label>
 				<button type="submit">Submit</button>
-				{errorMessage && <div style={{ color: "red" }}>{errorMessage}</div>}
+
+
+				{errorMessage && <div className="error-message">{errorMessage}</div>}
+				{successMessage && (
+					<div className="success-message">{successMessage}</div>
+				)}
 			</fieldset>
 		</form>
 	);
