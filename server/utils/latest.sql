@@ -57,27 +57,20 @@ VALUES
 (3,'textBanner',3);
 INSERT INTO imageAndTexts (text_header,text_body,image,button,hasButton,imagetext_direction)
 VALUES
-('Changing the world is possible. We’ve done it before.','Our leadership team bring years of experience to bear on the greatest challenge of our time. We’re results driven, with a proven record of previous successes.','image1.jpg','click me1',true,true),
-('Ready to take the next step? ','This is a movement of billions. Whether you’re most comfortable contributing time to help achieve our advocacy goals, money to help us grow, or energy to put political pressure on our governments to change, we need you on our team.','image2.jpg','discover me2',true,false),
-('Changing the world is possible. We’ve done it before.','This is a movement of billions. Whether you’re most comfortable contributing time to help achieve our advocacy goals, money to help us grow, or energy to put political pressure on our governments to change, we need you on our team.','image3.jpg','click me',true,true),
-('Ready to take the next step? ','This is a movement of billions. Whether you’re most comfortable contributing time to help achieve our advocacy goals, money to help us grow, or energy to put political pressure on our governments to change, we need you on our team.','image4.jpg','click me',true,false),
-('Ready to take the next step?','Sign up to be the first to know about our events. In sit amet felis malesuada, feugiat purus eget, varius mi. Nulla lectus ante, consequat et ex eget, feugiat tincidunt metus.','image5.jpg','click me',true,false);
+('Changing the world is possible. We’ve done it before.','Our leadership team bring years of experience to bear on the greatest challenge of our time. We’re results driven, with a proven record of previous successes.','image1.jpg','Learn More',true,true),
+('Ready to take the next step? ','This is a movement of billions. Whether you’re most comfortable contributing time to help achieve our advocacy goals, money to help us grow, or energy to put political pressure on our governments to change, we need you on our team.','image2.jpg','Take Action',true,false),
+('Invest in your relationship with yourself','We all have a tendency to put others first, but in doing so, we can sometimes neglect our relationship with ourselves. Let me be your advocate and show you a kinder, gentler way to treat the most important person in your life.','image3.jpg','Learn More',true,true),
+('Ready to take the next step? ','This is a movement of billions. Whether you’re most comfortable contributing time to help achieve our advocacy goals, money to help us grow, or energy to put political pressure on our governments to change, we need you on our team.','image4.jpg','Take Action',true,false),
+('Take Action','Ready to take the next step? You can become a contributor to our cause, or participate yourself.','image5.jpg','Find Out How',true,false);
 
 INSERT INTO textBanner(textBold,textNormal, background)
 VALUES
 ('Climate change threatens every part of the planet. It’s a global problem that requires global cooperation.', 'Our mission is to create international consensus around the climate emergency, as well a shared plan for saving the planet’s most exceptional wild places.','#f0f0'),
-('Climate change threatens every part of the planet. It’s a global problem that requires global cooperation.', 'Our mission is to create international consensus around the climate emergency, as well a shared plan for saving the planet’s most exceptional wild places.','#ff00'),
-('Climate change threatens every part of the planet. It’s a global problem that requires global cooperation.', 'Our mission is to create international consensus around the climate emergency, as well a shared plan for saving the planet’s most exceptional wild places.','#fff00');
+('Our Organization', 'Our mission is to create international consensus around the climate emergency, as well a shared plan for saving the planet’s most exceptional wild places.','#ff00'),
+('Ready to take the next step? You can become a contributor to our cause, or participate yourself.', 'Our mission is to create international consensus around the climate emergency, as well a shared plan for saving the planet’s most exceptional wild places.','#fff00');
 
 INSERT INTO heroBanner(hero_image,hero_text)
 VALUES 
 ('image1.jpg',' They inspire everyone to care for the planet.'),
 ('image2.jpg','Starts With You'),
 ('image3.jpg','Protecting natural habitats from extinction.');
-
-
-
-
-
-
-
