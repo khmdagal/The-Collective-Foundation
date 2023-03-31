@@ -23,7 +23,10 @@ import {
 	MenuFoldOutlined,
 	MenuUnfoldOutlined,
 } from "@ant-design/icons";
-import { Menu, Button, Card, Select } from "antd";
+import { Menu, Button, Card, Select,Form } from "antd";
+
+import AddPageForm from "./AddPageForm";
+
 import "antd/dist/reset.css";
 
 function AdminPage() {
@@ -315,6 +318,10 @@ function AdminPage() {
 					</Select>
 					{formComponent}
 				</Card>
+				{/* add page form here */}
+				<div className="Add-page-Form-card">
+					<AddPageForm />
+				</div>
 			</div>
 
 			<footer className="footer">
