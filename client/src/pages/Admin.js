@@ -6,6 +6,8 @@
 /* eslint-disable react/jsx-key */
 import React from "react";
 import { useState, useEffect } from "react";
+import AddPageForm from "./AddPageForm";
+import { Form, Button } from "antd";
 
 function AdminPage() {
 	const [pagesData, setPagesData] = useState([]);
@@ -73,7 +75,12 @@ function AdminPage() {
 					<div>
 						{eachPage.modules.map((module) => (
 							<div>
-								<h3>{module.type}</h3><button onClick={() =>handleModuleDelete(eachPage.title, module.details.record_id)}>
+								<h3>{module.type}</h3>
+								<button
+									onClick={() =>
+										handleModuleDelete(eachPage.title, module.details.record_id)
+									}
+								>
 									Delete this module
 								</button>
 							</div>
@@ -88,6 +95,9 @@ function AdminPage() {
 					</div>
 				</div>
 			))}
+			{/* add page form here */}
+			<div className="pageForm">PageTitleForm</div>
+			<AddPageForm/>
 			<button>Add page</button>
 		</>
 	);
