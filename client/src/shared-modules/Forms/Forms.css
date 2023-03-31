@@ -57,6 +57,14 @@ label {
 	margin-bottom: 10px;
 }
 
+.error-message {
+  color: red;
+  font-weight: bold;
+}
 
+.success-message {
+  color: rgb(2, 22, 2);
+  font-weight: bolder;
+  font-size:large;
 
-
+}

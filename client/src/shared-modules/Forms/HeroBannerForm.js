@@ -5,6 +5,7 @@ function HeroBannerForm({ pageToAddModules, handleModuleAdd }) {
 	const [heroImage, setHeroImage] = useState("");
 	const [heroText, setHeroText] = useState("");
 	const [errorMessage, setErrorMessage] = useState("");
+	const [successMessage, setSuccessMessage] = useState("");
 
 	const handleSubmit = async (event) => {
 		event.preventDefault();
@@ -26,10 +27,17 @@ function HeroBannerForm({ pageToAddModules, handleModuleAdd }) {
 				}
 			);
 			const heroBannerData = await heroBannerResponse.json();
+// Calling the the function the we want to refetch the pages data after adding new module
+			handleModuleAdd(pageToAddModules);
 
-			// Calling the the function the we want to refetch the pages data after adding new module
-           handleModuleAdd(pageToAddModules);
-			// console.log(heroBannerData);
+
+			// Clearing the input fields after the submission
+			setHeroImage("");
+			setHeroText("");
+
+			setSuccessMessage(`Your new module is successfully added`);
+
+			
 		} catch (err) {
 			console.error(err);
 		}
@@ -62,10 +70,13 @@ function HeroBannerForm({ pageToAddModules, handleModuleAdd }) {
 						onChange={(event) => setHeroText(event.target.value)}
 					/>
 				</label>
-				<button onClick={handleSubmit} type="submit">
+				<button  type="submit">
 					Submit
 				</button>
-				{errorMessage && <div style={{ color: "red" }}>{errorMessage}</div>}
+				{errorMessage && <div className="error-message">{errorMessage}</div>}
+				{successMessage && (
+					<div className="success-message">{successMessage}</div>
+				)}
 			</fieldset>
 		</form>
 	);
