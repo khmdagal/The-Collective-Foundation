@@ -1,11 +1,12 @@
+/* eslint-disable linebreak-style */
 import React, { useState } from "react";
 
 function ImageAndTextBannerForm({ pageToAddModules, handleModuleAdd }) {
 	const [text_header, setText_header] = useState("");
 	const [text_body, setText_body] = useState("");
-	const [image, setImage] = useState("");
+	const [imageTexts, setImage] = useState("");
 	const [button, setButton] = useState("");
-	const [hasbutton, setHasButton] = useState(false);
+	const [hasbutton, setHasButton] = useState("");
 	const [imagetext_direction, setImagetext_direction] = useState(false);
 	const [errorMessage, setErrorMessage] = useState("");
 	const [successMessage, setSuccessMessage] = useState("");
@@ -13,30 +14,30 @@ function ImageAndTextBannerForm({ pageToAddModules, handleModuleAdd }) {
 	const handleSubmit = async (event) => {
 		event.preventDefault();
 		if (
-			text_header.trim() === "" ||
-			text_body.trim() === "" ||
-			image.trim() === "" ||
-			button.trim() === ""
+			!text_header.trim() === "" ||
+			!text_body.trim() === "" ||
+			!imageTexts.trim() === "" ||
+			!button.trim() === ""
 		) {
 			setErrorMessage("Please fill all the fields");
 		}
 
 		try {
+
+			const formdata = new FormData();
+			formdata.append("imageTexts", imageTexts);
+			formdata.append("text_header", text_header);
+			formdata.append("text_body",text_body);
+			formdata.append("button", button);
+			formdata.append("hasbutton", hasbutton);
+			formdata.append("imagetext_direction", imagetext_direction);
+
+
 			const imagAndTextBannerResponse = await fetch(
 				`/api/modules/imageAndTexts/${pageToAddModules}`,
 				{
 					method: "POST",
-					headers: {
-						"Content-Type": "application/json",
-					},
-					body: JSON.stringify({
-						text_header,
-						text_body,
-						image,
-						button,
-						hasbutton,
-						imagetext_direction,
-					}),
+					body: formdata,
 				}
 			);
 			const imagAndTextBannerData = await imagAndTextBannerResponse.json();
@@ -47,30 +48,19 @@ function ImageAndTextBannerForm({ pageToAddModules, handleModuleAdd }) {
 			// Clearing the input fields after the submission
 			setText_header("");
 			setText_body("");
-			setImage("");
+			setImage(null);
 			setButton("");
-			setHasButton(false);
-			setImagetext_direction(false);
+			setHasButton("");
+			setImagetext_direction("");
 
 			setSuccessMessage(
-				`Your new module is successfully added`);
+				"Your new module is successfully added");
 
 		} catch (err) {
 			console.error(err);
 		}
 	};
 
-
-	function displayMessages() {
-		let message;
-		if (successMessage) {
-			message = <div className="error-message">{errorMessage}</div>;
-		}
-		if (errorMessage) {
-			message = <div className="error-message">{errorMessage}</div>;
-		}
-		return message;
-	}
 	return (
 		<form className="msform" onSubmit={handleSubmit}>
 			<fieldset>
@@ -101,10 +91,9 @@ function ImageAndTextBannerForm({ pageToAddModules, handleModuleAdd }) {
 				<label htmlFor="image">
 					Image:
 					<input
-						type="text"
-						alt={text_header}
-						name="image"
-						value={image}
+						type="file"
+						name="imageTexts"
+						accept="image/*"
 						required
 						onChange={(event) => setImage(event.target.value)}
 					/>
@@ -130,7 +119,7 @@ function ImageAndTextBannerForm({ pageToAddModules, handleModuleAdd }) {
 					/>
 				</label>
 				<label htmlFor="imagetext_direction">
-					Imagetext Direction:
+					Image Direction:
 					<input
 						type="checkbox"
 						name="imagetext_direction"
@@ -140,7 +129,6 @@ function ImageAndTextBannerForm({ pageToAddModules, handleModuleAdd }) {
 					/>
 				</label>
 				<button type="submit">Submit</button>
-
 
 				{errorMessage && <div className="error-message">{errorMessage}</div>}
 				{successMessage && (

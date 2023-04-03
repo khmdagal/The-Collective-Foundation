@@ -163,7 +163,7 @@ function AdminPage() {
 	if (!pagesData || !modules) {
 		return <p>Loading..</p>;
 	}
-
+console.log(pagesData);
 	function displayModule(module) {
 		switch (module.type) {
 			case "imageAndTexts":
