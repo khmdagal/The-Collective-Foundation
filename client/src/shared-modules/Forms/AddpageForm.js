@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "../Forms/Forms.css";
+// import "../Forms/Forms.css";
 
 function AddNewPageForm() {
 	const [pageTitle, setPageTitle] = useState("");
@@ -27,7 +27,7 @@ function AddNewPageForm() {
 			);
 			const New_Page = await addNewPage.json();
 
-// Calling the the function the we want to refetch the pages data after adding new module
+// Calling the the function the we want to refetch the pages data after adding new page
 			// handleModuleAdd(pageToAddModules);
 
 

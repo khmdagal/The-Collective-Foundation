@@ -4,13 +4,10 @@ import { useState, useEffect } from "react";
 import ImageAndTextsBannerForm from "../shared-modules/Forms/ImageAndTextsBannerForm";
 import TextBannerForm from "../shared-modules/Forms/TextBannerForm";
 import HeroBannerForm from "../shared-modules/Forms/HeroBannerForm";
-//add page form
-import AddNewPageForm from "./AddPageForm";
-
+import AddPageForm from "../shared-modules/Forms/AddpageForm";
 import clientIcon from "../icons/client-logo.png";
 import "../pages/Admin.css";
 import Footer from "../shared-modules/Footer";
-
 import ImageAndTextModuleAdminPage from "../shared-modules/modules-in-the-admin-page/ImageAndTextModuleAdminPage";
 import HeroBannerModuleAdminPage from "../shared-modules/modules-in-the-admin-page/HeroBannerModuleAdminPage";
 import TextBannerModuleAdminPage from "../shared-modules/modules-in-the-admin-page/TextBannerModuleAdminPage";
@@ -27,7 +24,6 @@ import {
 } from "@ant-design/icons";
 import { Menu, Button, Card, Select,Form } from "antd";
 
-import AddPageForm from "./AddPageForm";
 
 import "antd/dist/reset.css";
 
@@ -38,6 +34,8 @@ function AdminPage() {
 	const [pageToAddModules, setPageToAddModules] = useState("");
 	const [selectedTitle, setSelectedTitle] = useState("Home");
     const [showAddPageForm, setShowAddPageForm] = useState(false);
+
+
 	async function fectPageTitles() {
 		try {
 			const getPageTitles = await fetch("/api/pages");
@@ -70,6 +68,19 @@ function AdminPage() {
 			)
 		);
 	}
+
+	// handle page addition 
+		async function handlePageAddition(pageTitle) {
+			// refetch the pages data
+			const updatedPagesData = await fectPagesData(pageTitle);
+			// update the state with the new data
+			setPagesData((prevPagesData) =>
+				prevPagesData.map((pageData) =>
+					pageData.title === pageTitle ? updatedPagesData : pageData
+				)
+			);
+		}
+
 
 
 	async function handleModuleDelete(pageTitle, moduleTpe, recordId) {
@@ -157,6 +168,13 @@ function AdminPage() {
 				/>
 			);
 			break;
+			case "Addpage":
+			formComponent = (
+				<AddPageForm
+					handlePageAddition={handlePageAddition}
+					pageToAddModules={pageToAddModules}
+				/>
+			);
 		default:
 			formComponent = null;
 	}
@@ -199,6 +217,7 @@ function AdminPage() {
 						</Button>
 					</div>
 				);
+
 			case "heroBanner":
 				return (
 					<div
@@ -292,8 +311,15 @@ const handleButtonClick = () => {
 						</Menu.Item>
 					))}
 					<Menu.Item>
-						{" "}
-						<PlusOutlined onClick={()=> handleButtonClick} /> Add New Page{" "}
+						<Button
+							className="Add-page-button"
+							onClick={() => handlePageAddition()}
+							size="small"
+							icon={<PlusOutlined />}
+						>
+							Add page
+						</Button>{" "}
+						<PlusOutlined onClick={() => handleButtonClick} />{" "}
 					</Menu.Item>
 					<Menu.Item>
 						{" "}
@@ -323,7 +349,7 @@ const handleButtonClick = () => {
 						))}
 					</Select>
 					{formComponent}
-					{showAddPageForm && (AddNewPageForm)}
+					{showAddPageForm && AddNewPageForm}
 				</Card>
 				{/* add page form here */}
 				<div className="Add-page-Form-card">
