@@ -11,26 +11,13 @@ const cors = require("cors");
 const router = Router();
 const bodyParser = require("body-parser");
 
-const multer = require("multer");
-const path = require("path");
+
 
 router.use(cors());
 router.use(bodyParser.urlencoded({ extended: true }));
 router.use(bodyParser.json());
 
-// storage engine
 
-
-// const storage = multer.diskStorage({
-// 	destination: "./client/src/Images/",
-// 	filename: (req, file, cb) => {
-// 		return cb(null,`${file.fieldname}_${Date.now()}${path.extname(file.originalname)}`);
-// 	},
-// });
-
-// const uploadImage = multer({
-// 	storage: storage,
-// });
 
 router.get("/", (_, res) => {
 	logger.debug("Welcoming everyone...");
@@ -174,18 +161,8 @@ router.post("/modules/textBanner/:pageTitle", async (req, res) => {
 	}
 });
 
-const storage = multer.diskStorage({
-	destination: "./client/src/Images/",
-	filename: (req, file, cb) => {
-return cb(null,`${file.fieldname}_${Date.now()}${path.extname(file.originalname)}`);
-} });
 
-const uploadHeroImage = multer({ storage: storage });
-const uploadImageTextes = multer({ storage: storage });
-
-router.post(
-	"/modules/imageAndTexts/:pageTitle",uploadImageTextes.single("imageTexts"),
-	async (req, res) => {
+router.post("/modules/imageAndTexts/:pageTitle",async (req, res) => {
 		const pageTitle = req.params.pageTitle;
 		const { text_header, text_body, button, hasbutton, imagetext_direction } = req.body;
 		const imageTexts = req.file.filename;
@@ -246,10 +223,7 @@ router.post(
 	}
 );
 
-router.post(
-	"/modules/heroBanner/:pageTitle",
-	uploadHeroImage.single("heroImage"),
-	async (req, res) => {
+router.post("/modules/heroBanner/:pageTitle",async (req, res) => {
 		const pageTitle = req.params.pageTitle;
 		const { heroText } = req.body;
 		const heroImage = req.file.filename;
@@ -294,27 +268,3 @@ router.post(
 export default router;
 
 
-// router.use("/bannerImage", express.static("./client/src/Images/"));
-
-// router.post("/uploadImage", uploadImage.single('bannerImage'), (req, res) => {
-// 	console.log(req.file);
-
-// 	res.status(200).json({
-// 		success: 1,
-// 		ImageName: `${req.file.filename}`,
-// 	});
-// })
-
-// const storage = multer.diskStorage({
-// 	destination: "./client/src/Images/",
-// 	filename: (req, file, cb) => {
-// 		return cb(
-// 			null,
-// 			`${file.fieldname}_${Date.now()}${path.extname(file.originalname)}`
-// 		);
-// 	},
-// });
-
-// const uploadImage = multer({
-// 	storage: storage,
-// });
