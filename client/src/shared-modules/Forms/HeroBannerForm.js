@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable quotes */
 /* eslint-disable no-unused-vars */
 /* eslint-disable linebreak-style */
@@ -5,7 +7,7 @@ import React, { useState } from "react";
 import "../Forms/Forms.css";
 
 function HeroBannerForm({ pageToAddModules, handleModuleAdd }) {
-	const [heroImage, setHeroImage] = useState(null);
+	const [heroImage, setHeroImage] = useState("");
 	const [heroText, setHeroText] = useState("");
 	const [errorMessage, setErrorMessage] = useState("");
 	const [successMessage, setSuccessMessage] = useState("");
@@ -16,14 +18,18 @@ function HeroBannerForm({ pageToAddModules, handleModuleAdd }) {
 			setErrorMessage("Please fill all the fields");
 		} else {
 			try {
-				const formData = new FormData();
-				formData.append("heroImage", heroImage);
-				formData.append("heroText", heroText);
 
-				const heroBannerResponse = await fetch(`/api/modules/heroBanner/${pageToAddModules}`,
+				const heroBannerResponse = await fetch(
+					`/api/modules/heroBanner/${pageToAddModules}`,
 					{
 						method: "POST",
-						body: formData,
+						headers: {
+							"Content-Type": "application/json",
+						},
+						body: JSON.stringify({
+							heroImage,
+							heroText,
+						}),
 					}
 				);
 				const heroBannerData = await heroBannerResponse.json();
@@ -31,7 +37,7 @@ function HeroBannerForm({ pageToAddModules, handleModuleAdd }) {
 				handleModuleAdd(pageToAddModules);
 
 				// Clearing the input fields after the submission
-				setHeroImage(null);
+				setHeroImage("");
 				setHeroText("");
 				setSuccessMessage(`Your new module has been successfully added`);
 			} catch (err) {
@@ -39,7 +45,7 @@ function HeroBannerForm({ pageToAddModules, handleModuleAdd }) {
 			}
 		}
 	};
-
+console.log(heroImage);
 	return (
 		<form className="msform" onSubmit={handleSubmit}>
 			<fieldset>
@@ -47,15 +53,31 @@ function HeroBannerForm({ pageToAddModules, handleModuleAdd }) {
 					Adding to {pageToAddModules} Page
 				</legend>
 				<hr className="double-line" />
+				<p>To Select click the image you want</p>
+				<div className="images-Container">
+				<img
+					src="../Images/herobanner-image1.jpg"
+					className="herobanner-images"
+					alt="image1"
+					onClick={() => setHeroImage("herobanner-image1.jpg")}
+				/>
+				<img
+					src="../Images/herobanner-image2.jpg"
+					className="herobanner-images"
+					alt="image1"
+					onClick={() => setHeroImage("herobanner-image2.jpg")}
+				/>
+				<img
+					src="../Images/herobanner-image3.jpg"
+					className="herobanner-images"
+					alt="image1"
+					onClick={() => setHeroImage("herobanner-image3.jpg")}
+				/>
+				</div>
+				<hr className="double-line" />
 				<label htmlFor="heroImage">
-					Hero Image:
-					<input
-						type="file"
-						name="heroImage"
-						accept="image/*"
-						required
-						onChange={(event) => setHeroImage(event.target.files[0])}
-					/>
+					Selected Image:
+					<input type="text" name="heroImage" value={heroImage} disabled />
 				</label>
 				<label htmlFor="heroText">
 					Hero Text:

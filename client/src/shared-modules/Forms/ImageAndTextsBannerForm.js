@@ -1,12 +1,15 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable linebreak-style */
 import React, { useState } from "react";
+import "../Forms/Forms.css";
 
 function ImageAndTextBannerForm({ pageToAddModules, handleModuleAdd }) {
 	const [text_header, setText_header] = useState("");
 	const [text_body, setText_body] = useState("");
-	const [imageTexts, setImage] = useState("");
+	const [image, setImage] = useState("");
 	const [button, setButton] = useState("");
-	const [hasbutton, setHasButton] = useState("");
+	const [hasbutton, setHasButton] = useState(true);
 	const [imagetext_direction, setImagetext_direction] = useState(false);
 	const [errorMessage, setErrorMessage] = useState("");
 	const [successMessage, setSuccessMessage] = useState("");
@@ -16,7 +19,7 @@ function ImageAndTextBannerForm({ pageToAddModules, handleModuleAdd }) {
 		if (
 			!text_header.trim() === "" ||
 			!text_body.trim() === "" ||
-			!imageTexts.trim() === "" ||
+			!image.trim() === "" ||
 			!button.trim() === ""
 		) {
 			setErrorMessage("Please fill all the fields");
@@ -24,20 +27,21 @@ function ImageAndTextBannerForm({ pageToAddModules, handleModuleAdd }) {
 
 		try {
 
-			const formdata = new FormData();
-			formdata.append("imageTexts", imageTexts);
-			formdata.append("text_header", text_header);
-			formdata.append("text_body",text_body);
-			formdata.append("button", button);
-			formdata.append("hasbutton", hasbutton);
-			formdata.append("imagetext_direction", imagetext_direction);
-
-
 			const imagAndTextBannerResponse = await fetch(
 				`/api/modules/imageAndTexts/${pageToAddModules}`,
 				{
 					method: "POST",
-					body: formdata,
+					headers: {
+						"Content-Type": "application/json",
+					},
+					body: JSON.stringify({
+						text_header,
+						text_body,
+						image,
+						button,
+						hasbutton,
+						imagetext_direction,
+					}),
 				}
 			);
 			const imagAndTextBannerData = await imagAndTextBannerResponse.json();
@@ -48,7 +52,7 @@ function ImageAndTextBannerForm({ pageToAddModules, handleModuleAdd }) {
 			// Clearing the input fields after the submission
 			setText_header("");
 			setText_body("");
-			setImage(null);
+			setImage("");
 			setButton("");
 			setHasButton("");
 			setImagetext_direction("");
@@ -68,6 +72,40 @@ function ImageAndTextBannerForm({ pageToAddModules, handleModuleAdd }) {
 					Adding to {pageToAddModules} Page
 				</legend>
 				<hr className="double-line"></hr>
+				<p>To Select click the image you want</p>
+				<div className="images-Container">
+					<img
+						src="../Images/textAndImage-image1.jpg"
+						className="textAndImage-images"
+						alt="image1"
+						onClick={() => setImage("textAndImage-image1.jpg")}
+					/>
+					<img
+						src="../Images/textAndImage-image2.jpg"
+						className="textAndImage-images"
+						alt="image2"
+						onClick={() => setImage("textAndImage-image2.jpg")}
+					/>
+					<img
+						src="../Images/herobanner-image3.jpg"
+						className="textAndImage-images"
+						alt="image3"
+						onClick={() => setImage("textAndImage-image3.jpg")}
+					/>
+					<img
+						src="../Images/textAndImage-image4.jpg"
+						className="textAndImage-images"
+						alt="image4"
+						onClick={() => setImage("textAndImage-image4.jpg")}
+					/>
+					<img
+						src="../Images/textAndImage-image5.jpg"
+						className="textAndImage-images"
+						alt="image5"
+						onClick={() => setImage("textAndImage-image5.jpg")}
+					/>
+				</div>
+				<hr className="double-line" />
 				<label htmlFor="text_header">
 					Text header:
 					<input
@@ -89,14 +127,8 @@ function ImageAndTextBannerForm({ pageToAddModules, handleModuleAdd }) {
 					/>
 				</label>
 				<label htmlFor="image">
-					Image:
-					<input
-						type="file"
-						name="imageTexts"
-						accept="image/*"
-						required
-						onChange={(event) => setImage(event.target.value)}
-					/>
+					Selected Image
+					<input type="text" name="image" value={image} disabled />
 				</label>
 				<label htmlFor="button">
 					Button:

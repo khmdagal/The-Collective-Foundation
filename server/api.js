@@ -1,7 +1,6 @@
 /* eslint-disable linebreak-style */
 /* eslint-disable quotes */
 /* eslint-disable no-console */
-const express = require("express");
 import { Router } from "express";
 import { Await } from "react-router-dom";
 import db from "./db";
@@ -93,10 +92,7 @@ router.delete(
 console.log(moduleTpe, +record_id);
 			// Delete this row from the module types table such as (heroBanner table, imageAndTexts table and so on..)
 			//delete This Record_id From The Related Table
-			await db.query("delete from $1 where record_id = $2", [
-				moduleTpe,
-				record_id,
-			]);
+			await db.query(`delete from ${moduleTpe} where record_id = $1`, [record_id]);
 
 			res.status(200).json(deletingModule[0].rows);
 		} catch (err) {
@@ -164,13 +160,19 @@ router.post("/modules/textBanner/:pageTitle", async (req, res) => {
 
 router.post("/modules/imageAndTexts/:pageTitle",async (req, res) => {
 		const pageTitle = req.params.pageTitle;
-		const { text_header, text_body, button, hasbutton, imagetext_direction } = req.body;
-		const imageTexts = req.file.filename;
+		const {
+			text_header,
+			text_body,
+			image,
+			button,
+			hasbutton,
+			imagetext_direction,
+		} = req.body;
 
 		if (
 			!text_header ||
 			!text_body ||
-			!imageTexts ||
+			!image ||
 			!button
 		) {
 			res.status(500).json("Please fill all the fields");
@@ -189,21 +191,13 @@ router.post("/modules/imageAndTexts/:pageTitle",async (req, res) => {
 				[
 					text_header,
 					text_body,
-					imageTexts,
+					image,
 					button,
 					hasbutton,
 					imagetext_direction,
 				]
 			);
 
-			console.log("====>>>",
-				text_header,
-				text_body,
-				imageTexts,
-				button,
-				hasbutton,
-				imagetext_direction
-			);
 
 			const record_id = imageAndTexts.rows[0].record_id;
 
@@ -225,8 +219,8 @@ router.post("/modules/imageAndTexts/:pageTitle",async (req, res) => {
 
 router.post("/modules/heroBanner/:pageTitle",async (req, res) => {
 		const pageTitle = req.params.pageTitle;
-		const { heroText } = req.body;
-		const heroImage = req.file.filename;
+		const { heroImage, heroText } = req.body;
+
 
 		console.log("====>>>", heroText);
 		console.log("---->>>", { heroImage, heroText });
@@ -238,7 +232,7 @@ router.post("/modules/heroBanner/:pageTitle",async (req, res) => {
 		try {
 			// First inserting the heroBanner data into the database
 			const heroBanner = await db.query(
-				`insert into herobanner (hero_image, hero_text) VALUES ($1, $2) returning record_id`,
+				`insert into heroBanner (hero_image, hero_text) VALUES ($1, $2) returning record_id`,
 				[heroImage, heroText]
 			);
 			const record_id = heroBanner.rows[0].record_id;

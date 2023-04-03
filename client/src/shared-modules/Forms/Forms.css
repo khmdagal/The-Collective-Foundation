@@ -9,6 +9,12 @@
   border-top: 5px double #000;
 }
 
+.herobanner-images, .textAndImage-images{
+	width: 100px;
+	height: 100px;
+	margin: 5px;
+}
+
 .msform {
 	width: 400px;
 	margin: -50px auto;
