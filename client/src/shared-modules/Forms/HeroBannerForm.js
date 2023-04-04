@@ -53,32 +53,43 @@ console.log(heroImage);
 					Adding to {pageToAddModules} Page
 				</legend>
 				<hr className="double-line" />
-				<p>To Select click the image you want</p>
+				<p>To Select click on the image you want</p>
 				<div className="images-Container">
-				<img
-					src="../Images/herobanner-image1.jpg"
-					className="herobanner-images"
-					alt="image1"
-					onClick={() => setHeroImage("herobanner-image1.jpg")}
-				/>
-				<img
-					src="../Images/herobanner-image2.jpg"
-					className="herobanner-images"
-					alt="image1"
-					onClick={() => setHeroImage("herobanner-image2.jpg")}
-				/>
-				<img
-					src="../Images/herobanner-image3.jpg"
-					className="herobanner-images"
-					alt="image1"
-					onClick={() => setHeroImage("herobanner-image3.jpg")}
-				/>
+					<img
+						src="../Images/herobanner-image1.jpg"
+						className="herobanner-images"
+						alt="image1"
+						onClick={() => setHeroImage("herobanner-image1.jpg")}
+					/>
+					<img
+						src="../Images/herobanner-image2.jpg"
+						className="herobanner-images"
+						alt="image1"
+						onClick={() => setHeroImage("herobanner-image2.jpg")}
+					/>
+					<img
+						src="../Images/herobanner-image3.jpg"
+						className="herobanner-images"
+						alt="image1"
+						onClick={() => setHeroImage("herobanner-image3.jpg")}
+					/>
 				</div>
 				<hr className="double-line" />
-				<label htmlFor="heroImage">
-					Selected Image:
-					<input type="text" name="heroImage" value={heroImage} disabled />
-				</label>
+				<div>
+					<label htmlFor="heroImage">
+						You have Selected
+						<img
+							style={{
+								borderStyle: "double",
+								display: !heroImage ? "none" : "inline",
+							}}
+							className="selectedImage"
+							src={`/Images/${heroImage}`}
+							alt={heroImage}
+							disabled
+						/>
+					</label>
+				</div>
 				<label htmlFor="heroText">
 					Hero Text:
 					<input

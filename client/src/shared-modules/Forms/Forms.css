@@ -9,7 +9,7 @@
   border-top: 5px double #000;
 }
 
-.herobanner-images, .textAndImage-images{
+.herobanner-images, .textAndImage-images, .selectedImage{
 	width: 100px;
 	height: 100px;
 	margin: 5px;
