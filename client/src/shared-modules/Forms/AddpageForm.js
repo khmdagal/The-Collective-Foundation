@@ -1,7 +1,6 @@
-import React, { useState } from "react";
-// import "../Forms/Forms.css";
+import React, { useState, useEffect } from "react";
 
-function AddNewPageForm() {
+function AddNewPageForm({ fectPagesData }) {
 	const [pageTitle, setPageTitle] = useState("");
 	const [pagePath, setPagePath] = useState("");
 	const [errorMessage, setErrorMessage] = useState("");
@@ -13,31 +12,35 @@ function AddNewPageForm() {
 			setErrorMessage("Please fill all the fields");
 		}
 		try {
-			const addNewPage = await fetch(`/api/pages/newpage`,
-				{
-					method: "POST",
-					headers: {
-						"Content-Type": "application/json",
-					},
-					body: JSON.stringify({
-						pageTitle,
-						pagePath,
-					}),
-				}
-			);
+			const addNewPage = await fetch(`/api/pages/newpage`, {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({
+					pageTitle,
+					pagePath,
+				}),
+			});
 			const New_Page = await addNewPage.json();
+			console.log("===>>>>", new_page);
 
-// Calling the the function the we want to refetch the pages data after adding new page
-			// handleModuleAdd(pageToAddModules);
+			// Calling the function to refetch the pages data after adding new page
+			fectPagesData(pageTitle);
 
+			// useEffect(()=>{
+			// 	setPageTitle(New_Page)
+			// 	fectPagesData(pageTitle)
+			// },[])
+
+			// Calling the the function the we want to refetch the pages data after adding new page
+			handlePageAddition(pageToAddModules);
 
 			// Clearing the input fields after the submission
 			setPageTitle("");
 			setPagePath("");
 
 			setSuccessMessage(`Your new page is successfully created`);
-
-			
 		} catch (err) {
 			console.error(err);
 		}
@@ -46,9 +49,7 @@ function AddNewPageForm() {
 	return (
 		<form className="msform" onSubmit={handleSubmit}>
 			<fieldset>
-				<legend htmlFor="pageToAddModules">
-					Creating new page
-				</legend>
+				<legend htmlFor="pageToAddModules">Creating new page</legend>
 				<hr className="double-line"></hr>
 				<label htmlFor="pageTitle">
 					Page Title:
@@ -70,9 +71,7 @@ function AddNewPageForm() {
 						onChange={(event) => setPagePath(event.target.value)}
 					/>
 				</label>
-				<button  type="submit">
-					Submit
-				</button>
+				<button type="submit">Submit</button>
 				{errorMessage && <div className="error-message">{errorMessage}</div>}
 				{successMessage && (
 					<div className="success-message">{successMessage}</div>

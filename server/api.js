@@ -251,19 +251,20 @@ router.post("/modules/heroBanner/:pageTitle", async (req, res) => {
 
 router.post("/pages/newpage", async (req, res) => {
 	// const newpage = req.params.newpage;
-	const { page_title, page_path } = req.body;
+	const { pageTitle, pagePath } = req.body;
 
-	if (!page_title || !page_path) {
+	if (!pageTitle || !pagePath) {
 		res.status(500).json("Please fill all the fields");
 	}
 
 	try {
 		// introduce a new row into the pages table
+	
 		const CreateNewPage = await db.query(
 			`INSERT INTO pages (page_title, page_path)
-      VALUES ($1, $2,)`,
-			[page_title, page_path]
-		);
+			 VALUES ($1, $2)`,
+			[pageTitle, pagePath]
+		  );
 
 		return res.status(200).json({
 			message: " page has been created",

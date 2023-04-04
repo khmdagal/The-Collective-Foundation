@@ -69,8 +69,8 @@ function AdminPage() {
 		);
 	}
 
-	// handle page addition 
-		async function handlePageAddition(pageTitle) {
+	// handle page addition
+		async function handlePageAddition(setPagesData) {
 			// refetch the pages data
 			const updatedPagesData = await fectPagesData(pageTitle);
 			// update the state with the new data
@@ -313,7 +313,7 @@ const handleButtonClick = () => {
 					<Menu.Item>
 						<Button
 							className="Add-page-button"
-							onClick={() => handlePageAddition()}
+							onClick={() => handlePageAddition(setPagesData.length - 1)}
 							size="small"
 							icon={<PlusOutlined />}
 						>
@@ -353,7 +353,7 @@ const handleButtonClick = () => {
 				</Card>
 				{/* add page form here */}
 				<div className="Add-page-Form-card">
-					<AddPageForm />
+					<AddPageForm fectPagesData={fectPagesData} />
 				</div>
 			</div>
 
