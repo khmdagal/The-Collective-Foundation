@@ -293,16 +293,20 @@ function AdminPage() {
 				<h2 className="each-page-title">{selectedTitle} Page</h2>
 				<Card className="cards">
 					{allModules && allModules}
+					<label htmlFor="Select-menu">Select Module </label>
 					<Select
 						className="Select-menu"
+						style={{ width: 200 }}
+						placeholder="---Select Module ---"
 						onChange={(e) => {
 							setSelectedModuleType(e);
 							setPageToAddModules(selectedTitle);
 						}}
 					>
-						<Select.Option value="">Select Module</Select.Option>
+						<Select.Option value=""> -- none -- </Select.Option>
 						{modules.map((moduleType) => (
 							<Select.Option
+
 								key={moduleType.module_type}
 								value={moduleType.module_type}
 							>

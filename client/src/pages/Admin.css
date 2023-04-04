@@ -81,24 +81,21 @@ span{
     color: #fff;
 }
 
-.Select-menu {
-	width: 200px;
-	height: 40px;
-	border: 1px solid #ccc;
-	border-radius: 5px;
-	padding: 5px 10px;
-	margin-bottom: 10px;
+.Select-menu *{
+	color: #333;
+    font-size: larger;
+    font-weight: bold;
 }
 .menu {
-  
+
     width: fit-content;
     height: fit-content;
     margin: 10px;
 
 }
-.menu *{
+/* .menu *{
 margin: 5px;
-}
+} */
 .cards{
    display: grid;
     grid-template-areas:
