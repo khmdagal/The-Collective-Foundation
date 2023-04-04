@@ -5,7 +5,6 @@ import ImageAndTextsBannerForm from "../shared-modules/Forms/ImageAndTextsBanner
 import TextBannerForm from "../shared-modules/Forms/TextBannerForm";
 import HeroBannerForm from "../shared-modules/Forms/HeroBannerForm";
 
-import clientIcon from "../icons/client-logo.png";
 import "../pages/Admin.css";
 import Footer from "../shared-modules/Footer";
 
@@ -19,9 +18,6 @@ import {
 	UnorderedListOutlined,
 	PlusOutlined,
 	PoweroffOutlined,
-	UserOutlined,
-	MenuFoldOutlined,
-	MenuUnfoldOutlined,
 } from "@ant-design/icons";
 import { Menu, Button, Card, Select } from "antd";
 import "antd/dist/reset.css";
@@ -83,7 +79,7 @@ function AdminPage() {
 				);
 				const deletingModule = await response.json();
 
-				// This is to update the pages data and reset the state after each deleting 
+				// This is to update the pages data and reset the state after each deleting
 				const updatedPagesData = await fectPagesData(pageTitle);
 
 				setPagesData((prevPagesData) =>
@@ -92,7 +88,7 @@ function AdminPage() {
 					)
 				);
 
-				alert(`The module has been successfully deleted.`);
+				alert("The module has been successfully deleted.");
 			} catch (error) {
 				console.error(error);
 				alert("Failed to delete data.");
@@ -163,7 +159,7 @@ function AdminPage() {
 	if (!pagesData || !modules) {
 		return <p>Loading..</p>;
 	}
-console.log(pagesData);
+
 	function displayModule(module) {
 		switch (module.type) {
 			case "imageAndTexts":
@@ -232,6 +228,7 @@ console.log(pagesData);
 							type={module.type}
 							textbold={module.details.textbold}
 							textnormal={module.details.textnormal}
+							background={module.details.background}
 						/>
 						<Button
 							className="delete-button"

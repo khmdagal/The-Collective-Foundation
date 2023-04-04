@@ -1,10 +1,11 @@
 import React, { useState } from "react";
+import { SketchPicker } from "react-color";
 import "../Forms/Forms.css";
 
 function TextBannerForm({ pageToAddModules, handleModuleAdd }) {
 	const [boldText, setBoldText] = useState("");
 	const [normalText, setNormalText] = useState("");
-	const [background, setBackground] = useState("");
+	const [background, setBackground] = useState("#ff6");
 	const [errorMessage, setErrorMessage] = useState("");
 	const [successMessage, setSuccessMessage] = useState("");
 
@@ -51,7 +52,7 @@ function TextBannerForm({ pageToAddModules, handleModuleAdd }) {
 			console.error(err);
 		}
 	};
-
+console.log(background)
 	return (
 		<form className="msform" onSubmit={handleSubmit}>
 			<fieldset>
@@ -81,17 +82,13 @@ function TextBannerForm({ pageToAddModules, handleModuleAdd }) {
 				</label>
 				<label htmlFor="background">
 					Background:
-					<input
-						type="text"
-						name="background"
-						value={background}
-						required
-						onChange={(event) => setBackground(event.target.value)}
+					<SketchPicker 
+						color={background}
+						onChangeComplete={(event) => setBackground(event.hex)}
 					/>
+
 				</label>
-				<button type="submit">
-					Submit
-				</button>
+				<button type="submit">Submit</button>
 				{errorMessage && <div className="error-message">{errorMessage}</div>}
 				{successMessage && (
 					<div className="success-message">{successMessage}</div>

@@ -1,6 +1,12 @@
 import React from "react";
 
-const TextBannerModuleAdminPage = ({ type, textbold, textnormal }) => {
+const TextBannerModuleAdminPage = ({
+	type,
+	textbold,
+	textnormal,
+	background,
+}) => {
+	//style={{ backgroundColor: background }}
 	return (
 		<div className="card">
 			<p>
@@ -8,11 +14,21 @@ const TextBannerModuleAdminPage = ({ type, textbold, textnormal }) => {
 			</p>
 			<div className="card-content">
 				<p>
-					<span>Bold Text: </span>{textbold}
+					<span>Bold Text: </span>
+					{textbold}
 				</p>
 				<p>
-					<span>Normal Text: </span>{textnormal}
+					<span>Normal Text: </span>
+					{textnormal}
 				</p>
+				<div >
+
+					<span>Chosen Color:</span>
+					<p
+						className="show-chosen-color"
+						style={{ backgroundColor: background }}
+					></p>
+				</div>
 			</div>
 		</div>
 	);
