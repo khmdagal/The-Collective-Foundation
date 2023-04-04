@@ -81,6 +81,36 @@ function AdminPage() {
 			);
 		}
 
+		async function handlePageDelete(pageTitle) {
+			console.log(pageTitle);
+			const confirmed = confirm(
+				"Are you sure you want to delete this page and all of its content?"
+			);
+
+			if (confirmed) {
+				try {
+					const response = await fetch(`api/pages/deletepages/:{pageTitle}`, {
+						method: "Delete",
+					});
+					const deletingpage = await response.json();
+
+					// This is to update the pages data and reset the state after each deleting
+					const updatedPagesData = await fectPagesData(pageTitle);
+
+					setPagesData((prevPagesData) =>
+						prevPagesData.map((pageData) =>
+							pageData.title === pageTitle ? updatedPagesData : pageData
+						)
+					);
+
+					alert(`The page has been successfully deleted.`);
+				} catch (error) {
+					console.error(error);
+					alert("Failed to delete page.");
+				}
+			}
+		}
+
 
 
 	async function handleModuleDelete(pageTitle, moduleTpe, recordId) {
@@ -247,32 +277,37 @@ function AdminPage() {
 					</div>
 				);
 			case "textBanner":
+
 				return (
-					<div
-						className="each-card"
-						key={`${module.type}-${module.details.record_id}`}
-					>
-						<TextBannerModuleAdminPage
-							type={module.type}
-							textbold={module.details.textbold}
-							textnormal={module.details.textnormal}
-						/>
-						<Button
-							className="delete-button"
-							onClick={() =>
-								handleModuleDelete(
-									selectedTitle,
-									module.type,
-									module.details.record_id
-								)
-							}
-							danger
-							size="small"
-							icon={<DeleteOutlined />}
-						>
-							Delete
-						</Button>
-					</div>
+					<>
+						<div className="modules-container">
+							<div
+								className="each-card"
+								key={`${module.type}-${module.details.record_id}`}
+							>
+								<TextBannerModuleAdminPage
+									type={module.type}
+									textbold={module.details.textbold}
+									textnormal={module.details.textnormal}
+								/>
+								<Button
+									className="delete-button"
+									onClick={() =>
+										handleModuleDelete(
+											selectedTitle,
+											module.type,
+											module.details.record_id
+										)
+									}
+									danger
+									size="small"
+									icon={<DeleteOutlined />}
+								>
+									Delete
+								</Button>
+							</div>
+						</div>
+					</>
 				);
 			default:
 				return null;
@@ -327,6 +362,7 @@ const handleButtonClick = () => {
 					</Menu.Item>
 				</Menu>
 			</div>
+
 			<div>
 				<h2 className="each-page-title">{selectedTitle} Page</h2>
 				<Card className="cards">
@@ -355,6 +391,15 @@ const handleButtonClick = () => {
 				<div className="Add-page-Form-card">
 					<AddPageForm fectPagesData={fectPagesData} />
 				</div>
+				<Button
+					className="delete-button"
+					onClick={() => handlePageDelete(selectedTitle)}
+					danger
+					size="small"
+					icon={<DeleteOutlined />}
+				>
+					Delete Page
+				</Button>
 			</div>
 
 			<footer className="footer">
