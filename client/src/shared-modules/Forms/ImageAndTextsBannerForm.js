@@ -72,7 +72,7 @@ function ImageAndTextBannerForm({ pageToAddModules, handleModuleAdd }) {
 					Adding to {pageToAddModules} Page
 				</legend>
 				<hr className="double-line"></hr>
-				<p>To Select click the image you want</p>
+				<p>To Select click on the image you want</p>
 				<div className="images-Container">
 					<img
 						src="../Images/textAndImage-image1.jpg"
@@ -105,61 +105,89 @@ function ImageAndTextBannerForm({ pageToAddModules, handleModuleAdd }) {
 						onClick={() => setImage("textAndImage-image5.jpg")}
 					/>
 				</div>
+
 				<hr className="double-line" />
-				<label htmlFor="text_header">
-					Text header:
-					<input
-						type="text"
-						name="text_header"
-						value={text_header}
-						required
-						onChange={(event) => setText_header(event.target.value)}
-					/>
-				</label>
-				<label htmlFor="text_body">
-					Text body:
-					<input
-						type="text"
-						name="text_body"
-						value={text_body}
-						required
-						onChange={(event) => setText_body(event.target.value)}
-					/>
-				</label>
-				<label htmlFor="image">
-					Selected Image
-					<input type="text" name="image" value={image} disabled />
-				</label>
-				<label htmlFor="button">
-					Button:
-					<input
-						type="text"
-						name="button"
-						value={button}
-						required
-						onChange={(event) => setButton(event.target.value)}
-					/>
-				</label>
-				<label htmlFor="hasbutton">
-					Has Button:
-					<input
-						type="checkbox"
-						name="hasbutton"
-						value={hasbutton}
-						required
-						onChange={(event) => setHasButton(event.target.value)}
-					/>
-				</label>
-				<label htmlFor="imagetext_direction">
-					Image Direction:
-					<input
-						type="checkbox"
-						name="imagetext_direction"
-						value={imagetext_direction}
-						required
-						onChange={(event) => setImagetext_direction(event.target.value)}
-					/>
-				</label>
+				<div>
+					<label htmlFor="image">
+						You have Selected
+						<img
+							style={{
+								borderStyle: "double",
+								display: !image ? "none" : "inline",
+							}}
+							className="selectedImage"
+							src={`/Images/${image}`}
+							alt={image}
+							disabled
+						/>
+					</label>
+				</div>
+
+				<div>
+					<label htmlFor="text_header">
+						Text header:
+						<input
+							type="text"
+							name="text_header"
+							value={text_header}
+							required
+							onChange={(event) => setText_header(event.target.value)}
+						/>
+					</label>
+				</div>
+
+				<div>
+					<label htmlFor="text_body">
+						Text body:
+						<input
+							type="text"
+							name="text_body"
+							value={text_body}
+							required
+							onChange={(event) => setText_body(event.target.value)}
+						/>
+					</label>
+				</div>
+
+				<div>
+					<label htmlFor="button">
+						Button:
+						<input
+							type="text"
+							name="button"
+							value={button}
+							required
+							onChange={(event) => setButton(event.target.value)}
+						/>
+					</label>
+				</div>
+
+				<div>
+					<label htmlFor="hasbutton">
+						Has Button:
+						<input
+							type="checkbox"
+							name="hasbutton"
+							value={hasbutton}
+							required
+							onChange={(event) => setHasButton(event.target.value)}
+						/>
+					</label>
+				</div>
+
+				<div>
+					<label htmlFor="imagetext_direction">
+						Image Direction:
+						<input
+							type="checkbox"
+							name="imagetext_direction"
+							value={imagetext_direction}
+							required
+							onChange={(event) => setImagetext_direction(event.target.value)}
+						/>
+					</label>
+				</div>
+
 				<button type="submit">Submit</button>
 
 				{errorMessage && <div className="error-message">{errorMessage}</div>}
