@@ -23,7 +23,7 @@ const TextBannerModuleAdminPage = ({
 				</p>
 				<div >
 
-					<span>Chosen Color:</span>
+					<span>Background Colour:</span>
 					<p
 						className="show-chosen-color"
 						style={{ backgroundColor: background }}
