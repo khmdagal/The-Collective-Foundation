@@ -275,7 +275,7 @@ router.post("/pages/newpage", async (req, res) => {
 });
 
 // delete a page endpoint
-router.delete("/pages/deletepages/:page_title", async (req, res) => {
+router.delete("/pages/deletepages/:pageTitle", async (req, res) => {
 	try {
 		const pageTitle = req.params.page_title;
 
@@ -290,17 +290,19 @@ router.delete("/pages/deletepages/:page_title", async (req, res) => {
 			[page_id]
 		);
 
-		if (checkModules.rows.length > 0) {
+		const deletingPage = await db.query(
+			"delete from pages WHERE page_id = $1",
+			[page_id]
+		);
+
+		// check if any module there
+		if (!checkModules) {
 			return res.status(400).json({
 				message: "please delete the modules first",
 			});
 		} else {
 			deletingPage;
 		}
-		const deletingPage = await db.query(
-			"delete from pages WHERE page_id = $1",
-			[page_id]
-		);
 
 		res.status(200).json(deletingPage[0].rows);
 	} catch (err) {

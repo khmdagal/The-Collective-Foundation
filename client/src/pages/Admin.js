@@ -89,7 +89,7 @@ function AdminPage() {
 
 			if (confirmed) {
 				try {
-					const response = await fetch(`api/pages/deletepages/:{pageTitle}`, {
+					const response = await fetch(`api/pages/deletepages/${pageTitle}`, {
 						method: "Delete",
 					});
 					const deletingpage = await response.json();
@@ -103,7 +103,7 @@ function AdminPage() {
 						)
 					);
 
-					alert(`The page has been successfully deleted.`);
+					alert("The page has been successfully deleted.");
 				} catch (error) {
 					console.error(error);
 					alert("Failed to delete page.");
@@ -129,7 +129,7 @@ function AdminPage() {
 				);
 				const deletingModule = await response.json();
 
-				// This is to update the pages data and reset the state after each deleting 
+				// This is to update the pages data and reset the state after each deleting
 				const updatedPagesData = await fectPagesData(pageTitle);
 
 				setPagesData((prevPagesData) =>
@@ -138,7 +138,7 @@ function AdminPage() {
 					)
 				);
 
-				alert(`The module has been successfully deleted.`);
+				alert("The module has been successfully deleted.");
 			} catch (error) {
 				console.error(error);
 				alert("Failed to delete data.");
@@ -205,6 +205,7 @@ function AdminPage() {
 					pageToAddModules={pageToAddModules}
 				/>
 			);
+			break;
 		default:
 			formComponent = null;
 	}
@@ -322,7 +323,7 @@ function AdminPage() {
 
 const handleButtonClick = () => {
     setShowAddPageForm(!showAddPageForm);
-  }
+  };
 
 	return (
 		<div className="admin-page-container">
