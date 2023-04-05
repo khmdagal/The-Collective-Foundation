@@ -5,7 +5,6 @@ import ImageAndTextsBannerForm from "../shared-modules/Forms/ImageAndTextsBanner
 import TextBannerForm from "../shared-modules/Forms/TextBannerForm";
 import HeroBannerForm from "../shared-modules/Forms/HeroBannerForm";
 
-import clientIcon from "../icons/client-logo.png";
 import "../pages/Admin.css";
 import Footer from "../shared-modules/Footer";
 
@@ -19,9 +18,6 @@ import {
 	UnorderedListOutlined,
 	PlusOutlined,
 	PoweroffOutlined,
-	UserOutlined,
-	MenuFoldOutlined,
-	MenuUnfoldOutlined,
 } from "@ant-design/icons";
 import { Menu, Button, Card, Select } from "antd";
 import "antd/dist/reset.css";
@@ -83,7 +79,7 @@ function AdminPage() {
 				);
 				const deletingModule = await response.json();
 
-				// This is to update the pages data and reset the state after each deleting 
+				// This is to update the pages data and reset the state after each deleting
 				const updatedPagesData = await fectPagesData(pageTitle);
 
 				setPagesData((prevPagesData) =>
@@ -92,7 +88,7 @@ function AdminPage() {
 					)
 				);
 
-				alert(`The module has been successfully deleted.`);
+				alert("The module has been successfully deleted.");
 			} catch (error) {
 				console.error(error);
 				alert("Failed to delete data.");
@@ -232,6 +228,7 @@ function AdminPage() {
 							type={module.type}
 							textbold={module.details.textbold}
 							textnormal={module.details.textnormal}
+							background={module.details.background}
 						/>
 						<Button
 							className="delete-button"
@@ -296,16 +293,20 @@ function AdminPage() {
 				<h2 className="each-page-title">{selectedTitle} Page</h2>
 				<Card className="cards">
 					{allModules && allModules}
+					<label htmlFor="Select-menu">Select Module </label>
 					<Select
 						className="Select-menu"
+						style={{ width: 200 }}
+						placeholder="---Select Module ---"
 						onChange={(e) => {
 							setSelectedModuleType(e);
 							setPageToAddModules(selectedTitle);
 						}}
 					>
-						<Select.Option value="">Select Module</Select.Option>
+						<Select.Option value=""> -- none -- </Select.Option>
 						{modules.map((moduleType) => (
 							<Select.Option
+
 								key={moduleType.module_type}
 								value={moduleType.module_type}
 							>
