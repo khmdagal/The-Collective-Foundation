@@ -1,4 +1,3 @@
-
 import React from "react";
 import { useState, useEffect } from "react";
 import ImageAndTextsBannerForm from "../shared-modules/Forms/ImageAndTextsBannerForm";
@@ -7,8 +6,6 @@ import HeroBannerForm from "../shared-modules/Forms/HeroBannerForm";
 
 import AddPageForm from "../shared-modules/Forms/AddpageForm";
 import clientIcon from "../icons/client-logo.png";
-
-
 
 import "../pages/Admin.css";
 import Footer from "../shared-modules/Footer";
@@ -23,8 +20,7 @@ import {
 	PlusOutlined,
 	PoweroffOutlined,
 } from "@ant-design/icons";
-import { Menu, Button, Card, Select,Form } from "antd";
-
+import { Menu, Button, Card, Select, Form } from "antd";
 
 import "antd/dist/reset.css";
 
@@ -34,8 +30,7 @@ function AdminPage() {
 	const [selectedModuleType, setSelectedModuleType] = useState("");
 	const [pageToAddModules, setPageToAddModules] = useState("");
 	const [selectedTitle, setSelectedTitle] = useState("Home");
-    const [showAddPageForm, setShowAddPageForm] = useState(false);
-
+	const [showAddPageForm, setShowAddPageForm] = useState(false);
 
 	async function fectPageTitles() {
 		try {
@@ -71,49 +66,47 @@ function AdminPage() {
 	}
 
 	// handle page addition
-		async function handlePageAddition(setPagesData) {
-			// refetch the pages data
-			const updatedPagesData = await fectPagesData(pageTitle);
-			// update the state with the new data
-			setPagesData((prevPagesData) =>
-				prevPagesData.map((pageData) =>
-					pageData.title === pageTitle ? updatedPagesData : pageData
-				)
-			);
-		}
+	async function handlePageAddition(setPagesData) {
+		// refetch the pages data
+		const updatedPagesData = await fectPagesData(pageTitle);
+		// update the state with the new data
+		setPagesData((prevPagesData) =>
+			prevPagesData.map((pageData) =>
+				pageData.title === pageTitle ? updatedPagesData : pageData
+			)
+		);
+	}
 
 	// handle page deletion
-		async function handlePageDelete(pageTitle) {
-			console.log(pageTitle);
-			const confirmed = confirm(
-				"Are you sure you want to delete this page and all of its content?"
-			);
+	async function handlePageDelete(pageTitle) {
+		console.log(pageTitle);
+		const confirmed = confirm(
+			"Are you sure you want to delete this page and all of its content?"
+		);
 
-			if (confirmed) {
-				try {
-					const response = await fetch(`api/pages/deletepages/${pageTitle}`, {
-						method: "Delete",
-					});
-					const deletingpage = await response.json();
+		if (confirmed) {
+			try {
+				const response = await fetch(`api/pages/deletepages/${pageTitle}`, {
+					method: "Delete",
+				});
+				const deletingpage = await response.json();
 
-					// This is to update the pages data and reset the state after each deleting
-					const updatedPagesData = await fectPagesData(pageTitle);
+				// This is to update the pages data and reset the state after each deleting
+				const updatedPagesData = await fectPagesData(pageTitle);
 
-					setPagesData((prevPagesData) =>
-						prevPagesData.map((pageData) =>
-							pageData.title === pageTitle ? updatedPagesData : pageData
-						)
-					);
+				setPagesData((prevPagesData) =>
+					prevPagesData.map((pageData) =>
+						pageData.title === pageTitle ? updatedPagesData : pageData
+					)
+				);
 
-					alert("ATTENTION!! if page has modules it can not be deleted");
-				} catch (error) {
-					console.error(error);
-					alert("Failed delete delete modules.");
-				}
+				alert("ATTENTION!! if page has modules it can not be deleted");
+			} catch (error) {
+				console.error(error);
+				alert("Failed delete delete modules.");
 			}
 		}
-
-
+	}
 
 	async function handleModuleDelete(pageTitle, moduleTpe, recordId) {
 		console.log(pageTitle, moduleTpe, recordId);
@@ -200,7 +193,7 @@ function AdminPage() {
 				/>
 			);
 			break;
-			case "Addpage":
+		case "Addpage":
 			formComponent = (
 				<AddPageForm
 					handlePageAddition={handlePageAddition}
@@ -240,7 +233,11 @@ function AdminPage() {
 						<Button
 							className="delete-button"
 							onClick={() =>
-								handleModuleDelete(selectedTitle, module.type, module.details.record_id)
+								handleModuleDelete(
+									selectedTitle,
+									module.type,
+									module.details.record_id
+								)
 							}
 							danger
 							size="small"
@@ -280,9 +277,7 @@ function AdminPage() {
 					</div>
 				);
 			case "textBanner":
-
 				return (
-
 					<>
 						<div className="modules-container">
 							<div
@@ -312,7 +307,6 @@ function AdminPage() {
 							</div>
 						</div>
 					</>
-
 				);
 			default:
 				return null;
@@ -325,9 +319,9 @@ function AdminPage() {
 		displayModule(module)
 	);
 
-const handleButtonClick = () => {
-    setShowAddPageForm(!showAddPageForm);
-  };
+	const handleButtonClick = () => {
+		setShowAddPageForm(!showAddPageForm);
+	};
 
 	return (
 		<div className="admin-page-container">
@@ -351,7 +345,6 @@ const handleButtonClick = () => {
 						</Menu.Item>
 					))}
 					<Menu.Item>
-						
 						<Button
 							className="Add-page-button"
 							onClick={() => handlePageAddition(setPagesData.length - 1)}
@@ -386,7 +379,6 @@ const handleButtonClick = () => {
 						<Select.Option value=""> -- none -- </Select.Option>
 						{modules.map((moduleType) => (
 							<Select.Option
-
 								key={moduleType.module_type}
 								value={moduleType.module_type}
 							>
