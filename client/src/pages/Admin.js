@@ -81,6 +81,7 @@ function AdminPage() {
 			);
 		}
 
+	// handle page deletion
 		async function handlePageDelete(pageTitle) {
 			console.log(pageTitle);
 			const confirmed = confirm(
@@ -103,10 +104,10 @@ function AdminPage() {
 						)
 					);
 
-					alert("The page has been successfully deleted.");
+					alert("ATTENTION!! if page has modules it can not be deleted");
 				} catch (error) {
 					console.error(error);
-					alert("Failed to delete page.");
+					alert("Failed delete delete modules.");
 				}
 			}
 		}
@@ -347,6 +348,7 @@ const handleButtonClick = () => {
 						</Menu.Item>
 					))}
 					<Menu.Item>
+						
 						<Button
 							className="Add-page-button"
 							onClick={() => handlePageAddition(setPagesData.length - 1)}

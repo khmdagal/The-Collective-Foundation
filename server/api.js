@@ -108,7 +108,7 @@ router.post("/modules/textBanner/:pageTitle", async (req, res) => {
 	}
 
 	try {
-		
+
 		// First inserting the textBanner table
 		const textBannerData = await db.query(
 			`INSERT INTO textbanner (textbold, textnormal, background) 
@@ -135,14 +135,14 @@ router.post("/modules/textBanner/:pageTitle", async (req, res) => {
 			[page_id, "textBanner", record_id]
 		);
 
-		
+
 
 		return res.status(200).json({
 			message: `Data is stored successfuly into textBanner table`,
 		});
 	} catch (error) {
 		console.error(error);
-		
+
 		res.status(500).json({ error });
 	}
 });
@@ -163,7 +163,7 @@ router.post("/modules/imageAndTexts/:pageTitle", async (req, res) => {
 	}
 
 	try {
-		
+
 		// First inserting the textBanner table
 		const imageAndTexts = await db.query(
 			`INSERT INTO imageandtexts (text_header,text_body,image,button,hasbutton,imagetext_direction) 
@@ -190,13 +190,13 @@ router.post("/modules/imageAndTexts/:pageTitle", async (req, res) => {
 			`insert into modules(page_id,module_type,record_id) values($1,$2,$3)`,
 			[page_id, "imageAndTexts", record_id]
 		);
-		
+
 		return res.status(200).json({
 			message: `Data is stored successfuly into imageAndTexts table`,
 		});
 	} catch (error) {
 		console.error(error);
-		
+
 		res.status(500).json({ error });
 	}
 });
@@ -210,7 +210,7 @@ router.post("/modules/heroBanner/:pageTitle", async (req, res) => {
 	}
 
 	try {
-		
+
 		// First inserting the textBanner table
 		const imageAndTexts = await db.query(
 			`INSERT INTO herobanner (hero_image,hero_text) 
@@ -237,13 +237,13 @@ router.post("/modules/heroBanner/:pageTitle", async (req, res) => {
 			`insert into modules(page_id,module_type,record_id) values($1,$2,$3)`,
 			[page_id, "heroBanner", record_id]
 		);
-		
+
 		return res.status(200).json({
 			message: `Data is stored successfuly into imageAndTexts table`,
 		});
 	} catch (error) {
 		console.error(error);
-		
+
 		res.status(500).json({ error });
 	}
 });
@@ -259,7 +259,7 @@ router.post("/pages/newpage", async (req, res) => {
 
 	try {
 		// introduce a new row into the pages table
-	
+
 		const CreateNewPage = await db.query(
 			`INSERT INTO pages (page_title, page_path)
 			 VALUES ($1, $2)`,
@@ -275,40 +275,39 @@ router.post("/pages/newpage", async (req, res) => {
 });
 
 // delete a page endpoint
-router.delete("/pages/deletepages/:pageTitle", async (req, res) => {
-	try {
-		const pageTitle = req.params.page_title;
+	router.delete("/pages/deletepages/:pageTitle", async (req, res) => {
+		try {
+			const pageTitle = req.params.pageTitle;
 
-		const findPageId = await db.query(
-			"select page_id from pages where page_title = $1",
-			[pageTitle]
-		);
-		const page_id = findPageId.rows[0].page_id;
+			const findPageId = await db.query(
+				"select page_id from pages where page_title = $1",
+				[pageTitle]
+			);
 
-		const checkModules = await db.query(
-			"select * from modules where page_id = $1",
-			[page_id]
-		);
+			const page_id = findPageId.rows[0].page_id;
 
-		const deletingPage = await db.query(
-			"delete from pages WHERE page_id = $1",
-			[page_id]
-		);
+			const checkModules = await db.query(
+				"select * from modules where page_id = $1",
+				[page_id]
+			);
 
-		// check if any module there
-		if (!checkModules) {
-			return res.status(400).json({
-				message: "please delete the modules first",
-			});
-		} else {
-			deletingPage;
+			// check if any module there
+			if (checkModules.rows.length > 0) {
+				return res
+					.status(400)
+					.json({ message: "please delete the modules first" });
+			} else {
+				const deletingPage = await db.query(
+					"delete from pages WHERE page_id = $1",
+					[page_id]
+				);
+
+				res.status(200).json(deletingPage.rows);
+			}
+		} catch (err) {
+			res.status(500).json({ error: err.message });
 		}
-
-		res.status(200).json(deletingPage[0].rows);
-	} catch (err) {
-		res.status(500).json({ error: err.message });
-	}
-});
+	});
 
 
 export default router;
