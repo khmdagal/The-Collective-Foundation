@@ -4,8 +4,12 @@ import { useState, useEffect } from "react";
 import ImageAndTextsBannerForm from "../shared-modules/Forms/ImageAndTextsBannerForm";
 import TextBannerForm from "../shared-modules/Forms/TextBannerForm";
 import HeroBannerForm from "../shared-modules/Forms/HeroBannerForm";
+
 import AddPageForm from "../shared-modules/Forms/AddpageForm";
 import clientIcon from "../icons/client-logo.png";
+
+
+
 import "../pages/Admin.css";
 import Footer from "../shared-modules/Footer";
 import ImageAndTextModuleAdminPage from "../shared-modules/modules-in-the-admin-page/ImageAndTextModuleAdminPage";
@@ -18,9 +22,6 @@ import {
 	UnorderedListOutlined,
 	PlusOutlined,
 	PoweroffOutlined,
-	UserOutlined,
-	MenuFoldOutlined,
-	MenuUnfoldOutlined,
 } from "@ant-design/icons";
 import { Menu, Button, Card, Select,Form } from "antd";
 
@@ -281,6 +282,7 @@ function AdminPage() {
 			case "textBanner":
 
 				return (
+
 					<>
 						<div className="modules-container">
 							<div
@@ -310,6 +312,7 @@ function AdminPage() {
 							</div>
 						</div>
 					</>
+
 				);
 			default:
 				return null;
@@ -370,16 +373,20 @@ const handleButtonClick = () => {
 				<h2 className="each-page-title">{selectedTitle} Page</h2>
 				<Card className="cards">
 					{allModules && allModules}
+					<label htmlFor="Select-menu">Select Module </label>
 					<Select
 						className="Select-menu"
+						style={{ width: 200 }}
+						placeholder="---Select Module ---"
 						onChange={(e) => {
 							setSelectedModuleType(e);
 							setPageToAddModules(selectedTitle);
 						}}
 					>
-						<Select.Option value="">Select Module</Select.Option>
+						<Select.Option value=""> -- none -- </Select.Option>
 						{modules.map((moduleType) => (
 							<Select.Option
+
 								key={moduleType.module_type}
 								value={moduleType.module_type}
 							>
