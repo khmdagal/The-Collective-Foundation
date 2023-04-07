@@ -9,12 +9,18 @@
   border-top: 5px double #000;
 }
 
+.herobanner-images, .textAndImage-images, .selectedImage{
+	width: 100px;
+	height: 100px;
+	margin: 5px;
+}
+
 .msform {
 	width: 400px;
 	margin: -50px auto;
 	border-radius: 10px;
 	text-align: center;
-    background:linear-gradient(rgba(196, 102, 0, 0.6), rgba(155, 89, 182, 0.6));
+    background:#CFE8FC;
 }
 legend{
 	font-weight: 700;

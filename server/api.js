@@ -10,9 +10,13 @@ const cors = require("cors");
 const router = Router();
 const bodyParser = require("body-parser");
 
+
+
 router.use(cors());
 router.use(bodyParser.urlencoded({ extended: true }));
 router.use(bodyParser.json());
+
+
 
 router.get("/", (_, res) => {
 	logger.debug("Welcoming everyone...");
@@ -68,6 +72,13 @@ router.get("/pages/:title", async (req, res) => {
 });
 
 // Deleting module endpoint
+router.delete(
+	"/pages/:page_title/:module_type/:record_id",
+	async (req, res) => {
+		try {
+			const pageTitle = req.params.page_title;
+			const moduleTpe = req.params.module_type;
+			const record_id = req.params.record_id;
 router.delete(
 	"/pages/:page_title/:module_type/:record_id",
 	async (req, res) => {
@@ -166,16 +177,14 @@ router.post("/modules/imageAndTexts/:pageTitle", async (req, res) => {
 		imagetext_direction,
 	} = req.body;
 
-	if (
-		!text_header ||
-		!text_body ||
-		!image ||
-		!button ||
-		!hasbutton ||
-		!imagetext_direction
-	) {
-		res.status(500).json("Please fill all the fields");
-	}
+		if (
+			!text_header ||
+			!text_body ||
+			!image ||
+			!button
+		) {
+			res.status(500).json("Please fill all the fields");
+		}
 
 	try {
 		// First inserting the textBanner table
@@ -193,11 +202,21 @@ router.post("/modules/imageAndTexts/:pageTitle", async (req, res) => {
 		const page_id = findPageId.rows[0].page_id;
 		console.log(page_id);
 
-		// third finding the last record in the textBnner table
-		const lastRecord = await db.query(
-			`select record_id from imageAndTexts order by record_id desc limit 1`
-		);
-		const record_id = lastRecord.rows[0].record_id;
+			const imageAndTexts = await db.query(
+				`insert into imageandtexts (text_header, text_body, image, button, hasbutton, imagetext_direction) 
+       VALUES ($1, $2, $3, $4, $5, $6) returning record_id`,
+				[
+					text_header,
+					text_body,
+					image,
+					button,
+					hasbutton,
+					imagetext_direction,
+				]
+			);
+
+
+			const record_id = imageAndTexts.rows[0].record_id;
 
 		// fourth inserting the above datas into the modules table
 		const insertingModulesTable = await db.query(
@@ -215,16 +234,9 @@ router.post("/modules/imageAndTexts/:pageTitle", async (req, res) => {
 	}
 });
 
-router.post("/modules/imageAndTexts/:pageTitle", async (req, res) => {
-	const pageTitle = req.params.pageTitle;
-	const {
-		text_header,
-		text_body,
-		image,
-		button,
-		hasbutton,
-		imagetext_direction,
-	} = req.body;
+router.post("/modules/heroBanner/:pageTitle",async (req, res) => {
+		const pageTitle = req.params.pageTitle;
+		const { heroImage, heroText } = req.body;
 
 	if (!text_header || !text_body || !image || !button) {
 		res.status(500).json("Please fill all the fields");
@@ -267,13 +279,12 @@ router.post("/modules/imageAndTexts/:pageTitle", async (req, res) => {
 			[heroImage, heroText]
 		);
 
-		//Second finding the pagge id
-		const findPageId = await db.query(
-			`select page_id from pages where page_title = $1`,
-			[pageTitle]
-		);
-		const page_id = findPageId.rows[0].page_id;
-		console.log(page_id);
+			// Second finding the page id
+			const findPageId = await db.query(
+				`SELECT page_id FROM pages WHERE page_title = $1`,
+				[pageTitle]
+			);
+			const page_id = findPageId.rows[0].page_id;
 
 		// third finding the last record in the textBnner table
 		const lastRecord = await db.query(
@@ -400,3 +411,5 @@ router.post("/modules/heroBanner/:pageTitle", async (req, res) => {
 });
 
 export default router;
+
+
