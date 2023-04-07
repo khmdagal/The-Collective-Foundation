@@ -4,6 +4,7 @@ import ImageAndTextsBannerForm from "../shared-modules/Forms/ImageAndTextsBanner
 import TextBannerForm from "../shared-modules/Forms/TextBannerForm";
 import HeroBannerForm from "../shared-modules/Forms/HeroBannerForm";
 
+
 import AddPageForm from "../shared-modules/Forms/AddpageForm";
 import clientIcon from "../icons/client-logo.png";
 
@@ -278,32 +279,37 @@ function AdminPage() {
 				);
 			case "textBanner":
 				return (
-					<div
-						className="each-card"
-						key={`${module.type}-${module.details.record_id}`}
-					>
-						<TextBannerModuleAdminPage
-							type={module.type}
-							textbold={module.details.textbold}
-							textnormal={module.details.textnormal}
-							background={module.details.background}
-						/>
-						<Button
-							className="delete-button"
-							onClick={() =>
-								handleModuleDelete(
-									selectedTitle,
-									module.type,
-									module.details.record_id
-								)
-							}
-							danger
-							size="small"
-							icon={<DeleteOutlined />}
-						>
-							Delete
-						</Button>
-					</div>
+
+					<>
+						<div className="modules-container">
+							<div
+								className="each-card"
+								key={`${module.type}-${module.details.record_id}`}
+							>
+								<TextBannerModuleAdminPage
+									type={module.type}
+									textbold={module.details.textbold}
+									textnormal={module.details.textnormal}
+								/>
+								<Button
+									className="delete-button"
+									onClick={() =>
+										handleModuleDelete(
+											selectedTitle,
+											module.type,
+											module.details.record_id
+										)
+									}
+									danger
+									size="small"
+									icon={<DeleteOutlined />}
+								>
+									Delete
+								</Button>
+							</div>
+						</div>
+					</>
+
 				);
 			default:
 				return null;
