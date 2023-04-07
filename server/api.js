@@ -10,9 +10,13 @@ const cors = require("cors");
 const router = Router();
 const bodyParser = require("body-parser");
 
+
+
 router.use(cors());
 router.use(bodyParser.urlencoded({ extended: true }));
 router.use(bodyParser.json());
+
+
 
 router.get("/", (_, res) => {
 	logger.debug("Welcoming everyone...");
@@ -85,12 +89,12 @@ router.delete(
 				"delete from modules WHERE page_id = $1 AND module_type = $2 AND record_id = $3",
 				[+page_id, moduleTpe, +record_id]
 			);
-			console.log(moduleTpe, +record_id);
+
+console.log(moduleTpe, +record_id);
 			// Delete this row from the module types table such as (heroBanner table, imageAndTexts table and so on..)
 			//delete This Record_id From The Related Table
-			await db.query(`delete from ${moduleTpe} where record_id = $1`, [
-				record_id,
-			]);
+			await db.query(`delete from ${moduleTpe} where record_id = $1`, [record_id]);
+
 
 			res.status(200).json(deletingModule[0].rows);
 		} catch (err) {
@@ -150,6 +154,7 @@ router.post("/modules/textBanner/:pageTitle", async (req, res) => {
 		});
 	} catch (error) {
 		console.error(error);
+
 
 		res.status(500).json({ error });
 	}
@@ -211,9 +216,11 @@ router.post("/modules/imageAndTexts/:pageTitle", async (req, res) => {
 	} catch (error) {
 		console.error(error);
 
+
 		res.status(500).json({ error });
 	}
 });
+
 
 router.post("/modules/imageAndTexts/:pageTitle", async (req, res) => {
 	const pageTitle = req.params.pageTitle;
@@ -399,4 +406,7 @@ router.post("/modules/heroBanner/:pageTitle", async (req, res) => {
 	}
 });
 
+
 export default router;
+
+

@@ -8,7 +8,11 @@ const HeroBannerModuleAdminPage = ({ type, hero_image, hero_text }) => {
 				{type}
 			</p>
 			<span>Image: </span>
-			<img src={hero_image} alt="heroimage" className="card-image" />
+			<img
+				src={`/Images/${hero_image}`}
+				alt="heroimage"
+				className="card-image"
+			/>
 			<div className="card-content">
 				<div className="card-header">
 					<span>Text: </span>

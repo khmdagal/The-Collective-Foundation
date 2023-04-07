@@ -4,8 +4,10 @@ import ImageAndTextsBannerForm from "../shared-modules/Forms/ImageAndTextsBanner
 import TextBannerForm from "../shared-modules/Forms/TextBannerForm";
 import HeroBannerForm from "../shared-modules/Forms/HeroBannerForm";
 
+
 import AddPageForm from "../shared-modules/Forms/AddpageForm";
 import clientIcon from "../icons/client-logo.png";
+
 
 import "../pages/Admin.css";
 import Footer from "../shared-modules/Footer";
@@ -278,6 +280,7 @@ function AdminPage() {
 				);
 			case "textBanner":
 				return (
+
 					<>
 						<div className="modules-container">
 							<div
@@ -307,6 +310,7 @@ function AdminPage() {
 							</div>
 						</div>
 					</>
+
 				);
 			default:
 				return null;
@@ -379,6 +383,7 @@ function AdminPage() {
 						<Select.Option value=""> -- none -- </Select.Option>
 						{modules.map((moduleType) => (
 							<Select.Option
+
 								key={moduleType.module_type}
 								value={moduleType.module_type}
 							>

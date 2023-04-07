@@ -16,9 +16,9 @@ const ImageAndTextModuleAdminPage = ({
 			</p>
 			<span>Image: </span>
 			<img
-				// src={`/Images/textAndImage-${img}`}
+				src={`/Images/${img}`}
 				alt="Text_and_Image"
-				className={`card-image ${direction}`}
+				className="card-image"
 			/>
 			<div className="card-content">
 				<h2 className="card-header">
