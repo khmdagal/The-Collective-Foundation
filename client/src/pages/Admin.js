@@ -250,6 +250,7 @@ function AdminPage() {
 						>
 							Delete
 						</Button>
+						
 					</div>
 				);
 
@@ -371,49 +372,49 @@ function AdminPage() {
 				</Menu>
 			</div>
 
-					<div>
-						<h2 className="each-page-title">{selectedTitle} Page</h2>
-						<Card className="cards">
-							{allModules && allModules}
-							<label htmlFor="Select-menu">Select Module </label>
-							<Select
-								className="Select-menu"
-								style={{ width: 200 }}
-								placeholder="---Select Module ---"
-								onChange={(e) => {
-									setSelectedModuleType(e);
-									setPageToAddModules(selectedTitle);
-								}}
+			<div>
+				<h2 className="each-page-title">{selectedTitle} Page</h2>
+				<Card className="cards">
+					{allModules && allModules}
+					<label htmlFor="Select-menu">Select Module </label>
+					<Select
+						className="Select-menu"
+						style={{ width: 200 }}
+						placeholder="---Select Module ---"
+						onChange={(e) => {
+							setSelectedModuleType(e);
+							setPageToAddModules(selectedTitle);
+						}}
+					>
+						<Select.Option value=""> -- none -- </Select.Option>
+						{modules.map((moduleType) => (
+							<Select.Option
+								key={moduleType.module_type}
+								value={moduleType.module_type}
 							>
-								<Select.Option value=""> -- none -- </Select.Option>
-								{modules.map((moduleType) => (
-									<Select.Option
-										key={moduleType.module_type}
-										value={moduleType.module_type}
-									>
-										{moduleType.module_type}
-									</Select.Option>
-								))}
-							</Select>
-							{formComponent}
-							{showAddPageForm && AddNewPageForm}
-						</Card>
-						{/* add page form here */}
-						<div className="Add-page-Form-card">
-							{showNewPageDiv ? (
-								<AddPageForm fectPagesData={fectPagesData} />
-							) : null}
-						</div>
-				<Button
-					className="delete-button"
-					onClick={() => handlePageDelete(selectedTitle)}
-					danger={true}
-					size="small"
-					icon={<DeleteOutlined />}
-				>
-					Delete Page
-				</Button>
-					</div>
+								{moduleType.module_type}
+							</Select.Option>
+						))}
+					</Select>
+					<Button
+						className="delete-button"
+						onClick={() => handlePageDelete(selectedTitle)}
+						danger={true}
+						size="small"
+						icon={<DeleteOutlined />}
+					>
+						Delete Page
+					</Button>
+					{formComponent}
+					{showAddPageForm && AddNewPageForm}
+				</Card>
+				{/* add page form here */}
+				<div className="Add-page-Form-card">
+					{showNewPageDiv ? (
+						<AddPageForm fectPagesData={fectPagesData} />
+					) : null}
+				</div>
+			</div>
 
 			<footer className="footer">
 				<Footer />
