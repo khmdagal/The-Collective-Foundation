@@ -32,6 +32,7 @@ function AdminPage() {
 	const [pageToAddModules, setPageToAddModules] = useState("");
 	const [selectedTitle, setSelectedTitle] = useState("Home");
 	const [showAddPageForm, setShowAddPageForm] = useState(false);
+	const [showNewPageDiv, setshowNewPageDiv] = useState(false);
 
 	async function fectPageTitles() {
 		try {
@@ -347,25 +348,23 @@ function AdminPage() {
 							{page.title}
 						</Menu.Item>
 					))}
-					<Menu.Item>
-						<Button
-							className="Add-page-button"
-							onClick={() => handlePageAddition(setPagesData.length - 1)}
-							size="small"
-							icon={<PlusOutlined />}
-							type="primary"
-							style={{ background: "green", borderColor: "green" }}
-						>
-							Add page
-						</Button>{" "}
-						{/* <PlusOutlined onClick={() => handleButtonClick} />{" "} */}
-					</Menu.Item>
+					<Menu.Item></Menu.Item>
 					<Menu.Item>
 						<Button type="primary" danger ghost>
-					
-						<PoweroffOutlined /> Logout
+							<PoweroffOutlined /> Logout
 						</Button>
 					</Menu.Item>
+					<Button
+						className="Add-page-button"
+						// onClick={() => handlePageAddition(setPagesData.length - 1)}
+						onClick={() => setshowNewPageDiv(!showNewPageDiv)}
+						size="small"
+						icon={<PlusOutlined />}
+						type="primary"
+						style={{ background: "green", borderColor: "green" }}
+					>
+						Add page
+					</Button>{" "}
 				</Menu>
 			</div>
 
@@ -398,7 +397,9 @@ function AdminPage() {
 				</Card>
 				{/* add page form here */}
 				<div className="Add-page-Form-card">
-					<AddPageForm fectPagesData={fectPagesData} />
+					{showNewPageDiv ? (
+						<AddPageForm fectPagesData={fectPagesData} />
+					) : null}
 				</div>
 				<Button
 					className="delete-button"
