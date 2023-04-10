@@ -33,6 +33,8 @@ function AdminPage() {
 	const [selectedTitle, setSelectedTitle] = useState("Home");
 	const [showAddPageForm, setShowAddPageForm] = useState(false);
 	const [showNewPageDiv, setshowNewPageDiv] = useState(false);
+	const [showPageOfModules, setShowPageOfModules] = useState(false);
+
 
 	async function fectPageTitles() {
 		try {
@@ -81,7 +83,7 @@ function AdminPage() {
 
 	// handle page deletion
 	async function handlePageDelete(pageTitle) {
-		console.log(pageTitle);
+		
 		const confirmed = confirm(
 			"Are you sure you want to delete this page and all of its content?"
 		);
@@ -111,7 +113,7 @@ function AdminPage() {
 	}
 
 	async function handleModuleDelete(pageTitle, moduleTpe, recordId) {
-		console.log(pageTitle, moduleTpe, recordId);
+		
 		const confirmed = confirm(
 			"Are you sure you want to delete this module and all of its content?"
 		);
@@ -231,6 +233,7 @@ function AdminPage() {
 							direction={module.details.imagetext_direction}
 							// hasButton={module.details.hasbutton}
 							button={module.details.button}
+							// onClick={() => setShowPageOfModules(!showPageOfModules)}
 						/>
 						<Button
 							className="delete-button"
@@ -368,39 +371,39 @@ function AdminPage() {
 				</Menu>
 			</div>
 
-			<div>
-				<h2 className="each-page-title">{selectedTitle} Page</h2>
-				<Card className="cards">
-					{allModules && allModules}
-					<label htmlFor="Select-menu">Select Module </label>
-					<Select
-						className="Select-menu"
-						style={{ width: 200 }}
-						placeholder="---Select Module ---"
-						onChange={(e) => {
-							setSelectedModuleType(e);
-							setPageToAddModules(selectedTitle);
-						}}
-					>
-						<Select.Option value=""> -- none -- </Select.Option>
-						{modules.map((moduleType) => (
-							<Select.Option
-								key={moduleType.module_type}
-								value={moduleType.module_type}
+					<div>
+						<h2 className="each-page-title">{selectedTitle} Page</h2>
+						<Card className="cards">
+							{allModules && allModules}
+							<label htmlFor="Select-menu">Select Module </label>
+							<Select
+								className="Select-menu"
+								style={{ width: 200 }}
+								placeholder="---Select Module ---"
+								onChange={(e) => {
+									setSelectedModuleType(e);
+									setPageToAddModules(selectedTitle);
+								}}
 							>
-								{moduleType.module_type}
-							</Select.Option>
-						))}
-					</Select>
-					{formComponent}
-					{showAddPageForm && AddNewPageForm}
-				</Card>
-				{/* add page form here */}
-				<div className="Add-page-Form-card">
-					{showNewPageDiv ? (
-						<AddPageForm fectPagesData={fectPagesData} />
-					) : null}
-				</div>
+								<Select.Option value=""> -- none -- </Select.Option>
+								{modules.map((moduleType) => (
+									<Select.Option
+										key={moduleType.module_type}
+										value={moduleType.module_type}
+									>
+										{moduleType.module_type}
+									</Select.Option>
+								))}
+							</Select>
+							{formComponent}
+							{showAddPageForm && AddNewPageForm}
+						</Card>
+						{/* add page form here */}
+						<div className="Add-page-Form-card">
+							{showNewPageDiv ? (
+								<AddPageForm fectPagesData={fectPagesData} />
+							) : null}
+						</div>
 				<Button
 					className="delete-button"
 					onClick={() => handlePageDelete(selectedTitle)}
@@ -410,7 +413,7 @@ function AdminPage() {
 				>
 					Delete Page
 				</Button>
-			</div>
+					</div>
 
 			<footer className="footer">
 				<Footer />
