@@ -353,14 +353,18 @@ function AdminPage() {
 							onClick={() => handlePageAddition(setPagesData.length - 1)}
 							size="small"
 							icon={<PlusOutlined />}
+							type="primary"
+							style={{ background: "green", borderColor: "green" }}
 						>
 							Add page
 						</Button>{" "}
-						<PlusOutlined onClick={() => handleButtonClick} />{" "}
+						{/* <PlusOutlined onClick={() => handleButtonClick} />{" "} */}
 					</Menu.Item>
 					<Menu.Item>
-						{" "}
+						<Button type="primary" danger ghost>
+					
 						<PoweroffOutlined /> Logout
+						</Button>
 					</Menu.Item>
 				</Menu>
 			</div>
@@ -382,7 +386,6 @@ function AdminPage() {
 						<Select.Option value=""> -- none -- </Select.Option>
 						{modules.map((moduleType) => (
 							<Select.Option
-
 								key={moduleType.module_type}
 								value={moduleType.module_type}
 							>
@@ -400,7 +403,7 @@ function AdminPage() {
 				<Button
 					className="delete-button"
 					onClick={() => handlePageDelete(selectedTitle)}
-					danger
+					danger={true}
 					size="small"
 					icon={<DeleteOutlined />}
 				>
