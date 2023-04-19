@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-// import { SketchPicker } from "react-color";
+import { SketchPicker } from "react-color";
 import "../Forms/Forms.css";
 
 function TextBannerForm({ pageToAddModules, handleModuleAdd }) {

@@ -143,7 +143,6 @@ margin: 5px;
 }
 .footer{
     grid-area: footer;
-    display: none;
 }
 
 .Add-page-Form-card {

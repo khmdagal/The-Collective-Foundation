@@ -6,7 +6,6 @@ import HeroBannerForm from "../shared-modules/Forms/HeroBannerForm";
 
 
 import AddPageForm from "../shared-modules/Forms/AddpageForm";
-import clientIcon from "../icons/client-logo.png";
 
 import "../pages/Admin.css";
 import Footer from "../shared-modules/Footer";
@@ -31,10 +30,6 @@ function AdminPage() {
 	const [selectedModuleType, setSelectedModuleType] = useState("");
 	const [pageToAddModules, setPageToAddModules] = useState("");
 	const [selectedTitle, setSelectedTitle] = useState("Home");
-	const [showAddPageForm, setShowAddPageForm] = useState(false);
-	const [showNewPageDiv, setshowNewPageDiv] = useState(false);
-	const [showPageOfModules, setShowPageOfModules] = useState(false);
-
 
 	async function fectPageTitles() {
 		try {
@@ -168,7 +163,7 @@ function AdminPage() {
 
 		// This is to get the available modules
 		getAvailableModules().then((modulesResult) => setModules(modulesResult));
-	}, []);
+	}, [pagesData]);
 
 	let formComponent;
 	switch (selectedModuleType) {
@@ -209,11 +204,8 @@ function AdminPage() {
 			formComponent = null;
 	}
 
-	useEffect(() => {
-		// fetchModuleChanges();
-	}, [selectedModuleType]);
 
-	if (!pagesData || !modules) {
+if (!pagesData || !modules) {
 		return <p>Loading..</p>;
 	}
 
