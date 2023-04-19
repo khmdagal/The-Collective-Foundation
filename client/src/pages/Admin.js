@@ -70,7 +70,7 @@ function AdminPage() {
 	}
 
 	// handle page addition
-	async function handlePageAddition(setPagesData) {
+	async function handlePageAddition(pageTitle) {
 		// refetch the pages data
 		const updatedPagesData = await fectPagesData(pageTitle);
 		// update the state with the new data
@@ -197,14 +197,14 @@ function AdminPage() {
 				/>
 			);
 			break;
-		case "Addpage":
-			formComponent = (
-				<AddPageForm
-					handlePageAddition={handlePageAddition}
-					pageToAddModules={pageToAddModules}
-				/>
-			);
-			break;
+			case "Addpage":
+				formComponent = (
+					<AddPageForm
+						handlePageAddition={handlePageAddition}
+						pageToAddModules={pageToAddModules}
+					/>
+				);
+				break;
 		default:
 			formComponent = null;
 	}
@@ -327,10 +327,6 @@ function AdminPage() {
 		displayModule(module)
 	);
 
-	const handleButtonClick = () => {
-		setShowAddPageForm(!showAddPageForm);
-	};
-
 	return (
 		<div className="admin-page-container">
 			<header className="header">
@@ -360,8 +356,10 @@ function AdminPage() {
 					</Menu.Item>
 					<Button
 						className="Add-page-button"
-						// onClick={() => handlePageAddition(setPagesData.length - 1)}
-						onClick={() => setshowNewPageDiv(!showNewPageDiv)}
+
+						onClick={() => {
+							setSelectedModuleType("Addpage")
+						}}
 						size="small"
 						icon={<PlusOutlined />}
 						type="primary"
@@ -406,15 +404,10 @@ function AdminPage() {
 						Delete Page
 					</Button>
 					{formComponent}
-					{showAddPageForm && AddNewPageForm}
+
 				</Card>
-				{/* add page form here */}
-				<div className="Add-page-Form-card">
-					{showNewPageDiv ? (
-						<AddPageForm fectPagesData={fectPagesData} />
-					) : null}
-				</div>
-			</div>
+
+			</div>؛
 
 			<footer className="footer">
 				<Footer />
