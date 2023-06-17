@@ -1,4 +1,13 @@
+Full-Stack Developer - https://github.com/khmdagal/The-Collective-Foundation
+● Shipped a full stack CMS product to an international client in collaboration with a team of
+three developers in an Agile team
+● Built complete custom CMS application for NGO team who helps protect environment
+from various pollution
+● Delivered application with interactive features using React, Node, and PostgreSQL
+database integration on the backend in just 4 weeks
+
 # Starter Kit
+
 
 [![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy)
 
