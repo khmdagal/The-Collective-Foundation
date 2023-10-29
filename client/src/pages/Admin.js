@@ -4,7 +4,6 @@ import ImageAndTextsBannerForm from "../shared-modules/Forms/ImageAndTextsBanner
 import TextBannerForm from "../shared-modules/Forms/TextBannerForm";
 import HeroBannerForm from "../shared-modules/Forms/HeroBannerForm";
 
-
 import AddPageForm from "../shared-modules/Forms/AddpageForm";
 
 import "../pages/Admin.css";
@@ -78,7 +77,6 @@ function AdminPage() {
 
 	// handle page deletion
 	async function handlePageDelete(pageTitle) {
-		
 		const confirmed = confirm(
 			"Are you sure you want to delete this page and all of its content?"
 		);
@@ -108,7 +106,6 @@ function AdminPage() {
 	}
 
 	async function handleModuleDelete(pageTitle, moduleTpe, recordId) {
-		
 		const confirmed = confirm(
 			"Are you sure you want to delete this module and all of its content?"
 		);
@@ -163,7 +160,7 @@ function AdminPage() {
 
 		// This is to get the available modules
 		getAvailableModules().then((modulesResult) => setModules(modulesResult));
-	}, [pagesData]);
+	}, []);
 
 	let formComponent;
 	switch (selectedModuleType) {
@@ -192,20 +189,19 @@ function AdminPage() {
 				/>
 			);
 			break;
-			case "Addpage":
-				formComponent = (
-					<AddPageForm
-						handlePageAddition={handlePageAddition}
-						pageToAddModules={pageToAddModules}
-					/>
-				);
-				break;
+		case "Addpage":
+			formComponent = (
+				<AddPageForm
+					handlePageAddition={handlePageAddition}
+					pageToAddModules={pageToAddModules}
+				/>
+			);
+			break;
 		default:
 			formComponent = null;
 	}
 
-
-if (!pagesData || !modules) {
+	if (!pagesData || !modules) {
 		return <p>Loading..</p>;
 	}
 
@@ -242,7 +238,6 @@ if (!pagesData || !modules) {
 						>
 							Delete
 						</Button>
-						
 					</div>
 				);
 
@@ -276,7 +271,6 @@ if (!pagesData || !modules) {
 				);
 			case "textBanner":
 				return (
-
 					<>
 						<div className="modules-container">
 							<div
@@ -306,7 +300,6 @@ if (!pagesData || !modules) {
 							</div>
 						</div>
 					</>
-
 				);
 			default:
 				return null;
@@ -324,7 +317,6 @@ if (!pagesData || !modules) {
 			<header className="header">
 				<h1>Admin Panel</h1>
 			</header>
-
 			<div className="menu">
 				<Menu
 					onClick={(key) => {
@@ -348,9 +340,8 @@ if (!pagesData || !modules) {
 					</Menu.Item>
 					<Button
 						className="Add-page-button"
-
 						onClick={() => {
-							setSelectedModuleType("Addpage")
+							setSelectedModuleType("Addpage");
 						}}
 						size="small"
 						icon={<PlusOutlined />}
@@ -361,7 +352,6 @@ if (!pagesData || !modules) {
 					</Button>{" "}
 				</Menu>
 			</div>
-
 			<div>
 				<h2 className="each-page-title">{selectedTitle} Page</h2>
 				<Card className="cards">
@@ -396,11 +386,9 @@ if (!pagesData || !modules) {
 						Delete Page
 					</Button>
 					{formComponent}
-
 				</Card>
-
-			</div>؛
-
+			</div>
+			؛
 			<footer className="footer">
 				<Footer />
 			</footer>
